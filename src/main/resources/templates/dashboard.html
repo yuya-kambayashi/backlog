@@ -29,7 +29,6 @@
                     <tr>
                         <th>#</th>
                         <th>名前</th>
-                        <th>部署名</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -39,16 +38,10 @@
                         <td th:text="*{id}"></td>
                         <td th:text="*{name}"></td>
                         <td>
-                            <a th:href="@{/edit/{id}(id=*{id})}"
+                            <a th:href="@{/projects/{id}(id=*{id})}"
                                class="btn btn-navy">
                                 <i class="bi bi-pencil-square"></i>
-                                編集
-                            </a>
-
-                            <a th:href="@{/delete/{id}(id=*{id})}"
-                               class="btn btn-danger">
-                                <i class="bi bi-trash-fill"></i>
-                                削除
+                                開く
                             </a>
                         </td>
                     </tr>
