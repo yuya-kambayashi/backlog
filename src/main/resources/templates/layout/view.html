@@ -9,14 +9,30 @@
 
 <body>
 <div layout:fragment="content">
+
+    <table th:object="${issue}"
+           class="table table-bordered">
+        <thead>
+        <tr>
+            <th>種別</th>
+            <th>キー</th>
+            <th>件名</th>
+            <th>状態</th>
+            <th>優先度</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="*{type}"></td>
+            <td th:text="*{id}"></td>
+            <td th:text="*{title}"></td>
+            <td th:text="*{status}"></td>
+            <td th:text="*{priority}"></td>
+        </tr>
+        </tbody>
+    </table>
     <div th:object="${issue}">
-        <p th:text="*{type}"></p>
-        <p th:text="*{status}"></p>
-        <p th:text="*{id}"></p>
-        <p th:text="*{title}"></p>
         <p th:text="*{description}"></p>
-        <p th:text="*{priority}"></p>
-        </p>
     </div>
     <div th:if="${comments.size() == 0}">
         コメントはまだありません。入力フォームからコメントできます。
@@ -25,14 +41,29 @@
     <table th:if="${comments.size() > 0}"
            class="table table-bordered">
         <tbody>
-        <tr th:each="comment : ${comments}"
-            th:object="${comment}">
-            <td th:text="*{comment}"></td>
+        <tr th:each="comment : ${comments}">
+            <td th:text="*{comment.comment}"></td>
         </tr>
         </tbody>
     </table>
+    <div>
+        <div class="card-body">
+            <form th:with="issueId=${issue.id}" th:action="@{/projects/view/addComment/{issueId}(issueId=${issueId})}"
+                  th:object="${newComment}"
+                  method="post"
+                  novalidate>
+                <div>
+                    <input type="text"
+                           placeholder="コメント (@を入力してメンバーに通知)"
+                           th:field="*{comment}">
+                </div>
+                <button type="submit">
+                    登録
+                </button>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
-
 </html>
 
