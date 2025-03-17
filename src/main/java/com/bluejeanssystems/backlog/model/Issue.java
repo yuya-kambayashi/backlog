@@ -1,9 +1,7 @@
 package com.bluejeanssystems.backlog.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.bluejeanssystems.backlog.util.IssueStatus;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +18,7 @@ public class Issue {
     private String title;
     @NotBlank
     private String description;
-    @NotBlank
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private IssueStatus status;
 }

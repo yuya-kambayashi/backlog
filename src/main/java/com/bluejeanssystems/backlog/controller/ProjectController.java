@@ -2,6 +2,7 @@ package com.bluejeanssystems.backlog.controller;
 
 import com.bluejeanssystems.backlog.model.Issue;
 import com.bluejeanssystems.backlog.repository.IssueRepository;
+import com.bluejeanssystems.backlog.util.IssueStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +24,8 @@ public class ProjectController {
         return "layout/home";
     }
     @GetMapping("/add")
-    public String add(@ModelAttribute("issue")Issue issue) {
+    public String add(@ModelAttribute("issue")Issue issue, Model model) {
+        model.addAttribute("statuses", IssueStatus.values());
         return "layout/add";
     }
     @PostMapping("/add")

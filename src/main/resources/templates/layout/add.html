@@ -38,12 +38,9 @@
                                    th:field="*{description}">
                         </div>
                         <div>
-                            <label for="status">
-                                状態
-                            </label>
-                            <input type="text"
-                                   th:field="*{status}">
-                        </div>
+                            <select th:field="*{status}">
+                                <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
+                            </select>
                         <button type="submit">
                             登録
                         </button>
