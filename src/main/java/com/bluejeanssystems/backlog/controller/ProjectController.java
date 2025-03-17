@@ -16,4 +16,14 @@ public class ProjectController {
         model.addAttribute("issues", issueRepository.findAll());
         return "projects";
     }
+    @GetMapping("/page1")
+    public String get1(Model model) {
+        model.addAttribute("issues", issueRepository.findAll());
+        return "layout/page1";
+    }
+    @GetMapping("/page2")
+    public String get2(Model model) {
+        model.addAttribute("issues", issueRepository.findAll());
+        return "layout/page2";
+    }
 }

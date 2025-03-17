@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- CSS読み込み -->
+    <link rel="stylesheet"
+          th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/layout/layout.css}">
+
+    <title></title>
+</head>
+
+<body>
+
+<!-- ヘッダー -->
+<div>
+    <div layout:replace="~{layout/header::header}"></div>
+</div>
+
+<!-- メニュー -->
+<div>
+    <nav class="menu col-sm-2">
+        <div layout:replace="~{layout/menu::menu}"></div>
+    </nav>
+</div>
+
+<!-- コンテンツ -->
+<div>
+    <nav class="main col-sm-10 offset-sm-2">
+        <div layout:fragment="content"></div>
+    </nav>
+</div>
+
+<!-- フッター -->
+<div>
+    <div layout:replace="~{layout/footer::footer}"></div>
+</div>
+
+</body>
+</html>

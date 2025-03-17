@@ -16,4 +16,5 @@ public class DashboardController {
         model.addAttribute("projects", projectRepository.findAll());
         return "dashboard";
     }
+
 }
