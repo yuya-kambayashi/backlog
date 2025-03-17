@@ -3,6 +3,12 @@ package com.bluejeanssystems.backlog.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
@@ -17,4 +23,20 @@ public class Comment {
     private Issue issue;
 
     private String comment;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private Instant createdAt;
+
+    @UpdateTimestamp
+    @Column(nullable = false)
+    private Instant updatedAt;
+
+    public ZonedDateTime createAtJST(){
+        return createdAt.atZone(ZoneId.of("Asia/Tokyo"));
+    }
+
+    public ZonedDateTime createAtIST(){
+        return createdAt.atZone(ZoneId.of("Asia/Kolkata"));
+    }
 }
