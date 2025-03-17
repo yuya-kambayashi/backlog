@@ -19,52 +19,40 @@
                     </h6>
                 </div>
                 <div class="card-body">
-
-                    <div th:if="${issues.size() == 0}">
-                        該当データがありません
-                    </div>
-
-                    <table th:if="${issues.size() > 0}"
-                           class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>タイトル</th>
-                            <th>詳細</th>
-                            <th>ステータス</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="issue : ${issues}"
-                            th:object="${issue}">
-                            <td th:text="*{id}"></td>
-                            <td th:text="*{title}"></td>
-                            <td th:text="*{description}"></td>
-                            <td th:text="*{status}"></td>
-                            <td>
-                                <a th:href="@{/edit/{id}(id=*{id})}"
-                                   class="btn btn-navy">
-                                    <i class="bi bi-pencil-square"></i>
-                                    編集
-                                </a>
-
-                                <a th:href="@{/delete/{id}(id=*{id})}"
-                                   class="btn btn-danger">
-                                    <i class="bi bi-trash-fill"></i>
-                                    削除
-                                </a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <form th:action="@{/projects/add}"
+                          th:object="${issue}"
+                          method="post"
+                          novalidate>
+                        <div>
+                            <label for="title">
+                                件名
+                            </label>
+                            <input type="text"
+                                   th:field="*{title}">
+                        </div>
+                        <div>
+                            <label for="description">
+                                詳細
+                            </label>
+                            <input type="text"
+                                   th:field="*{description}">
+                        </div>
+                        <div>
+                            <label for="status">
+                                状態
+                            </label>
+                            <input type="text"
+                                   th:field="*{status}">
+                        </div>
+                        <button type="submit">
+                            登録
+                        </button>
+                    </form>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 </body>
-
 </html>
 
