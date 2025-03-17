@@ -19,7 +19,7 @@ public class ViewController {
     private final CommentRepository commentRepository;
 
     @GetMapping("/{issueId}")
-    public String view(Model model, @PathVariable("issueId") long issueId) {
+    public String view(Model model, @PathVariable("issueId") long issueId) throws Exception {
         Issue issue = issueRepository.findById(issueId)
                 .orElseThrow(() -> new IllegalArgumentException("Issue not found: " + issueId));
 
@@ -34,7 +34,7 @@ public class ViewController {
     public String comment(@PathVariable("issueId") long issueId,
                           @Validated @ModelAttribute("newComment") Comment comment,
                           BindingResult result,
-                          Model model) {
+                          Model model) throws Exception {
         Issue issue = issueRepository.findById(issueId)
                 .orElseThrow(() -> new IllegalArgumentException("Issue not found: " + issueId));
 
