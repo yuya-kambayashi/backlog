@@ -2,15 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
-
 <head>
 </head>
 
 <body>
 <div layout:fragment="menu">
-    <ul class="nav">
-        <li role="presentaion"><a>メニュー項目部分</a></li>
-    </ul>
+    <div>
+        <ul>
+            <li>
+                <a th:href="@{/projects/home}">
+                    <i class="bi bi-house-door-fill"></i>
+                    ホーム
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/projects/add}">
+                    <i class="bi bi-plus-lg"></i>
+                    課題の追加
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/projects/find}">
+                    <i class="bi bi-card-list"></i>
+                    課題
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>

@@ -28,4 +28,8 @@ public class ProjectController {
         model.addAttribute("issues", issueRepository.findAll());
         return "layout/find";
     }
+    @GetMapping("/view")
+    public String view(Model model) {
+        return "layout/view";
+    }
 }
