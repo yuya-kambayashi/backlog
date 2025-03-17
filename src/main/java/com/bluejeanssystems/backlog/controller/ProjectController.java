@@ -7,10 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller
@@ -36,16 +35,18 @@ public class ProjectController {
 
         issueRepository.save(issue);
 
-        //return "redirect:/projects/view";
-        return "redirect:/projects/home";
+        return "redirect:/projects/view/" + issue.getId();
     }
     @GetMapping("/find")
     public String find(Model model) {
         model.addAttribute("issues", issueRepository.findAll());
         return "layout/find";
     }
-    @GetMapping("/view")
-    public String view(Model model) {
+    @GetMapping("/view/{issueId}")
+    public String view(Model model,
+                       @PathVariable("issueId") long issueId) {
+        Optional<Issue> issue = issueRepository.findById(issueId);
+        model.addAttribute("issue", issue.get());
         return "layout/view";
     }
 }

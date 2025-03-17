@@ -28,7 +28,7 @@
                            class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>#</th>
+                            <th>キー</th>
                             <th>タイトル</th>
                             <th>詳細</th>
                             <th>ステータス</th>
@@ -38,23 +38,12 @@
                         <tbody>
                         <tr th:each="issue : ${issues}"
                             th:object="${issue}">
-                            <td th:text="*{id}"></td>
+                            <td>
+                                <a th:href="@{/projects/view/{issueId}(issueId=*{id})}" th:text="*{id}">id</a>
+                            </td>
                             <td th:text="*{title}"></td>
                             <td th:text="*{description}"></td>
                             <td th:text="*{status}"></td>
-                            <td>
-                                <a th:href="@{/edit/{id}(id=*{id})}"
-                                   class="btn btn-navy">
-                                    <i class="bi bi-pencil-square"></i>
-                                    編集
-                                </a>
-
-                                <a th:href="@{/delete/{id}(id=*{id})}"
-                                   class="btn btn-danger">
-                                    <i class="bi bi-trash-fill"></i>
-                                    削除
-                                </a>
-                            </td>
                         </tr>
                         </tbody>
                     </table>
