@@ -1,9 +1,11 @@
 package com.bluejeanssystems.backlog.config;
 
+import com.bluejeanssystems.backlog.model.Comment;
 import com.bluejeanssystems.backlog.model.Issue;
 import com.bluejeanssystems.backlog.model.Project;
 import com.bluejeanssystems.backlog.repository.IssueRepository;
 import com.bluejeanssystems.backlog.repository.ProjectRepository;
+import com.bluejeanssystems.backlog.repository.CommentRepository;
 import com.bluejeanssystems.backlog.util.Priority;
 import com.bluejeanssystems.backlog.util.Status;
 import com.bluejeanssystems.backlog.util.Type;
@@ -18,6 +20,7 @@ public class DataLoader implements ApplicationRunner {
 
     private final ProjectRepository projectRepository;
     private final IssueRepository issueRepository;
+    private final CommentRepository commentRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -33,5 +36,15 @@ public class DataLoader implements ApplicationRunner {
         issue1.setType(Type.タスク);
         issue1.setPriority(Priority.中);
         issueRepository.save(issue1);
+
+        var comment1 = new Comment();
+        comment1.setIssue(issue1);
+        comment1.setComment("Hello World");
+        commentRepository.save(comment1);
+
+        var comment2 = new Comment();
+        comment2.setIssue(issue1);
+        comment2.setComment("booooooo");
+        commentRepository.save(comment2);
     }
 }

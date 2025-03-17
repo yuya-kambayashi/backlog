@@ -18,6 +18,19 @@
         <p th:text="*{priority}"></p>
         </p>
     </div>
+    <div th:if="${comments.size() == 0}">
+        コメントはまだありません。入力フォームからコメントできます。
+    </div>
+
+    <table th:if="${comments.size() > 0}"
+           class="table table-bordered">
+        <tbody>
+        <tr th:each="comment : ${comments}"
+            th:object="${comment}">
+            <td th:text="*{comment}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 
