@@ -23,7 +23,7 @@ public class DataLoader implements ApplicationRunner {
     private final CommentRepository commentRepository;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
 
         var project = new Project();
         project.setName("Hoge");
