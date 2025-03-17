@@ -4,7 +4,9 @@ import com.bluejeanssystems.backlog.model.Issue;
 import com.bluejeanssystems.backlog.model.Project;
 import com.bluejeanssystems.backlog.repository.IssueRepository;
 import com.bluejeanssystems.backlog.repository.ProjectRepository;
-import com.bluejeanssystems.backlog.util.IssueStatus;
+import com.bluejeanssystems.backlog.util.Priority;
+import com.bluejeanssystems.backlog.util.Status;
+import com.bluejeanssystems.backlog.util.Type;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -27,7 +29,9 @@ public class DataLoader implements ApplicationRunner {
         var issue1 = new Issue();
         issue1.setTitle("Hoge");
         issue1.setDescription("HogeHoge");
-        issue1.setStatus(IssueStatus.未対応);
+        issue1.setStatus(Status.未対応);
+        issue1.setType(Type.タスク);
+        issue1.setPriority(Priority.中);
         issueRepository.save(issue1);
     }
 }

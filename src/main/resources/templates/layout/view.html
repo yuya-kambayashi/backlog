@@ -10,10 +10,12 @@
 <body>
 <div layout:fragment="content">
     <div th:object="${issue}">
+        <p th:text="*{type}"></p>
+        <p th:text="*{status}"></p>
         <p th:text="*{id}"></p>
         <p th:text="*{title}"></p>
         <p th:text="*{description}"></p>
-        <p th:text="*{status}"></p>
+        <p th:text="*{priority}"></p>
         </p>
     </div>
 </div>

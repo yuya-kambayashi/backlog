@@ -1,6 +1,8 @@
 package com.bluejeanssystems.backlog.model;
 
-import com.bluejeanssystems.backlog.util.IssueStatus;
+import com.bluejeanssystems.backlog.util.Priority;
+import com.bluejeanssystems.backlog.util.Status;
+import com.bluejeanssystems.backlog.util.Type;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -20,5 +22,11 @@ public class Issue {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private IssueStatus status;
+    private Status status;
+
+    @Enumerated(EnumType.STRING)
+    private Type type;
+
+    @Enumerated(EnumType.STRING)
+    private Priority priority;
 }

@@ -28,21 +28,23 @@
                            class="table table-bordered">
                         <thead>
                         <tr>
+                            <th>種別</th>
                             <th>キー</th>
-                            <th>タイトル</th>
-                            <th>詳細</th>
-                            <th>ステータス</th>
+                            <th>件名</th>
+                            <th>状態</th>
+                            <th>優先度</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="issue : ${issues}"
                             th:object="${issue}">
+                            <td th:text="*{type}"></td>
                             <td>
                                 <a th:href="@{/projects/view/{issueId}(issueId=*{id})}" th:text="*{id}">id</a>
                             </td>
                             <td th:text="*{title}"></td>
-                            <td th:text="*{description}"></td>
                             <td th:text="*{status}"></td>
+                            <td th:text="*{priority}"></td>
                         </tr>
                         </tbody>
                     </table>
