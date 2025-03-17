@@ -5,25 +5,27 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
 @Controller
+@RequestMapping("/projects")
 public class ProjectController {
     private final IssueRepository issueRepository;
 
-    @GetMapping("/project")
-    public String showList(Model model){
+    @GetMapping("/home")
+    public String home(Model model){
         model.addAttribute("issues", issueRepository.findAll());
-        return "projects";
+        return "layout/home";
     }
-    @GetMapping("/page1")
-    public String get1(Model model) {
+    @GetMapping("/add")
+    public String add(Model model) {
         model.addAttribute("issues", issueRepository.findAll());
-        return "layout/page1";
+        return "layout/add";
     }
-    @GetMapping("/page2")
-    public String get2(Model model) {
+    @GetMapping("/find")
+    public String find(Model model) {
         model.addAttribute("issues", issueRepository.findAll());
-        return "layout/page2";
+        return "layout/find";
     }
 }
