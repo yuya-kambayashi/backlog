@@ -30,6 +30,18 @@
             <td th:text="*{priority}"></td>
         </tr>
         </tbody>
+        <thead>
+        <tr>
+            <th>登録日（JST）</th>
+            <th>登録日（IST）</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="*{#temporals.format(createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></td>
+            <td th:text="*{#temporals.format(createAtIST(), 'dd/MM/yyyy HH:mm:ss')}"></td>
+        </tr>
+        </tbody>
     </table>
     <div th:object="${issue}">
         <p th:text="*{description}"></p>
