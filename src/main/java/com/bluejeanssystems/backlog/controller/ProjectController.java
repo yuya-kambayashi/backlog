@@ -18,10 +18,6 @@ public class ProjectController {
         return "layout/home";
     }
 
-    @GetMapping("/find")
-    public String find(Model model) {
-        model.addAttribute("issues", issueRepository.findAll());
-        return "layout/find";
-    }
+
 
 }
