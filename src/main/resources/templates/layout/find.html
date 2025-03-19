@@ -13,12 +13,41 @@
         <div class="col">
 
             <div class="card shadow">
-                <div class="card-header">
-                    <h6 class="text-navy my-2">
-                        プロジェクトホーム
-                    </h6>
-                </div>
                 <div class="card-body">
+                    <div>
+                        <form>
+                            <label>
+                                <a th:href="@{/projects/find/?statusId=1}">
+                                    すべて
+                                </a>
+                            </label>
+                            <label>
+                                <a th:href="@{/projects/find/?statusId=2}">
+                                    未対応
+                                </a>
+                            </label>
+                            <label>
+                                <a th:href="@{/projects/find/?statusId=3}">
+                                    処理中
+                                </a>
+                            </label>
+                            <label>
+                                <a th:href="@{/projects/find/?statusId=4}">
+                                    処理済み
+                                </a>
+                            </label>
+                            <label>
+                                <a th:href="@{/projects/find/?statusId=5}">
+                                    完了
+                                </a>
+                            </label>
+                            <label>
+                                <a th:href="@{/projects/find/?statusId=6}">
+                                    完了以外
+                                </a>
+                            </label>
+                        </form>
+                    </div>
 
                     <div th:if="${issues.size() == 0}">
                         該当データがありません
