@@ -46,5 +46,14 @@ public class DataLoader implements ApplicationRunner {
         comment2.setIssue(issue1);
         comment2.setComment("booooooo");
         commentRepository.save(comment2);
+
+        var issue2 = new Issue();
+        issue2.setTitle("Foo");
+        issue2.setDescription("FooFoo");
+        issue2.setStatus(Status.完了);
+        issue2.setType(Type.バグ);
+        issue2.setPriority(Priority.高);
+        issueRepository.save(issue2);
+
     }
 }
