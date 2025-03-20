@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Project {
+public class Milestone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,4 +19,5 @@ public class Project {
     @NotBlank
     private String name;
 
+    private String description;
 }

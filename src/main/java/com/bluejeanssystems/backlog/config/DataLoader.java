@@ -2,10 +2,12 @@ package com.bluejeanssystems.backlog.config;
 
 import com.bluejeanssystems.backlog.model.Comment;
 import com.bluejeanssystems.backlog.model.Issue;
+import com.bluejeanssystems.backlog.model.Milestone;
 import com.bluejeanssystems.backlog.model.Project;
-import com.bluejeanssystems.backlog.repository.IssueRepository;
-import com.bluejeanssystems.backlog.repository.ProjectRepository;
 import com.bluejeanssystems.backlog.repository.CommentRepository;
+import com.bluejeanssystems.backlog.repository.IssueRepository;
+import com.bluejeanssystems.backlog.repository.MilestoneRepository;
+import com.bluejeanssystems.backlog.repository.ProjectRepository;
 import com.bluejeanssystems.backlog.util.Priority;
 import com.bluejeanssystems.backlog.util.Status;
 import com.bluejeanssystems.backlog.util.Type;
@@ -21,6 +23,7 @@ public class DataLoader implements ApplicationRunner {
     private final ProjectRepository projectRepository;
     private final IssueRepository issueRepository;
     private final CommentRepository commentRepository;
+    private final MilestoneRepository milestoneRepository;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -29,12 +32,21 @@ public class DataLoader implements ApplicationRunner {
         project.setName("Hoge");
         projectRepository.save(project);
 
+        var m1 = new Milestone();
+        m1.setName("未設定");
+        milestoneRepository.save(m1);
+
+        var m2 = new Milestone();
+        m2.setName("Build1_20250401");
+        milestoneRepository.save(m2);
+
         var issue1 = new Issue();
         issue1.setTitle("Hoge");
         issue1.setDescription("HogeHoge");
         issue1.setStatus(Status.未対応);
         issue1.setType(Type.タスク);
         issue1.setPriority(Priority.中);
+        issue1.setMilestone(m1);
         issueRepository.save(issue1);
 
         var comment1 = new Comment();
@@ -53,7 +65,9 @@ public class DataLoader implements ApplicationRunner {
         issue2.setStatus(Status.完了);
         issue2.setType(Type.バグ);
         issue2.setPriority(Priority.高);
+        issue2.setMilestone(m2);
         issueRepository.save(issue2);
+
 
     }
 }

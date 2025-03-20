@@ -44,11 +44,15 @@ public class Issue {
     @Column(nullable = false)
     private Instant updatedAt;
 
-    public ZonedDateTime createAtJST(){
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "milestone_id")
+    private Milestone milestone;
+
+    public ZonedDateTime createAtJST() {
         return createdAt.atZone(ZoneId.of("Asia/Tokyo"));
     }
 
-    public ZonedDateTime createAtIST(){
+    public ZonedDateTime createAtIST() {
         return createdAt.atZone(ZoneId.of("Asia/Kolkata"));
     }
 }
