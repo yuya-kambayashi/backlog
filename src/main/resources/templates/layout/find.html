@@ -15,20 +15,33 @@
                 <div class="card-body">
                     <div>
                         <form id="searchForm" action="/projects/find" method="get">
-                            <label>状態:</label>
-                            <input type="checkbox" name="status" value="0"
-                                   th:checked="${status != null and status.contains('0')}"
-                                   onchange="updateQueryAndSubmit('status')"> 未対応
-                            <input type="checkbox" name="status" value="1"
-                                   th:checked="${status != null and status.contains('1')}"
-                                   onchange="updateQueryAndSubmit('status')"> 処理中
-                            <input type="checkbox" name="status" value="2"
-                                   th:checked="${status != null and status.contains('2')}"
-                                   onchange="updateQueryAndSubmit('status')"> 処理済み
-                            <input type="checkbox" name="status" value="3"
-                                   th:checked="${status != null and status.contains('3')}"
-                                   onchange="updateQueryAndSubmit('status')"> 完了
-                            <button type="submit">検索</button>
+                            <div>
+                                <label>状態:</label>
+                                <input type="checkbox" name="status" value="0"
+                                       th:checked="${status != null and status.contains('0')}"
+                                       onchange="updateQueryAndSubmit('status')"> 未対応
+                                <input type="checkbox" name="status" value="1"
+                                       th:checked="${status != null and status.contains('1')}"
+                                       onchange="updateQueryAndSubmit('status')"> 処理中
+                                <input type="checkbox" name="status" value="2"
+                                       th:checked="${status != null and status.contains('2')}"
+                                       onchange="updateQueryAndSubmit('status')"> 処理済み
+                                <input type="checkbox" name="status" value="3"
+                                       th:checked="${status != null and status.contains('3')}"
+                                       onchange="updateQueryAndSubmit('status')"> 完了
+                            </div>
+                            <div>
+                                <label>優先度:</label>
+                                <input type="checkbox" name="priority" value="0"
+                                       th:checked="${status != null and status.contains('0')}"
+                                       onchange="updateQueryAndSubmit('priority')"> 高
+                                <input type="checkbox" name="priority" value="1"
+                                       th:checked="${status != null and status.contains('1')}"
+                                       onchange="updateQueryAndSubmit('priority')"> 中
+                                <input type="checkbox" name="priority" value="2"
+                                       th:checked="${status != null and status.contains('2')}"
+                                       onchange="updateQueryAndSubmit('priority')"> 低
+                            </div>
                         </form>
                     </div>
 

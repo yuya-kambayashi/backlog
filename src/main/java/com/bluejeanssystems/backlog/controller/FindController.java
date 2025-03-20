@@ -23,14 +23,15 @@ public class FindController {
     @GetMapping("/find")
     public String find(
             @RequestParam(required = false) List<Integer> status,
-            @RequestParam(required = false) List<String> type,
+            @RequestParam(required = false) List<Integer> priority,
             Model model
     ) throws UnsupportedEncodingException {
         var issues = issueRepository.findAll();
 
         var result = issues.stream()
-                        .filter(issue -> (status == null || status.isEmpty()||status.contains(issue.getStatus().ordinal())))
-                        .collect(Collectors.toList());
+                .filter(issue -> (status == null || status.isEmpty()||status.contains(issue.getStatus().ordinal())))
+                .filter(issue -> (priority == null || priority.isEmpty()||priority.contains(issue.getPriority().ordinal())))
+                .collect(Collectors.toList());
 
         model.addAttribute("issues", result);
 
