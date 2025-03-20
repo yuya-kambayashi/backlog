@@ -44,7 +44,7 @@ public class Issue {
     @Column(nullable = false)
     private Instant updatedAt;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "milestone_id")
     private Milestone milestone;
 

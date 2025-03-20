@@ -52,6 +52,12 @@
                                 <option th:each="p : ${priorities}" th:value="${p}" th:text="${p}"></option>
                             </select>
                         </div>
+                        <div>
+                            <select th:field="*{milestone}">
+                                <option th:each="m : ${milestones}" th:value="${m.id}"
+                                        th:text="${m.getName()}"></option>
+                            </select>
+                        </div>
                         <button type="submit">
                             登録
                         </button>
