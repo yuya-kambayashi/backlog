@@ -12,9 +12,9 @@ public class DashboardController {
     private final ProjectRepository projectRepository;
 
     @GetMapping("/dashboard")
-    public String showList(Model model){
+    public String showList(Model model) {
         model.addAttribute("projects", projectRepository.findAll());
-        return "dashboard";
+        return "layout/dashboard";
     }
 
 }

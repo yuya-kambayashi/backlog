@@ -1,55 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<h1>Hello world</h1>
-<div class="row">
-    <div class="col">
-
-        <div class="card shadow">
-            <div class="card-header">
-                <h6 class="text-navy my-2">
-                    社員一覧
-                </h6>
-            </div>
-            <div class="card-body">
-
-                <div th:if="${projects.size() == 0}">
-                    該当データがありません
-                </div>
-
-                <table th:if="${projects.size() > 0}"
-                       class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>名前</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="project : ${projects}"
-                        th:object="${project}">
-                        <td th:text="*{id}"></td>
-                        <td th:text="*{name}"></td>
-                        <td>
-                            <a th:href="@{/projects/{id}(id=*{id})}"
-                               class="btn btn-navy">
-                                <i class="bi bi-pencil-square"></i>
-                                開く
-                            </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col">
+            <h1>プロジェクト一覧</h1>
+            <h1>自分の課題</h1>
         </div>
-
+        <div class="col">
+            <h1>最近の更新</h1>
+        </div>
     </div>
 </div>
 </body>
