@@ -5,54 +5,29 @@
 
 <head>
     <title>課題の検索｜Backlog</title>
-    <script>
-        function updateQueryParam(name, value) {
-            let form = document.getElementById("searchForm");
-            let url = new URL(window.location.href);
-            url.searchParams.set(name, value);
-
-            // form の hidden input も更新
-            let input = document.querySelector(`input[name="${name}"]`);
-            if (input) {
-                input.value = value;
-            }
-
-            form.submit(); // 自動で送信
-        }
-
-        function handleRadioChange(event) {
-            updateQueryParam(event.target.name, event.target.value);
-        }
-
-        function handleSelectChange(event) {
-            updateQueryParam(event.target.name, event.target.value);
-        }
-    </script>
 </head>
 
 <body>
 <div layout:fragment="content">
     <div class="row">
         <div class="col">
-
             <div class="card shadow">
                 <div class="card-body">
                     <div>
                         <form id="searchForm" action="/projects/find" method="get">
                             <label>状態:</label>
-                            <input type="radio" name="status" value="1"
-                                   th:checked="${param.status == 1}"
-                                   onchange="handleRadioChange(event)"> 未対応
-                            <input type="radio" name="status" value="2"
-                                   th:checked="${param.status == 2}"
-                                   onchange="handleRadioChange(event)"> 処理中
-                            <input type="radio" name="status" value="3"
-                                   th:checked="${param.status == 3}"
-                                   onchange="handleRadioChange(event)"> 処理済み
-                            <input type="radio" name="status" value="4"
-                                   th:checked="${param.status == 4}"
-                                   onchange="handleRadioChange(event)"> 完了
-
+                            <input type="checkbox" name="status" value="0"
+                                   th:checked="${status != null and status.contains('0')}"
+                                   onchange="updateQueryAndSubmit('status')"> 未対応
+                            <input type="checkbox" name="status" value="1"
+                                   th:checked="${status != null and status.contains('1')}"
+                                   onchange="updateQueryAndSubmit('status')"> 処理中
+                            <input type="checkbox" name="status" value="2"
+                                   th:checked="${status != null and status.contains('2')}"
+                                   onchange="updateQueryAndSubmit('status')"> 処理済み
+                            <input type="checkbox" name="status" value="3"
+                                   th:checked="${status != null and status.contains('3')}"
+                                   onchange="updateQueryAndSubmit('status')"> 完了
                             <button type="submit">検索</button>
                         </form>
                     </div>
@@ -87,7 +62,6 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
