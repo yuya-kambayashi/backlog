@@ -62,6 +62,13 @@
                             </select>
                         </div>
                         <div>
+                            <label for="category">カテゴリー</label>
+                            <select id="category" th:field="*{category}">
+                                <option th:each="c : ${categories}" th:value="${c.id}"
+                                        th:text="${c.getName()}"></option>
+                            </select>
+                        </div>
+                        <div>
                             <label for="plannedStartDate">開始予定日</label>
                             <input type="date" id="plannedStartDate" th:field="*{plannedStartDate}"/>
                         </div>

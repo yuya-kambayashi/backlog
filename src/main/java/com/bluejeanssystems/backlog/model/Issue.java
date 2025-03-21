@@ -58,6 +58,10 @@ public class Issue {
     @Column(nullable = true)
     private LocalDate acutualEndDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
 
     public ZonedDateTime createAtJST() {
         return createdAt.atZone(ZoneId.of("Asia/Tokyo"));

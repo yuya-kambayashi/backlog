@@ -1,6 +1,7 @@
 package com.bluejeanssystems.backlog.controller;
 
 import com.bluejeanssystems.backlog.model.Issue;
+import com.bluejeanssystems.backlog.repository.CategoryRepository;
 import com.bluejeanssystems.backlog.repository.IssueRepository;
 import com.bluejeanssystems.backlog.repository.MilestoneRepository;
 import com.bluejeanssystems.backlog.util.Priority;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AddController {
     private final IssueRepository issueRepository;
     private final MilestoneRepository milestoneRepository;
+    private final CategoryRepository categoryRepository;
 
     @GetMapping("/add")
     public String add(@ModelAttribute("issue") Issue issue, Model model) {
@@ -29,7 +31,7 @@ public class AddController {
         model.addAttribute("types", Type.values());
         model.addAttribute("priorities", Priority.values());
         model.addAttribute("milestones", milestoneRepository.findAll());
-
+        model.addAttribute("categories", categoryRepository.findAll());
 
         return "layout/add";
     }

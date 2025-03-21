@@ -1,13 +1,7 @@
 package com.bluejeanssystems.backlog.config;
 
-import com.bluejeanssystems.backlog.model.Comment;
-import com.bluejeanssystems.backlog.model.Issue;
-import com.bluejeanssystems.backlog.model.Milestone;
-import com.bluejeanssystems.backlog.model.Project;
-import com.bluejeanssystems.backlog.repository.CommentRepository;
-import com.bluejeanssystems.backlog.repository.IssueRepository;
-import com.bluejeanssystems.backlog.repository.MilestoneRepository;
-import com.bluejeanssystems.backlog.repository.ProjectRepository;
+import com.bluejeanssystems.backlog.model.*;
+import com.bluejeanssystems.backlog.repository.*;
 import com.bluejeanssystems.backlog.util.Priority;
 import com.bluejeanssystems.backlog.util.Status;
 import com.bluejeanssystems.backlog.util.Type;
@@ -24,6 +18,7 @@ public class DataLoader implements ApplicationRunner {
     private final IssueRepository issueRepository;
     private final CommentRepository commentRepository;
     private final MilestoneRepository milestoneRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -40,6 +35,10 @@ public class DataLoader implements ApplicationRunner {
         m2.setName("Build1_20250401");
         milestoneRepository.save(m2);
 
+        var category = new Category();
+        category.setName("UI");
+        categoryRepository.save(category);
+
         var issue1 = new Issue();
         issue1.setTitle("Hoge");
         issue1.setDescription("HogeHoge");
@@ -47,6 +46,7 @@ public class DataLoader implements ApplicationRunner {
         issue1.setType(Type.タスク);
         issue1.setPriority(Priority.中);
         issue1.setMilestone(m1);
+        issue1.setCategory(category);
         issueRepository.save(issue1);
 
         var comment1 = new Comment();
@@ -66,6 +66,7 @@ public class DataLoader implements ApplicationRunner {
         issue2.setType(Type.バグ);
         issue2.setPriority(Priority.高);
         issue2.setMilestone(m2);
+        issue2.setCategory(category);
         issueRepository.save(issue2);
 
 
