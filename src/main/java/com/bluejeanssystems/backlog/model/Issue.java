@@ -11,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
@@ -47,6 +48,16 @@ public class Issue {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "milestone_id")
     private Milestone milestone;
+
+    @Column(nullable = true)
+    private LocalDate plannedStartDate;
+    @Column(nullable = true)
+    private LocalDate plannedEndDate;
+    @Column(nullable = true)
+    private LocalDate acutualStartDate;
+    @Column(nullable = true)
+    private LocalDate acutualEndDate;
+
 
     public ZonedDateTime createAtJST() {
         return createdAt.atZone(ZoneId.of("Asia/Tokyo"));

@@ -43,20 +43,31 @@
                                    th:field="*{description}">
                         </div>
                         <div>
-                            <select th:field="*{status}">
+                            <label for="status">状態</label>
+                            <select id="status" th:field="*{status}">
                                 <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
                             </select>
                         </div>
                         <div>
-                            <select th:field="*{priority}">
+                            <label for="priority">優先度</label>
+                            <select id="priority" th:field="*{priority}">
                                 <option th:each="p : ${priorities}" th:value="${p}" th:text="${p}"></option>
                             </select>
                         </div>
                         <div>
-                            <select th:field="*{milestone}">
+                            <label for="milestone">マイルストーン</label>
+                            <select id="milestone" th:field="*{milestone}">
                                 <option th:each="m : ${milestones}" th:value="${m.id}"
                                         th:text="${m.getName()}"></option>
                             </select>
+                        </div>
+                        <div>
+                            <label for="plannedStartDate">開始予定日</label>
+                            <input type="date" id="plannedStartDate" th:field="*{plannedStartDate}"/>
+                        </div>
+                        <div>
+                            <label for="plannedEndDate">終了予定日</label>
+                            <input type="date" id="plannedEndDate" th:field="*{plannedEndDate}"/>
                         </div>
                         <button type="submit">
                             登録
