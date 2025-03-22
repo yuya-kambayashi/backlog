@@ -3,12 +3,20 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layout/layout}">
 <body>
-<nav layout:fragment="header" class="header navbar navbar-fixed-top">
+<nav layout:fragment="header" class="header navbar navbar-fixed-top" style="padding-right: 50px">
     <div>
         <a>ヘッダー部分</a>
     </div>
     <div>
-        <p th:text="${username}"></p>
+        <div class="dropdown">
+            <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="true">
+                <span th:text="${username}"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">プロフィール</a></li>
+                <li><a class="dropdown-item" href="#">ログアウト</a></li>
+        </div>
     </div>
 </nav>
 </body>
