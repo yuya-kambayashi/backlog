@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
 >
 <body>
+<div th:replace="~{fragments/message :: login}">
+</div>
 <form th:action="@{/login}" method="post">
     <div>
         <div>
