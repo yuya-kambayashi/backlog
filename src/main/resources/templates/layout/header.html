@@ -14,7 +14,7 @@
                 <span th:text="${username}"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">プロフィール</a></li>
+                <li><a class="dropdown-item" th:href="@{/projects/profile}">プロフィール</a></li>
                 <li><a class="dropdown-item" th:href="@{/logout}">ログアウト</a></li>
             </ul>
         </div>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}">
+
+<head>
+    <title>プロジェクトホーム｜Backlog</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <table th:object="${loginUser}"
+           class="table table-bordered">
+        <thead>
+        <tr>
+            <th>名前</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="*{loginUser.getName()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
