@@ -20,6 +20,7 @@
             <th>状態</th>
             <th>優先度</th>
             <th>マイルストーン</th>
+            <th>担当者</th>
         </tr>
         </thead>
         <tbody>
@@ -30,6 +31,7 @@
             <td th:text="*{status}"></td>
             <td th:text="*{priority}"></td>
             <td th:text="*{milestone.name}"></td>
+            <td th:text="*{assigner.username}"></td>
         </tr>
         </tbody>
         <thead>

@@ -43,6 +43,19 @@ public class DataLoader implements ApplicationRunner {
         category.setName("UI");
         categoryRepository.save(category);
 
+        var user = new SiteUser();
+        user.setUsername("admin");
+        user.setPassword(passwordEncoder.encode("password"));
+//        user.setEmail("admin@example.com");
+//        user.setGender(0);
+//        user.setAdmin(true);
+        user.setAuthority(Authority.ADMIN);
+
+        // ユーザが存在しない場合、登録します
+        if (siteUserRepository.findByUsername(user.getUsername()).isEmpty()) {
+            siteUserRepository.save(user);
+        }
+
         var issue1 = new Issue();
         issue1.setTitle("Hoge");
         issue1.setDescription("HogeHoge");
@@ -51,6 +64,7 @@ public class DataLoader implements ApplicationRunner {
         issue1.setPriority(Priority.中);
         issue1.setMilestone(m1);
         issue1.setCategory(category);
+        issue1.setAssigner(user);
         issueRepository.save(issue1);
 
         var comment1 = new Comment();
@@ -71,21 +85,8 @@ public class DataLoader implements ApplicationRunner {
         issue2.setPriority(Priority.高);
         issue2.setMilestone(m2);
         issue2.setCategory(category);
+        issue2.setAssigner(user);
         issueRepository.save(issue2);
-
-        var user = new SiteUser();
-        user.setUsername("admin");
-        user.setPassword(passwordEncoder.encode("password"));
-//        user.setEmail("admin@example.com");
-//        user.setGender(0);
-//        user.setAdmin(true);
-        user.setAuthority(Authority.ADMIN);
-
-        // ユーザが存在しない場合、登録します
-        if (siteUserRepository.findByUsername(user.getUsername()).isEmpty()) {
-            siteUserRepository.save(user);
-        }
-
-
+        
     }
 }
