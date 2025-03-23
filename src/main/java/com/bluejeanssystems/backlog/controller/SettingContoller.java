@@ -16,8 +16,6 @@ public class SettingContoller {
 
     @GetMapping("/setting")
     public String view(Model model) {
-        var users = siteUserRepository.findAll();
-
         model.addAttribute("users", siteUserRepository.findAll());
 
         return "layout/setting";
