@@ -66,6 +66,10 @@ public class Issue {
     @JoinColumn(name = "user_id")
     private SiteUser assigner;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private SiteUser voter;
+
 
     public ZonedDateTime createAtJST() {
         return createdAt.atZone(ZoneId.of("Asia/Tokyo"));

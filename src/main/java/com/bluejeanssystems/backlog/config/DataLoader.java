@@ -65,6 +65,7 @@ public class DataLoader implements ApplicationRunner {
         issue1.setMilestone(m1);
         issue1.setCategory(category);
         issue1.setAssigner(user);
+        issue1.setVoter(user);
         issueRepository.save(issue1);
 
         var comment1 = new Comment();
@@ -86,7 +87,8 @@ public class DataLoader implements ApplicationRunner {
         issue2.setMilestone(m2);
         issue2.setCategory(category);
         issue2.setAssigner(user);
+        issue2.setVoter(user);
         issueRepository.save(issue2);
-        
+
     }
 }
