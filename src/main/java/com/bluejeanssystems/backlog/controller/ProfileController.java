@@ -11,7 +11,8 @@ public class ProfileController {
     @GetMapping("/projects/profile")
     public String view(Model model, Authentication loginUser) {
 
-        model.addAttribute("loginUser", loginUser);
+        model.addAttribute("username", loginUser.getName());
+        model.addAttribute("authority", loginUser.getAuthorities());
 
         return "layout/profile";
     }

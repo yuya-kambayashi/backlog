@@ -9,20 +9,35 @@
 
 <body>
 <div layout:fragment="content">
-    <table th:object="${loginUser}"
-           class="table table-bordered">
-        <thead>
-        <tr>
-            <th>名前</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td th:text="*{loginUser.getName()}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col">
 
+            <div class="card shadow">
+                <div class="card-header">
+                    <h6 class="text-navy my-2">
+                        ログイン情報
+                    </h6>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>ログインユーザ名</th>
+                            <th>ユーザ権限</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td th:text="${username}"></td>
+                            <td th:text="${authority}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 </body>
 </html>
