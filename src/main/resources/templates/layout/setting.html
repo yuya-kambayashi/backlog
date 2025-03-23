@@ -9,8 +9,42 @@
 
 <body>
 <div layout:fragment="content">
-    <h1>プロジェクト設定</h1>
-    <!--    マイルストーンやカテゴリー、ユーザの追加、編集などを行う-->
+    <div class="row">
+        <div class="col">
+
+            <div class="card shadow">
+                <div class="card-header">
+                    <h6 class="text-navy my-2">
+                        ユーザ一覧
+                    </h6>
+                </div>
+                <div class="card-body table-responsive">
+                    <table id="user-table" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>ユーザ名</th>
+                            <!--                            <th>Email</th>-->
+                            <!--                            <th>性別</th>-->
+                            <!--                            <th>権限</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${users}" th:object="${user}">
+                            <td th:text="*{id}"></td>
+                            <td th:text="*{username}"></td>
+                            <!--                            <td th:text="*{email}"></td>-->
+                            <!--                            <td th:text="${T(com.example.demo.util.Type).GENDERS.get(user.gender)}">-->
+                            <!--                            </td>-->
+                            <!--                            <td th:text="*{authority}"></td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 </body>
 </html>

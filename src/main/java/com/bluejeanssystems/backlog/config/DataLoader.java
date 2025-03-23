@@ -2,12 +2,14 @@ package com.bluejeanssystems.backlog.config;
 
 import com.bluejeanssystems.backlog.model.*;
 import com.bluejeanssystems.backlog.repository.*;
+import com.bluejeanssystems.backlog.util.Authority;
 import com.bluejeanssystems.backlog.util.Priority;
 import com.bluejeanssystems.backlog.util.Status;
 import com.bluejeanssystems.backlog.util.Type;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
@@ -19,6 +21,8 @@ public class DataLoader implements ApplicationRunner {
     private final CommentRepository commentRepository;
     private final MilestoneRepository milestoneRepository;
     private final CategoryRepository categoryRepository;
+    private final SiteUserRepository siteUserRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -68,6 +72,19 @@ public class DataLoader implements ApplicationRunner {
         issue2.setMilestone(m2);
         issue2.setCategory(category);
         issueRepository.save(issue2);
+
+        var user = new SiteUser();
+        user.setUsername("admin");
+        user.setPassword(passwordEncoder.encode("password"));
+//        user.setEmail("admin@example.com");
+//        user.setGender(0);
+//        user.setAdmin(true);
+        user.setAuthority(Authority.ADMIN);
+
+        // ユーザが存在しない場合、登録します
+        if (siteUserRepository.findByUsername(user.getUsername()).isEmpty()) {
+            siteUserRepository.save(user);
+        }
 
 
     }
