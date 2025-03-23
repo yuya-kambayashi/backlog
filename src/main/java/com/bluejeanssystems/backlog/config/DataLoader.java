@@ -12,6 +12,9 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RequiredArgsConstructor
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -43,18 +46,38 @@ public class DataLoader implements ApplicationRunner {
         category.setName("UI");
         categoryRepository.save(category);
 
-        var user = new SiteUser();
-        user.setUsername("admin");
-        user.setPassword(passwordEncoder.encode("password"));
+        List<SiteUser> users = new ArrayList<>();
+
+        var user1 = new SiteUser();
+        user1.setUsername("Ryotaro");
+        user1.setPassword(passwordEncoder.encode("password"));
 //        user.setEmail("admin@example.com");
 //        user.setGender(0);
 //        user.setAdmin(true);
-        user.setAuthority(Authority.ADMIN);
+        user1.setAuthority(Authority.ADMIN);
+        users.add(user1);
 
-        // ユーザが存在しない場合、登録します
-        if (siteUserRepository.findByUsername(user.getUsername()).isEmpty()) {
-            siteUserRepository.save(user);
-        }
+
+        var user2 = new SiteUser();
+        user2.setUsername("Daisuke");
+        user2.setPassword(passwordEncoder.encode("password"));
+//        user.setEmail("admin@example.com");
+//        user.setGender(0);
+//        user.setAdmin(true);
+        user2.setAuthority(Authority.USER);
+        users.add(user2);
+
+
+        var user3 = new SiteUser();
+        user3.setUsername("admin");
+        user3.setPassword(passwordEncoder.encode("password"));
+//        user.setEmail("admin@example.com");
+//        user.setGender(0);
+//        user.setAdmin(true);
+        user3.setAuthority(Authority.USER);
+        users.add(user3);
+
+        siteUserRepository.saveAll(users);
 
         var issue1 = new Issue();
         issue1.setTitle("Hoge");
@@ -64,8 +87,8 @@ public class DataLoader implements ApplicationRunner {
         issue1.setPriority(Priority.中);
         issue1.setMilestone(m1);
         issue1.setCategory(category);
-        issue1.setAssigner(user);
-        issue1.setVoter(user);
+        issue1.setAssigner(user1);
+        issue1.setVoter(user1);
         issueRepository.save(issue1);
 
         var comment1 = new Comment();
@@ -86,8 +109,8 @@ public class DataLoader implements ApplicationRunner {
         issue2.setPriority(Priority.高);
         issue2.setMilestone(m2);
         issue2.setCategory(category);
-        issue2.setAssigner(user);
-        issue2.setVoter(user);
+        issue2.setAssigner(user2);
+        issue2.setVoter(user1);
         issueRepository.save(issue2);
 
     }

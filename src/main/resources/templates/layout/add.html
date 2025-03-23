@@ -69,6 +69,13 @@
                             </select>
                         </div>
                         <div>
+                            <label for="assigner">担当者</label>
+                            <select id="assigner" th:field="*{assigner}">
+                                <option th:each="user : ${users}" th:value="${user.id}"
+                                        th:text="${user.getUsername()}"></option>
+                            </select>
+                        </div>
+                        <div>
                             <label for="plannedStartDate">開始予定日</label>
                             <input type="date" id="plannedStartDate" th:field="*{plannedStartDate}"/>
                         </div>

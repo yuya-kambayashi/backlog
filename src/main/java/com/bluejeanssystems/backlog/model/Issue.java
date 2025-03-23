@@ -63,11 +63,11 @@ public class Issue {
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "assigner_id")
     private SiteUser assigner;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "voter_id")
     private SiteUser voter;
 
 

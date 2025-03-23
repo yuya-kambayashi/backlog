@@ -4,6 +4,7 @@ import com.bluejeanssystems.backlog.model.Issue;
 import com.bluejeanssystems.backlog.repository.CategoryRepository;
 import com.bluejeanssystems.backlog.repository.IssueRepository;
 import com.bluejeanssystems.backlog.repository.MilestoneRepository;
+import com.bluejeanssystems.backlog.repository.SiteUserRepository;
 import com.bluejeanssystems.backlog.util.Priority;
 import com.bluejeanssystems.backlog.util.Status;
 import com.bluejeanssystems.backlog.util.Type;
@@ -24,6 +25,7 @@ public class AddController {
     private final IssueRepository issueRepository;
     private final MilestoneRepository milestoneRepository;
     private final CategoryRepository categoryRepository;
+    private final SiteUserRepository userRepository;
 
     @GetMapping("/add")
     public String add(@ModelAttribute("issue") Issue issue, Model model) {
@@ -32,6 +34,7 @@ public class AddController {
         model.addAttribute("priorities", Priority.values());
         model.addAttribute("milestones", milestoneRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("users", userRepository.findAll());
 
         return "layout/add";
     }
