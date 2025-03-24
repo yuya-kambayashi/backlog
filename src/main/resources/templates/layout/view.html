@@ -9,7 +9,9 @@
 
 <body>
 <div layout:fragment="content">
-
+    <form th:action="${editUrl}" method="get">
+        <button type="submit" class="btn btn-primary">編集</button>
+    </form>
     <table th:object="${issue}"
            class="table table-bordered">
         <thead>

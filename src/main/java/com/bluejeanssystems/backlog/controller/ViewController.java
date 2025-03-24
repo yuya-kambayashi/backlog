@@ -2,8 +2,8 @@ package com.bluejeanssystems.backlog.controller;
 
 import com.bluejeanssystems.backlog.model.Comment;
 import com.bluejeanssystems.backlog.model.Issue;
-import com.bluejeanssystems.backlog.repository.CommentRepository;
-import com.bluejeanssystems.backlog.repository.IssueRepository;
+import com.bluejeanssystems.backlog.repository.*;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,15 +17,24 @@ import org.springframework.web.bind.annotation.*;
 public class ViewController {
     private final IssueRepository issueRepository;
     private final CommentRepository commentRepository;
+    private final MilestoneRepository milestoneRepository;
+    private final CategoryRepository categoryRepository;
+    private final SiteUserRepository userRepository;
 
     @GetMapping("/{issueId}")
-    public String view(Model model, @PathVariable("issueId") long issueId) throws Exception {
+    public String view(Model model,
+                       @PathVariable("issueId") long issueId,
+                       HttpServletRequest request) throws Exception {
         Issue issue = issueRepository.findById(issueId)
                 .orElseThrow(() -> new IllegalArgumentException("Issue not found: " + issueId));
 
         model.addAttribute("issue", issue);
         model.addAttribute("newComment", new Comment());
         model.addAttribute("comments", commentRepository.findByIssueId(issueId));
+        String uri = request.getRequestURI();
+        uri += "/edit";
+        uri = "edit/" + issueId;
+        model.addAttribute("editUrl", uri);
 
         return "layout/view";
     }

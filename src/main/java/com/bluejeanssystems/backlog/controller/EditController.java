@@ -12,43 +12,56 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/projects")
-public class AddController {
+public class EditController {
     private final IssueRepository issueRepository;
     private final MilestoneRepository milestoneRepository;
     private final CategoryRepository categoryRepository;
     private final SiteUserRepository userRepository;
 
-    @GetMapping("/add")
-    public String add(Model model) {
+    @GetMapping("/view/edit/{issueId}")
+    public String edit(@PathVariable("issueId") long issueId,
+                       Model model) {
         model.addAttribute("statuses", Status.values());
         model.addAttribute("types", Type.values());
         model.addAttribute("priorities", Priority.values());
         model.addAttribute("milestones", milestoneRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("users", userRepository.findAll());
-        model.addAttribute("issue", new Issue());
 
-        return "layout/add";
+        Issue issue = issueRepository.findById(issueId).orElse(null);
+
+        model.addAttribute("issue", issue);
+        model.addAttribute("issueId", issueId);
+
+        return "layout/edit";
     }
 
-    @PostMapping("/add")
-    public String add(@Validated @ModelAttribute("issue") Issue issue,
-                      BindingResult result) {
+    @PostMapping("/view/edit/{issueId}")
+    public String save(@PathVariable("issueId") long issueId,
+                       @ModelAttribute("issue") Issue issueMod,
+                       BindingResult result) {
         if (result.hasErrors()) {
             return "layout/add";
         }
-        issueRepository.save(issue);
+        Issue issueOrg = issueRepository.findById(issueId).orElse(null);
 
+        issueOrg.setTitle(issueMod.getTitle());
+        issueOrg.setDescription(issueMod.getDescription());
+        issueOrg.setType(issueMod.getType());
+        issueOrg.setPriority(issueMod.getPriority());
+        issueOrg.setMilestone(issueMod.getMilestone());
+        issueOrg.setCategory(issueMod.getCategory());
+        issueOrg.setAssigner(issueMod.getAssigner());
 
-        return "redirect:/projects/view/" + issue.getId();
+        if (issueOrg != null) {
+            issueRepository.save(issueOrg);
+        }
+
+        return "redirect:/projects/view/" + issueId;
     }
 }

@@ -5,7 +5,7 @@
       lang="ja">
 
 <head>
-    <title>課題の追加｜Backlog</title>
+    <title>課題の編集｜Backlog</title>
 </head>
 
 <body>
@@ -20,8 +20,8 @@
                     </h6>
                 </div>
                 <div class="card-body">
-                    <form th:action="@{/projects/add}"
-                          th:object="${issue}"
+                    <form th:object="${issue}"
+                          th:action="@{/projects/view/edit/{issueId}(issueId=${issueId})}"
                           method="post"
                           novalidate>
 
