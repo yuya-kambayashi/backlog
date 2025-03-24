@@ -80,8 +80,8 @@ public class DataLoader implements ApplicationRunner {
         siteUserRepository.saveAll(users);
 
         var issue1 = new Issue();
-        issue1.setTitle("Hoge");
-        issue1.setDescription("HogeHoge");
+        issue1.setTitle("画面レイアウトを調整する");
+        issue1.setDescription("参考にする。すべての画面。");
         issue1.setStatus(Status.未対応);
         issue1.setType(Type.タスク);
         issue1.setPriority(Priority.中);
@@ -102,8 +102,8 @@ public class DataLoader implements ApplicationRunner {
         commentRepository.save(comment2);
 
         var issue2 = new Issue();
-        issue2.setTitle("Foo");
-        issue2.setDescription("FooFoo");
+        issue2.setTitle("ガントチャートを作成する");
+        issue2.setDescription("計画日時と実績日時から");
         issue2.setStatus(Status.完了);
         issue2.setType(Type.バグ);
         issue2.setPriority(Priority.高);
