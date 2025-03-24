@@ -60,7 +60,7 @@ public class Issue {
     @Column(nullable = true)
     private LocalDate plannedStartDate;
     @Column(nullable = true)
-    private LocalDate plannedEndDate;
+    private LocalDate limitDate;
     @Column(nullable = true)
     private LocalDate acutualStartDate;
     @Column(nullable = true)

@@ -12,6 +12,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,10 @@ public class DataLoader implements ApplicationRunner {
         var m2 = new Milestone();
         m2.setName("Build1_20250401");
         milestoneRepository.save(m2);
+
+        var m3 = new Milestone();
+        m3.setName("Build2_20250501");
+        milestoneRepository.save(m3);
 
         var category = new Category();
         category.setName("UI");
@@ -85,10 +90,11 @@ public class DataLoader implements ApplicationRunner {
         issue1.setStatus(Status.未対応);
         issue1.setType(Type.タスク);
         issue1.setPriority(Priority.中);
-        issue1.setMilestone(m1);
+        issue1.setMilestone(m2);
         issue1.setCategory(category);
         issue1.setAssigner(user1);
         issue1.setVoter(user3);
+        issue1.setLimitDate(LocalDate.of(2025, 12, 31));
         issueRepository.save(issue1);
 
         var comment1 = new Comment();
@@ -107,10 +113,12 @@ public class DataLoader implements ApplicationRunner {
         issue2.setStatus(Status.完了);
         issue2.setType(Type.バグ);
         issue2.setPriority(Priority.高);
-        issue2.setMilestone(m2);
+        issue2.setVersions(m2);
+        issue2.setMilestone(m3);
         issue2.setCategory(category);
         issue2.setAssigner(user2);
         issue2.setVoter(user3);
+        issue2.setLimitDate(LocalDate.of(2025, 4, 1));
         issueRepository.save(issue2);
 
     }

@@ -85,7 +85,7 @@
                             <td th:text="*{versions?.name ?: ''}"></td>
                             <td th:text="*{milestone?.name ?: ''}"></td>
                             <td th:text="*{#temporals.format(createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></td>
-                            <td th:text="*{plannedEndDate}"></td>
+                            <td th:text="*{limitDate}"></td>
                             <td th:text="*{#temporals.format(updatedAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></td>
                             <td th:text="*{voter?.username ?: ''}"></td>
                             <td></td>

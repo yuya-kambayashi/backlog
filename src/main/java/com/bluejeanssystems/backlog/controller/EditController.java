@@ -62,7 +62,7 @@ public class EditController {
         issueOrg.setVersions(issueMod.getVersions());
         issueOrg.setResolution(issueMod.getResolution());
         issueOrg.setPlannedStartDate(issueMod.getPlannedStartDate());
-        issueOrg.setPlannedEndDate(issueMod.getPlannedEndDate());
+        issueOrg.setLimitDate(issueMod.getLimitDate());
         issueOrg.setAcutualStartDate(issueMod.getAcutualStartDate());
         issueOrg.setAcutualEndDate(issueMod.getAcutualEndDate());
         issueOrg.setUpdatedAt(issueMod.getCreatedAt());
