@@ -61,6 +61,11 @@ public class EditController {
         issueOrg.setAssigner(issueMod.getAssigner());
         issueOrg.setVersions(issueMod.getVersions());
         issueOrg.setResolution(issueMod.getResolution());
+        issueOrg.setPlannedStartDate(issueMod.getPlannedStartDate());
+        issueOrg.setPlannedEndDate(issueMod.getPlannedEndDate());
+        issueOrg.setAcutualStartDate(issueMod.getAcutualStartDate());
+        issueOrg.setAcutualEndDate(issueMod.getAcutualEndDate());
+        issueOrg.setUpdatedAt(issueMod.getCreatedAt());
 
         if (issueOrg != null) {
             issueRepository.save(issueOrg);

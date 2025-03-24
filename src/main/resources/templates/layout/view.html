@@ -9,26 +9,52 @@
 
 <body>
 <div layout:fragment="content">
-    <div th:object="${issue}">
-        <div style="display: flex; justify-content: space-around">
-            <p th:text="*{type}"></p>
-            <p th:text="*{id}"></p>
-            <p th:text="*{plannedEndDate}"></p>
-            <p th:text="*{status}"></p>
+    <div th:object="${issue}" class="container">
+        <div class="row border">
+            <p class="col-1" th:text="*{type}"></p>
+            <p class="col-1" th:text="*{id}"></p>
+            <p class="col"></p>
+            <p class="col-1">期限日</p>
+            <p class="col-2" th:text="*{plannedEndDate}"></p>
+            <p class="col-1" th:text="*{status}"></p>
         </div>
-        <div style="display: flex; justify-content: space-around">
-            <p th:text="*{title}"></p>
-            <form th:action="${editUrl}" method="get">
+        <div class="row border">
+            <p class="col text-start" th:text="*{title}"></p>
+            <form class="col-1" th:action="${editUrl}" method="get">
                 <button type="submit" class="btn btn-primary">編集</button>
             </form>
+            <div class="dropdown col-1">
+                <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="true">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" th:href="@{#}">複製</a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" th:href="@{#}">削除</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div style="display: flex; justify-content: space-around">
-            <p th:text="*{voter.getUsername()}"></p>
-            <p th:text="*{#temporals.format(createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
+    </div>
+    <div th:object="${issue}" class="container">
+        <div class="row border">
+            <i class="bi bi-emoji-laughing col-1"></i>
+            <p class="col-1 text-start" th:text="*{voter.getUsername()}"></p>
         </div>
-        <div>
+        <div class="row border">
+            <p class="col text-start" th:text="*{#temporals.format(createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
+        </div>
+        <div class="row border">
             <p th:text="*{description}"></p>
         </div>
+    </div>
+    <div th:object="${issue}">
         <div style="display: flex; justify-content: space-around">
             <table class="table table-bordered">
                 <tbody>
