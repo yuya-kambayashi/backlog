@@ -70,7 +70,7 @@ public class DataLoader implements ApplicationRunner {
 
         var user3 = new SiteUser();
         user3.setUsername("admin");
-        user3.setPassword(passwordEncoder.encode("password"));
+        user3.setPassword(passwordEncoder.encode("admin01"));
 //        user.setEmail("admin@example.com");
 //        user.setGender(0);
 //        user.setAdmin(true);
