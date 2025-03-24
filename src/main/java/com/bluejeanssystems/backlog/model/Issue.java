@@ -86,4 +86,12 @@ public class Issue {
     public ZonedDateTime createAtIST() {
         return createdAt.atZone(ZoneId.of("Asia/Kolkata"));
     }
+
+    public ZonedDateTime updatedAtJST() {
+        return updatedAt.atZone(ZoneId.of("Asia/Tokyo"));
+    }
+
+    public ZonedDateTime updatedAtIST() {
+        return updatedAt.atZone(ZoneId.of("Asia/Kolkata"));
+    }
 }

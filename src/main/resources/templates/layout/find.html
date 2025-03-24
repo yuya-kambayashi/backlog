@@ -56,9 +56,18 @@
                             <th>種別</th>
                             <th>キー</th>
                             <th>件名</th>
+                            <th>担当者</th>
                             <th>状態</th>
+                            <th>カテゴリー</th>
                             <th>優先度</th>
+                            <th>発生バージョン</th>
                             <th>マイルストーン</th>
+                            <th>登録日</th>
+                            <th>期限日</th>
+                            <th>更新日</th>
+                            <th>登録者</th>
+                            <th>添付</th>
+                            <th>共有</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -69,9 +78,18 @@
                                 <a th:href="@{/projects/view/{issueId}(issueId=*{id})}" th:text="*{id}">id</a>
                             </td>
                             <td th:text="*{title}"></td>
+                            <td th:text="*{assigner?.username ?: ''}"></td>
                             <td th:text="*{status}"></td>
+                            <td th:text="*{category?.name ?: ''}"></td>
                             <td th:text="*{priority}"></td>
-                            <td th:text="*{milestone.getName()}"></td>
+                            <td th:text="*{versions?.name ?: ''}"></td>
+                            <td th:text="*{milestone?.name ?: ''}"></td>
+                            <td th:text="*{#temporals.format(createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></td>
+                            <td th:text="*{plannedEndDate}"></td>
+                            <td th:text="*{#temporals.format(updatedAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></td>
+                            <td th:text="*{voter?.username ?: ''}"></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         </tbody>
                     </table>
@@ -81,6 +99,5 @@
     </div>
 </div>
 </body>
-
 </html>
 
