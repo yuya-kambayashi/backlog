@@ -51,6 +51,13 @@
                             </select>
                         </div>
                         <div>
+                            <label for="assigner">担当者</label>
+                            <select id="assigner" th:field="*{assigner}">
+                                <option th:each="user : ${users}" th:value="${user.id}"
+                                        th:text="${user.getUsername()}"></option>
+                            </select>
+                        </div>
+                        <div>
                             <label for="priority">優先度</label>
                             <select id="priority" th:field="*{priority}">
                                 <option th:each="p : ${priorities}" th:value="${p}" th:text="${p}"></option>
@@ -71,10 +78,10 @@
                             </select>
                         </div>
                         <div>
-                            <label for="assigner">担当者</label>
-                            <select id="assigner" th:field="*{assigner}">
-                                <option th:each="user : ${users}" th:value="${user.id}"
-                                        th:text="${user.getUsername()}"></option>
+                            <label for="versions">発生バージョン</label>
+                            <select id="versions" th:field="*{versions}">
+                                <option th:each="v : ${versions}" th:value="${v.id}"
+                                        th:text="${v.getName()}"></option>
                             </select>
                         </div>
                         <div>

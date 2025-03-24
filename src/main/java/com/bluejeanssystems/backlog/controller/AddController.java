@@ -36,6 +36,8 @@ public class AddController {
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("issue", new Issue());
+        model.addAttribute("versions", milestoneRepository.findAll());
+
 
         return "layout/add";
     }
