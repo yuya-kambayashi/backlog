@@ -16,7 +16,7 @@
             <div class="card shadow">
                 <div class="card-header">
                     <h6 class="text-navy my-2">
-                        課題の追加
+                        課題の編集
                     </h6>
                 </div>
                 <div class="card-body">
@@ -84,6 +84,12 @@
                         <div>
                             <label for="plannedEndDate">終了予定日</label>
                             <input type="date" id="plannedEndDate" th:field="*{plannedEndDate}"/>
+                        </div>
+                        <div>
+                            <label for="resolution">完了理由</label>
+                            <select id="resolution" th:field="*{resolution}">
+                                <option th:each="r : ${resolutions}" th:value="${r}" th:text="${r}"></option>
+                            </select>
                         </div>
                         <button type="submit">
                             登録

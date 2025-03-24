@@ -6,6 +6,7 @@ import com.bluejeanssystems.backlog.repository.IssueRepository;
 import com.bluejeanssystems.backlog.repository.MilestoneRepository;
 import com.bluejeanssystems.backlog.repository.SiteUserRepository;
 import com.bluejeanssystems.backlog.util.Priority;
+import com.bluejeanssystems.backlog.util.Resolution;
 import com.bluejeanssystems.backlog.util.Status;
 import com.bluejeanssystems.backlog.util.Type;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,7 @@ public class EditController {
         model.addAttribute("milestones", milestoneRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("resolutions", Resolution.values());
 
         Issue issue = issueRepository.findById(issueId).orElse(null);
 
@@ -57,6 +59,8 @@ public class EditController {
         issueOrg.setMilestone(issueMod.getMilestone());
         issueOrg.setCategory(issueMod.getCategory());
         issueOrg.setAssigner(issueMod.getAssigner());
+        issueOrg.setVersions(issueMod.getVersions());
+        issueOrg.setResolution(issueMod.getResolution());
 
         if (issueOrg != null) {
             issueRepository.save(issueOrg);

@@ -1,6 +1,7 @@
 package com.bluejeanssystems.backlog.model;
 
 import com.bluejeanssystems.backlog.util.Priority;
+import com.bluejeanssystems.backlog.util.Resolution;
 import com.bluejeanssystems.backlog.util.Status;
 import com.bluejeanssystems.backlog.util.Type;
 import jakarta.persistence.*;
@@ -48,6 +49,13 @@ public class Issue {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "milestone_id")
     private Milestone milestone;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "versions_id")
+    private Milestone versions;
+
+    @Enumerated(EnumType.STRING)
+    private Resolution resolution;
 
     @Column(nullable = true)
     private LocalDate plannedStartDate;
