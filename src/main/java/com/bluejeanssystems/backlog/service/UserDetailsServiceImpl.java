@@ -1,9 +1,8 @@
 package com.bluejeanssystems.backlog.service;
 
+import com.bluejeanssystems.backlog.model.CustomUserDetails;
 import com.bluejeanssystems.backlog.repository.SiteUserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,16 +15,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final SiteUserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
-
-        // SecurityConfig.javaの下部からコピーします
-        // ユーザ名を検索します（ユーザが存在しない場合は、例外をスローします）
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
 
-        // ユーザ情報を返します
-        return new User(user.getUsername(), user.getPassword(),
-                AuthorityUtils.createAuthorityList(user.getAuthority().name()));
+        return new CustomUserDetails(user);
     }
 }

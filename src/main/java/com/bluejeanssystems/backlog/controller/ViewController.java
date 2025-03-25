@@ -3,6 +3,7 @@ package com.bluejeanssystems.backlog.controller;
 import com.bluejeanssystems.backlog.model.Comment;
 import com.bluejeanssystems.backlog.model.Issue;
 import com.bluejeanssystems.backlog.repository.*;
+import com.bluejeanssystems.backlog.util.SecurityUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -54,6 +55,7 @@ public class ViewController {
         }
 
         comment.setIssue(issue);
+        comment.setCommenter(SecurityUtil.getCurrentUser());
         commentRepository.save(comment);
 
         return "redirect:/projects/view/" + issueId;

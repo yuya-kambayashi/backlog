@@ -74,7 +74,7 @@
                     </div>
                     <div class="row border">
                         <p class="col-2" th:text="発生バージョン"></p>
-                        <p class="col-2" th:text="*{versions}"></p>
+                        <p class="col-2" th:text="*{versions.getName()}"></p>
                         <div class="col"></div>
                     </div>
                     <div class="row border">
@@ -109,23 +109,21 @@
                 </div>
             </div>
         </div>
-        <div class="card-body">
-            <form th:with="issueId=${issue.id}"
-                  th:action="@{/projects/view/addComment/{issueId}(issueId=${issueId})}"
-                  th:object="${newComment}"
-                  method="post"
-                  novalidate>
-                <div>
-                    <input type="text"
-                           placeholder="コメント (@を入力してメンバーに通知)"
-                           th:field="*{comment}">
-                </div>
-                <button type="submit">
-                    登録
-                </button>
-            </form>
-        </div>
     </div>
+    <form th:with="issueId=${issue.id}"
+          th:action="@{/projects/view/addComment/{issueId}(issueId=${issueId})}"
+          th:object="${newComment}"
+          method="post"
+          novalidate>
+        <div>
+            <input type="text"
+                   placeholder="コメント (@を入力してメンバーに通知)"
+                   th:field="*{comment}">
+        </div>
+        <button type="submit">
+            登録
+        </button>
+    </form>
 </div>
 </body>
 </html>
