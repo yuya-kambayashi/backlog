@@ -9,90 +9,83 @@
 
 <body>
 <div layout:fragment="content">
-    <div th:object="${issue}" class="container">
-        <div class="row border">
-            <p class="col-1" th:text="*{type}"></p>
-            <p class="col-1" th:text="*{id}"></p>
-            <p class="col"></p>
-            <p class="col-1">期限日</p>
-            <p class="col-2" th:text="*{limitDate}"></p>
-            <p class="col-1" th:text="*{status}"></p>
+    <div th:object="${issue}">
+        <div class="container">
+            <div class="row border">
+                <p class="col-1" th:text="*{type}"></p>
+                <p class="col-1" th:text="*{id}"></p>
+                <p class="col"></p>
+                <p class="col-1">期限日</p>
+                <p class="col-2" th:text="*{limitDate}"></p>
+                <p class="col-1" th:text="*{status}"></p>
+            </div>
+            <div class="row border">
+                <p class="col text-start" th:text="*{title}"></p>
+                <form class="col-1" th:action="${editUrl}" method="get">
+                    <button type="submit" class="btn btn-primary">編集</button>
+                </form>
+                <div class="dropdown col-1">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="true">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" th:href="@{#}">複製</a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{#}">削除</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="row border">
-            <p class="col text-start" th:text="*{title}"></p>
-            <form class="col-1" th:action="${editUrl}" method="get">
-                <button type="submit" class="btn btn-primary">編集</button>
-            </form>
-            <div class="dropdown col-1">
-                <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"
-                        aria-expanded="true">
-                    <i class="bi bi-three-dots"></i>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a class="dropdown-item" th:href="@{#}">複製</a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                        <a class="dropdown-item" th:href="@{#}">削除</a>
-                    </li>
-                </ul>
+        <div class="container">
+            <div class="row border">
+                <i class="bi bi-emoji-laughing col-1"></i>
+                <p class="col-1 text-start" th:text="*{voter.getUsername()}"></p>
+            </div>
+            <div class="row border">
+                <p class="col text-start" th:text="*{#temporals.format(createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
+            </div>
+            <div class="row border">
+                <p th:text="*{description}"></p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row border">
+                        <p class="col-2" th:text="優先度"></p>
+                        <p class="col-2" th:text="*{priority}"></p>
+                        <div class="col"></div>
+                        <p class="col-2" th:text="担当者"></p>
+                        <p class="col-2" th:text="*{assigner.getUsername()}"></p>
+                    </div>
+                    <div class="row border">
+                        <p class="col-2" th:text="カテゴリー"></p>
+                        <p class="col-2" th:text="*{category.getName()}"></p>
+                        <div class="col"></div>
+                        <p class="col-2" th:text="マイルストーン"></p>
+                        <p class="col-2" th:text="*{milestone.getName()}"></p>
+                    </div>
+                    <div class="row border">
+                        <p class="col-2" th:text="発生バージョン"></p>
+                        <p class="col-2" th:text="*{versions}"></p>
+                        <div class="col"></div>
+                    </div>
+                    <div class="row border">
+                        <p class="col-2" th:text="完了理由"></p>
+                        <p class="col-2" th:text="*{resolution}"></p>
+                        <div class="col"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div th:object="${issue}" class="container">
-        <div class="row border">
-            <i class="bi bi-emoji-laughing col-1"></i>
-            <p class="col-1 text-start" th:text="*{voter.getUsername()}"></p>
-        </div>
-        <div class="row border">
-            <p class="col text-start" th:text="*{#temporals.format(createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
-        </div>
-        <div class="row border">
-            <p th:text="*{description}"></p>
-        </div>
-    </div>
-    <div th:object="${issue}">
-        <div style="display: flex; justify-content: space-around">
-            <table class="table table-bordered">
-                <tbody>
-                <tr>
-                    <th th:text="優先度"></th>
-                    <td th:text="*{priority}"></td>
-                </tr>
-                <tr>
-                    <th th:text="カテゴリー"></th>
-                    <td th:text="*{category.getName()}"></td>
-                </tr>
-                <tr>
-                    <th th:text="発生バージョン"></th>
-                    <td th:text="*{versions}"></td>
-                </tr>
-                <tr>
-                    <th th:text="完了理由"></th>
-                    <td th:text="*{resolution}"></td>
-                </tr>
-                </tbody>
-                <thead>
-            </table>
-            <table class="table table-bordered">
-                <tbody>
-                <tr>
-                    <th th:text="担当者"></th>
-                    <td th:text="*{assigner.getUsername()}"></td>
-                </tr>
-                <tr>
-                    <th th:text="マイルストーン"></th>
-                    <td th:text="*{milestone.getName()}"></td>
-                </tr>
-                </tbody>
-                <thead>
-            </table>
-        </div>
-    </div>
-
     <div th:if="${comments.size() == 0}">
         コメントはまだありません。入力フォームからコメントできます。
     </div>
