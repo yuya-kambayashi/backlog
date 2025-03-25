@@ -86,21 +86,29 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="row border">
+            <p class="col-1">コメント</p>
+            <p class="col-1" th:text="${'(' + comments.size() + ')'}"></p>
+        </div>
+    </div>
     <div th:if="${comments.size() == 0}">
         コメントはまだありません。入力フォームからコメントできます。
     </div>
-
-    <table th:if="${comments.size() > 0}"
-           class="table table-bordered">
-        <tbody>
-        <tr th:each="comment : ${comments}">
-            <td th:text="*{comment.comment}"></td>
-            <td th:text="*{#temporals.format(comment.createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></td>
-            <td th:text="*{#temporals.format(comment.createAtIST(), 'dd/MM/yyyy HH:mm:ss')}"></td>
-        </tr>
-        </tbody>
-    </table>
-    <div>
+    <div class="container" th:if="${comments.size() > 0}">
+        <div class="card">
+            <div th:each="comment : ${comments}" class="card-body">
+                <div class="row border">
+                    <i class="bi bi-emoji-wink col-1"></i>
+                    <p class="col-2" th:text="*{comment.commenter.username}"></p>
+                    <p class="col" th:text="*{#temporals.format(comment.createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
+                </div>
+                <div class="row border">
+                    <div class="col-1"></div>
+                    <p class="col" th:text="*{comment.comment}"></p>
+                </div>
+            </div>
+        </div>
         <div class="card-body">
             <form th:with="issueId=${issue.id}"
                   th:action="@{/projects/view/addComment/{issueId}(issueId=${issueId})}"

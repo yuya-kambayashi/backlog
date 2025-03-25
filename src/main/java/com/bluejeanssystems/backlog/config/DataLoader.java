@@ -100,11 +100,13 @@ public class DataLoader implements ApplicationRunner {
         var comment1 = new Comment();
         comment1.setIssue(issue1);
         comment1.setComment("Hello World");
+        comment1.setCommenter(user1);
         commentRepository.save(comment1);
 
         var comment2 = new Comment();
         comment2.setIssue(issue1);
         comment2.setComment("booooooo");
+        comment2.setCommenter(user1);
         commentRepository.save(comment2);
 
         var issue2 = new Issue();
