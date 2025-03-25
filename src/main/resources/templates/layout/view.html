@@ -120,6 +120,10 @@
                    placeholder="コメント (@を入力してメンバーに通知)"
                    th:field="*{comment}"/>
         </div>
+        <div>
+            <label for="limitDate">期限日</label>
+            <input type="date" id="limitDate" name="limitDate" th:value="${limitDate}"/>
+        </div>
         <button type="submit">
             登録
         </button>

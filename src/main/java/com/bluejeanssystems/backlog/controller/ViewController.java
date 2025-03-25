@@ -5,13 +5,17 @@ import com.bluejeanssystems.backlog.model.Issue;
 import com.bluejeanssystems.backlog.repository.CommentRepository;
 import com.bluejeanssystems.backlog.repository.IssueRepository;
 import com.bluejeanssystems.backlog.util.SecurityUtil;
+import com.bluejeanssystems.backlog.util.Status;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @Controller
 @RequiredArgsConstructor
@@ -31,6 +35,7 @@ public class ViewController {
         model.addAttribute("newComment", new Comment());
         model.addAttribute("comments", commentRepository.findByIssueId(issueId));
         model.addAttribute("editUrl", "edit/" + issueId);
+        model.addAttribute("statuses", Status.values());
 
         return "layout/view";
     }
@@ -38,6 +43,7 @@ public class ViewController {
     @PostMapping("/addComment/{issueId}")
     public String comment(@PathVariable("issueId") long issueId,
                           @Validated @ModelAttribute("newComment") Comment comment,
+                          @RequestParam("limitDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate limitDate, // 期限日
                           BindingResult result,
                           Model model) {
         Issue issue = issueRepository.findById(issueId)
@@ -53,6 +59,11 @@ public class ViewController {
         comment.setCommenter(SecurityUtil.getCurrentUser());
         commentRepository.save(comment);
 
+        if (limitDate != null) {
+            issue.setLimitDate(limitDate);
+            issueRepository.save(issue);
+        }
+        
         return "redirect:/projects/view/" + issueId;
     }
 }
