@@ -6,6 +6,7 @@ import com.bluejeanssystems.backlog.repository.IssueRepository;
 import com.bluejeanssystems.backlog.repository.MilestoneRepository;
 import com.bluejeanssystems.backlog.repository.SiteUserRepository;
 import com.bluejeanssystems.backlog.util.Priority;
+import com.bluejeanssystems.backlog.util.SecurityUtil;
 import com.bluejeanssystems.backlog.util.Status;
 import com.bluejeanssystems.backlog.util.Type;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +49,12 @@ public class AddController {
         if (result.hasErrors()) {
             return "layout/add";
         }
+        issue.setVoter(SecurityUtil.getCurrentUser());
+
         issueRepository.save(issue);
+        var s = issue.getDescription();
+
+        System.out.println("description: " + issue.getDescription());
 
 
         return "redirect:/projects/view/" + issue.getId();

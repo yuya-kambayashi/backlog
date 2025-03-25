@@ -46,14 +46,14 @@
         <div class="container">
             <div class="row border">
                 <i class="bi bi-emoji-laughing col-1"></i>
-                <p class="col-1 text-start" th:text="*{voter.username}"></p>
+                <p class="col-1 text-start" th:text="*{voter?.username ?: ''}"></p>
             </div>
             <div class="row border">
                 <p class="col text-start" th:text="*{#temporals.format(createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
             </div>
-            <div class="row border">
-                <p th:text="*{description}"></p>
-            </div>
+        </div>
+        <div>
+            <p class="text-break" style="white-space: pre-line;" th:text="*{description}"></p>
         </div>
         <div class="container">
             <div class="card">
@@ -105,7 +105,8 @@
                 </div>
                 <div class="row border">
                     <div class="col-1"></div>
-                    <p class="col" th:text="*{comment.comment}"></p>
+                    <p class="text-break col" style="white-space: pre-line;" th:text="*{comment.comment}"></p>
+
                 </div>
             </div>
         </div>
@@ -115,44 +116,39 @@
           th:object="${newComment}"
           method="post"
           novalidate>
-        <div>
-            <input type="text"
-                   placeholder="コメント (@を入力してメンバーに通知)"
-                   th:field="*{comment}"/>
+        <div class="container">
+            <div class="row border">
+                <textarea class="col"
+                          placeholder="コメント (@を入力してメンバーに通知)"
+                          th:field="*{comment}"
+                          rows="4"></textarea>
+            </div>
+            <div class="row border">
+                <label class="col" for="status">状態</label>
+                <select class="col" id="status" name="status">
+                    <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
+                </select>
+                <label class="col" for="assigner">担当者</label>
+                <select class="col" id="assigner" name="assigner">
+                    <option th:each="user : ${users}" th:value="${user.id}"
+                            th:text="${user.username}"></option>
+                </select>
+                <label class="col" for="milestone">マイルストーン</label>
+                <select class="col" id="milestone" name="milestone">
+                    <option th:each="m : ${milestones}" th:value="${m.id}"
+                            th:text="${m.name}"></option>
+                </select>
+                <label class="col" for="limitDate">期限日</label>
+                <input class="col" type="date" id="limitDate" name="limitDate" th:value="${limitDate}"/>
+                <label class="col" for="resolution">完了理由</label>
+                <select class="col" id="resolution" name="resolution">
+                    <option th:each="r : ${resolutions}" th:value="${r}" th:text="${r}"></option>
+                </select>
+            </div>
+            <button type="submit">
+                登録
+            </button>
         </div>
-        <div>
-            <label for="status">状態</label>
-            <select id="status" name="status">
-                <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
-            </select>
-        </div>
-        <div>
-            <label for="assigner">担当者</label>
-            <select id="assigner" name="assigner">
-                <option th:each="user : ${users}" th:value="${user.id}"
-                        th:text="${user.username}"></option>
-            </select>
-        </div>
-        <div>
-            <label for="milestone">マイルストーン</label>
-            <select id="milestone" name="milestone">
-                <option th:each="m : ${milestones}" th:value="${m.id}"
-                        th:text="${m.name}"></option>
-            </select>
-        </div>
-        <div>
-            <label for="limitDate">期限日</label>
-            <input type="date" id="limitDate" name="limitDate" th:value="${limitDate}"/>
-        </div>
-        <div>
-            <label for="resolution">完了理由</label>
-            <select id="resolution" name="resolution">
-                <option th:each="r : ${resolutions}" th:value="${r}" th:text="${r}"></option>
-            </select>
-        </div>
-        <button type="submit">
-            登録
-        </button>
     </form>
 </div>
 </body>
