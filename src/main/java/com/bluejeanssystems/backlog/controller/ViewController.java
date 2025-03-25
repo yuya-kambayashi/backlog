@@ -69,9 +69,11 @@ public class ViewController {
             return "layout/view";
         }
 
-        comment.setIssue(issue);
-        comment.setCommenter(SecurityUtil.getCurrentUser());
-        commentRepository.save(comment);
+        if (!comment.getComment().isEmpty()) {
+            comment.setIssue(issue);
+            comment.setCommenter(SecurityUtil.getCurrentUser());
+            commentRepository.save(comment);
+        }
 
         boolean updated = false;
         if (status != null) {

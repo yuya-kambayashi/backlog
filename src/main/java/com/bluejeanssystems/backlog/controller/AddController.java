@@ -52,10 +52,7 @@ public class AddController {
         issue.setVoter(SecurityUtil.getCurrentUser());
 
         issueRepository.save(issue);
-        var s = issue.getDescription();
-
-        System.out.println("description: " + issue.getDescription());
-
+        
 
         return "redirect:/projects/view/" + issue.getId();
     }
