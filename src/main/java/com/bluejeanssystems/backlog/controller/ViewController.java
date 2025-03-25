@@ -2,7 +2,8 @@ package com.bluejeanssystems.backlog.controller;
 
 import com.bluejeanssystems.backlog.model.Comment;
 import com.bluejeanssystems.backlog.model.Issue;
-import com.bluejeanssystems.backlog.repository.*;
+import com.bluejeanssystems.backlog.repository.CommentRepository;
+import com.bluejeanssystems.backlog.repository.IssueRepository;
 import com.bluejeanssystems.backlog.util.SecurityUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,6 @@ import org.springframework.web.bind.annotation.*;
 public class ViewController {
     private final IssueRepository issueRepository;
     private final CommentRepository commentRepository;
-    private final MilestoneRepository milestoneRepository;
-    private final CategoryRepository categoryRepository;
-    private final SiteUserRepository userRepository;
 
     @GetMapping("/{issueId}")
     public String view(Model model,
@@ -32,10 +30,7 @@ public class ViewController {
         model.addAttribute("issue", issue);
         model.addAttribute("newComment", new Comment());
         model.addAttribute("comments", commentRepository.findByIssueId(issueId));
-        String uri = request.getRequestURI();
-        uri += "/edit";
-        uri = "edit/" + issueId;
-        model.addAttribute("editUrl", uri);
+        model.addAttribute("editUrl", "edit/" + issueId);
 
         return "layout/view";
     }
@@ -44,7 +39,7 @@ public class ViewController {
     public String comment(@PathVariable("issueId") long issueId,
                           @Validated @ModelAttribute("newComment") Comment comment,
                           BindingResult result,
-                          Model model) throws Exception {
+                          Model model) {
         Issue issue = issueRepository.findById(issueId)
                 .orElseThrow(() -> new IllegalArgumentException("Issue not found: " + issueId));
 

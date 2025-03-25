@@ -46,7 +46,7 @@
         <div class="container">
             <div class="row border">
                 <i class="bi bi-emoji-laughing col-1"></i>
-                <p class="col-1 text-start" th:text="*{voter.getUsername()}"></p>
+                <p class="col-1 text-start" th:text="*{voter.username}"></p>
             </div>
             <div class="row border">
                 <p class="col text-start" th:text="*{#temporals.format(createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
@@ -63,18 +63,18 @@
                         <p class="col-2" th:text="*{priority}"></p>
                         <div class="col"></div>
                         <p class="col-2" th:text="担当者"></p>
-                        <p class="col-2" th:text="*{assigner.getUsername()}"></p>
+                        <p class="col-2" th:text="*{assigner?.username ?: ''}"></p>
                     </div>
                     <div class="row border">
                         <p class="col-2" th:text="カテゴリー"></p>
-                        <p class="col-2" th:text="*{category.getName()}"></p>
+                        <p class="col-2" th:text="*{category?.name ?: ''}"></p>
                         <div class="col"></div>
                         <p class="col-2" th:text="マイルストーン"></p>
-                        <p class="col-2" th:text="*{milestone.getName()}"></p>
+                        <p class="col-2" th:text="*{milestone?.name ?: ''}"></p>
                     </div>
                     <div class="row border">
                         <p class="col-2" th:text="発生バージョン"></p>
-                        <p class="col-2" th:text="*{versions.getName()}"></p>
+                        <p class="col-2" th:text="*{versions?.name ?: ''}"></p>
                         <div class="col"></div>
                     </div>
                     <div class="row border">
@@ -118,7 +118,7 @@
         <div>
             <input type="text"
                    placeholder="コメント (@を入力してメンバーに通知)"
-                   th:field="*{comment}">
+                   th:field="*{comment}"/>
         </div>
         <button type="submit">
             登録
