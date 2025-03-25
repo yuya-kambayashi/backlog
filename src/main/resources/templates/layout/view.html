@@ -121,8 +121,34 @@
                    th:field="*{comment}"/>
         </div>
         <div>
+            <label for="status">状態</label>
+            <select id="status" name="status">
+                <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="assigner">担当者</label>
+            <select id="assigner" name="assigner">
+                <option th:each="user : ${users}" th:value="${user.id}"
+                        th:text="${user.username}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="milestone">マイルストーン</label>
+            <select id="milestone" name="milestone">
+                <option th:each="m : ${milestones}" th:value="${m.id}"
+                        th:text="${m.name}"></option>
+            </select>
+        </div>
+        <div>
             <label for="limitDate">期限日</label>
             <input type="date" id="limitDate" name="limitDate" th:value="${limitDate}"/>
+        </div>
+        <div>
+            <label for="resolution">完了理由</label>
+            <select id="resolution" name="resolution">
+                <option th:each="r : ${resolutions}" th:value="${r}" th:text="${r}"></option>
+            </select>
         </div>
         <button type="submit">
             登録
