@@ -3,21 +3,22 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layout/layout}">
 <body>
-<nav layout:fragment="header" class="header navbar navbar-fixed-top" style="padding-right: 50px">
-    <div>
-        <a>ヘッダー部分</a>
+<nav layout:fragment="header" class="header mw-100 d-flex mb-3">
+    <div class="pb-2">
+        <i class="bi bi-building"></i>
     </div>
-    <div>
-        <div class="dropdown">
-            <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"
-                    aria-expanded="true">
-                <span th:text="${username}"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" th:href="@{/projects/profile}">プロフィール</a></li>
-                <li><a class="dropdown-item" th:href="@{/logout}">ログアウト</a></li>
-            </ul>
-        </div>
+    <div class="pb-2">
+        <a th:href="@{/dashboard}" class="text-decoration-none">ダッシュボード</a>
+    </div>
+    <div class="dropdown ms-auto p-2" style="margin-top: -8px">
+        <button type="button" class="btn btn-info dropdown-toggle btn-sm" data-bs-toggle="dropdown"
+                aria-expanded="true">
+            <span th:text="${username}"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" th:href="@{/projects/profile}">プロフィール</a></li>
+            <li><a class="dropdown-item" th:href="@{/logout}">ログアウト</a></li>
+        </ul>
     </div>
 </nav>
 </body>
