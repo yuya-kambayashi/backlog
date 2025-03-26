@@ -1,0 +1,14 @@
+.header {
+    background-color: #EDF4F0;
+    height: 46px;
+    padding: 8px;
+}
+
+#header a:visited {
+    color: black;
+}
+
+#dashboardLink :hover {
+    background-color: #DEEDE7;
+    color: #4CAF93;
+}
