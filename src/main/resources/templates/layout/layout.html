@@ -25,14 +25,17 @@
 
 <!-- メニュー -->
 <div>
-    <div class="menu col-sm-2">
+    <div class="menu col-sm-2 ">
         <div layout:replace="~{layout/menu::menu}"></div>
     </div>
 </div>
 
 <!-- コンテンツ -->
 <div>
-    <nav class="main col-sm-10 offset-sm-2 overflow-auto">
+    <div class="main-header col-sm-10 offset-sm-2">
+        <p class="fw-bold fs-5 menu-header-project-name" th:text="${projectname}"></p>
+    </div>
+    <nav class="main col-sm-10 offset-sm-2">
         <div layout:fragment="content"></div>
     </nav>
 </div>

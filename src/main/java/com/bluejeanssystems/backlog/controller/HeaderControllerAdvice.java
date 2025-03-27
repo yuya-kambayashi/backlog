@@ -15,4 +15,10 @@ public class HeaderControllerAdvice {
 
         return "Default username";
     }
+
+    @ModelAttribute("projectname")
+    public String projectName() {
+
+        return "Project name";
+    }
 }

@@ -4,10 +4,22 @@
     position: fixed;
     display: block;
     bottom: 0;
-    top: 58px;
+    top: 95px;
     margin-bottom: 58px;
     padding-left: 20px;
-    border: 2px solid;
+}
+
+.main-header {
+    background-color: white;
+    position: fixed;
+    display: block;
+    bottom: 0;
+    top: 46px;
+    padding-left: 20px;
+}
+
+.menu-header-project-name {
+    padding-top: 7px;
 }
 
 .footer {
