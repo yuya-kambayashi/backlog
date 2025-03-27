@@ -5,7 +5,6 @@
     display: block;
     bottom: 0;
     top: 95px;
-    margin-bottom: 58px;
     padding-left: 20px;
 }
 
@@ -21,8 +20,3 @@
 .menu-header-project-name {
     padding-top: 7px;
 }
-
-.footer {
-    border: 2px solid;
-}
-
