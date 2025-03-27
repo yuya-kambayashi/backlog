@@ -1,3 +1,19 @@
-.ul {
-    list-style: none;
+.menu {
+    background-color: #4CAF93;
+    color: white;
+    position: fixed;
+    display: block;
+    top: 46px;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 50px;
+}
+
+#menu a:visited {
+    color: white;
+}
+
+.menu-item {
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
