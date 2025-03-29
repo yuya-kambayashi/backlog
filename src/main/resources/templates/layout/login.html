@@ -33,20 +33,19 @@
                 <div th:replace="~{fragments/message :: login}">
                 </div>
                 <form class="d-flex flex-column" th:action="@{/login}" method="post">
-
                     <input
-                            class="p-2 login-input-item form-control"
-                            type="text"
-                            name="username"
-                            placeholder="Username"
-                            th:value="admin"
-                            required/>
+                        class="p-2 login-input-item form-control"
+                        type="email"
+                        name="email"
+                        placeholder="email"
+                        th:value="${'admin@bluejeanssystems.com'}"
+                        required/>
                     <input
                             class="p-2 login-input-item form-control"
                             type="password"
                             name="password"
                             placeholder="Password"
-                            th:value="admin01"
+                            th:value="bluejeanssystems"
                             required/>
 
                     <button class="p-2 login-input-item btn btn-secondary" type="submit">Login</button>

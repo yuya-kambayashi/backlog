@@ -55,8 +55,8 @@ public class DataLoader implements ApplicationRunner {
 
         var user1 = new SiteUser();
         user1.setUsername("Ryotaro");
-        user1.setPassword(passwordEncoder.encode("password"));
-//        user.setEmail("admin@example.com");
+        user1.setPassword(passwordEncoder.encode("bluejeanssystems"));
+        user1.setEmail("ryotaro@bluejeanssystems.com");
 //        user.setGender(0);
 //        user.setAdmin(true);
         user1.setAuthority(Authority.ADMIN);
@@ -65,8 +65,8 @@ public class DataLoader implements ApplicationRunner {
 
         var user2 = new SiteUser();
         user2.setUsername("Daisuke");
-        user2.setPassword(passwordEncoder.encode("password"));
-//        user.setEmail("admin@example.com");
+        user2.setPassword(passwordEncoder.encode("bluejeanssystems"));
+        user2.setEmail("daisuke@bluejeanssystems.com");
 //        user.setGender(0);
 //        user.setAdmin(true);
         user2.setAuthority(Authority.USER);
@@ -75,8 +75,8 @@ public class DataLoader implements ApplicationRunner {
 
         var user3 = new SiteUser();
         user3.setUsername("admin");
-        user3.setPassword(passwordEncoder.encode("admin01"));
-//        user.setEmail("admin@example.com");
+        user3.setPassword(passwordEncoder.encode("bluejeanssystems"));
+        user3.setEmail("admin@bluejeanssystems.com");
 //        user.setGender(0);
 //        user.setAdmin(true);
         user3.setAuthority(Authority.USER);
