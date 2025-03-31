@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+<!-- タスクバッジ -->
+<span th:fragment="issue-type(text, colorClass)"
+      th:text="${text}"
+      th:classappend="${colorClass}"
+      class="badge">
+    タスク
+</span>
+</body>
+</html>
