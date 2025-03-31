@@ -118,45 +118,47 @@
             </div>
         </div>
     </div>
-    <form th:with="issueId=${issue.id}"
-          th:action="@{/projects/view/addComment/{issueId}(issueId=${issueId})}"
-          th:object="${newComment}"
-          method="post"
-          novalidate>
-        <div class="container">
-            <div class="row border">
-                <textarea class="col"
-                          placeholder="コメント (@を入力してメンバーに通知)"
-                          th:field="*{comment}"
-                          rows="4"></textarea>
+    <div class="col-sm-10 offset-sm-2 fixed-bottom ">
+        <form th:with="issueId=${issue.id}"
+              th:action="@{/projects/view/addComment/{issueId}(issueId=${issueId})}"
+              th:object="${newComment}"
+              method="post"
+              novalidate>
+            <div class="container">
+                <div class="row border">
+                    <textarea class="col"
+                              placeholder="コメント (@を入力してメンバーに通知)"
+                              th:field="*{comment}"
+                              rows="4"></textarea>
+                </div>
+                <div class="row border">
+                    <label class="col" for="status">状態</label>
+                    <select class="col" id="status" name="status">
+                        <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
+                    </select>
+                    <label class="col" for="assigner">担当者</label>
+                    <select class="col" id="assigner" name="assigner">
+                        <option th:each="user : ${users}" th:value="${user.id}"
+                                th:text="${user.username}"></option>
+                    </select>
+                    <label class="col" for="milestone">マイルストーン</label>
+                    <select class="col" id="milestone" name="milestone">
+                        <option th:each="m : ${milestones}" th:value="${m.id}"
+                                th:text="${m.name}"></option>
+                    </select>
+                    <label class="col" for="limitDate">期限日</label>
+                    <input class="col" type="date" id="limitDate" name="limitDate" th:value="${limitDate}"/>
+                    <label class="col" for="resolution">完了理由</label>
+                    <select class="col" id="resolution" name="resolution">
+                        <option th:each="r : ${resolutions}" th:value="${r}" th:text="${r}"></option>
+                    </select>
+                </div>
+                <button type="submit">
+                    登録
+                </button>
             </div>
-            <div class="row border">
-                <label class="col" for="status">状態</label>
-                <select class="col" id="status" name="status">
-                    <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
-                </select>
-                <label class="col" for="assigner">担当者</label>
-                <select class="col" id="assigner" name="assigner">
-                    <option th:each="user : ${users}" th:value="${user.id}"
-                            th:text="${user.username}"></option>
-                </select>
-                <label class="col" for="milestone">マイルストーン</label>
-                <select class="col" id="milestone" name="milestone">
-                    <option th:each="m : ${milestones}" th:value="${m.id}"
-                            th:text="${m.name}"></option>
-                </select>
-                <label class="col" for="limitDate">期限日</label>
-                <input class="col" type="date" id="limitDate" name="limitDate" th:value="${limitDate}"/>
-                <label class="col" for="resolution">完了理由</label>
-                <select class="col" id="resolution" name="resolution">
-                    <option th:each="r : ${resolutions}" th:value="${r}" th:text="${r}"></option>
-                </select>
-            </div>
-            <button type="submit">
-                登録
-            </button>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 </body>
 </html>
