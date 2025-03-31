@@ -25,19 +25,20 @@
             <div class="row border">
                 <p class="col text-start" th:text="*{title}"></p>
                 <form class="col-2 ms-auto text-end" th:action="${editUrl}" method="get">
-                    <button class="btn btn-outline-secondary rounded-pill p-1" style="font-size: small">
+                    <button class="btn btn-outline-secondary rounded-pill p-1 bg-white" style="font-size: small">
                         <i class="bi bi-eye"></i>
                         ウォッチ
                     </button>
                 </form>
                 <form class="col-1" th:action="${editUrl}" method="get">
-                    <button class="btn btn-outline-secondary rounded-pill p-1" style="font-size: small">
+                    <button class="btn btn-outline-secondary rounded-pill p-1 bg-white" style="font-size: small">
                         <i class="bi bi-pencil-fill"></i>
                         編集
                     </button>
                 </form>
                 <div class="dropdown col-1">
-                    <button type="button" class="btn btn-outline-secondary  rounded-circle justify-content-start"
+                    <button type="button"
+                            class="btn btn-outline-secondary  rounded-circle justify-content-start bg-white"
                             data-bs-toggle="dropdown"
                             aria-expanded="true"
                             style="width: 30px; height: 30px; padding-left: 6px;padding-top:2px;">
