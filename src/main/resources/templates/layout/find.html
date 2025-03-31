@@ -93,7 +93,9 @@
             <tbody>
             <tr th:each="issue : ${issues}"
                 th:object="${issue}">
-                <td th:text="*{type}"></td>
+                <td>
+                    <div th:replace="~{fragments/badge :: issue-type(*{type})}"></div>
+                </td>
                 <td>
                     <a th:href="@{/projects/view/{issueId}(issueId=*{id})}" th:text="*{id}">id</a>
                 </td>
