@@ -3,13 +3,15 @@
 <head>
 </head>
 <body>
-
-<!-- タスクバッジ -->
-<span th:fragment="issue-type(text, colorClass)"
-      th:text="${text}"
-      th:classappend="${colorClass}"
-      class="badge">
-    タスク
-</span>
+<div th:fragment="issue-type(type)" class="col-1">
+    <span th:if="${#strings.equalsIgnoreCase(type, 'タスク')}" th:text="${type}"
+          class="issue-type-task badge"></span>
+    <span th:if="${#strings.equalsIgnoreCase(type, 'バグ')}" th:text="${type}"
+          class="issue-type-bug badge"></span>
+    <span th:if="${#strings.equalsIgnoreCase(type, '要望')}" th:text="${type}"
+          class="issue-type-request badge"></span>
+    <span th:if="${#strings.equalsIgnoreCase(type, 'その他')}" th:text="${type}"
+          class="issue-type-other badge"></span>
+</div>
 </body>
 </html>

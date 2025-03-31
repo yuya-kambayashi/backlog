@@ -12,18 +12,7 @@
     <div th:object="${issue}">
         <div class="container">
             <div class="row border">
-                <span class="col-1" th:if="${#strings.equalsIgnoreCase(issue.type, 'タスク')}">
-                    <span th:replace="~{fragments/badge :: issue-type('タスク', 'issue-type-task')}"></span>
-                </span>
-                <span class="col-1" th:if="${#strings.equalsIgnoreCase(issue.type, 'バグ')}">
-                    <span th:replace="~{fragments/badge :: issue-type('バグ', 'issue-type-bug')}"></span>
-                </span>
-                <span class="col-1" th:if="${#strings.equalsIgnoreCase(issue.type, '要望')}">
-                    <span th:replace="~{fragments/badge :: issue-type('要望', 'issue-type-request')}"></span>
-                </span>
-                <span class="col-1" th:if="${#strings.equalsIgnoreCase(issue.type, 'その他')}">
-                    <span th:replace="~{fragments/badge :: issue-type('その他', 'issue-type-other')}"></span>
-                </span>
+                <div th:replace="~{fragments/badge :: issue-type(*{type})}"></div>
                 <p class="col-1" th:text="*{id}"></p>
                 <p class="col-1">期限日</p>
                 <p class="col-2" th:text="*{limitDate}"></p>
