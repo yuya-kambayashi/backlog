@@ -3,7 +3,7 @@
 <head>
 </head>
 <body>
-<div th:fragment="issue-type(type)" class="col-1">
+<div th:fragment="issue-type(type)">
     <span th:if="${#strings.equalsIgnoreCase(type, 'タスク')}" th:text="${type}"
           class="issue-type-task badge"></span>
     <span th:if="${#strings.equalsIgnoreCase(type, 'バグ')}" th:text="${type}"
@@ -12,6 +12,17 @@
           class="issue-type-request badge"></span>
     <span th:if="${#strings.equalsIgnoreCase(type, 'その他')}" th:text="${type}"
           class="issue-type-other badge"></span>
+</div>
+
+<div th:fragment="issue-status(status)">
+    <span th:if="${#strings.equalsIgnoreCase(status, '未対応')}" th:text="${status}"
+          class="issue-status-未対応 badge"></span>
+    <span th:if="${#strings.equalsIgnoreCase(status, '処理中')}" th:text="${status}"
+          class="issue-status-処理中 badge"></span>
+    <span th:if="${#strings.equalsIgnoreCase(status, '処理済み')}" th:text="${status}"
+          class="issue-status-処理済み badge"></span>
+    <span th:if="${#strings.equalsIgnoreCase(status, '完了')}" th:text="${status}"
+          class="issue-status-完了 badge"></span>
 </div>
 </body>
 </html>

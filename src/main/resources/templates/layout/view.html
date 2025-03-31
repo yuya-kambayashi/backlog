@@ -12,11 +12,15 @@
     <div th:object="${issue}">
         <div class="container">
             <div class="row border">
-                <div th:replace="~{fragments/badge :: issue-type(*{type})}"></div>
+                <div class="col-1">
+                    <div th:replace="~{fragments/badge :: issue-type(*{type})}"></div>
+                </div>
                 <p class="col-1" th:text="*{id}"></p>
                 <p class="col-1">期限日</p>
                 <p class="col-2" th:text="*{limitDate}"></p>
-                <p class="col-1" th:text="*{status}"></p>
+                <div class="col-1">
+                    <div th:replace="~{fragments/badge :: issue-status(*{status})}"></div>
+                </div>
             </div>
             <div class="row border">
                 <p class="col text-start" th:text="*{title}"></p>

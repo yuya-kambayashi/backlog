@@ -101,7 +101,9 @@
                 </td>
                 <td th:text="*{title}"></td>
                 <td th:text="*{assigner?.username ?: ''}"></td>
-                <td th:text="*{status}"></td>
+                <td>
+                    <div th:replace="~{fragments/badge :: issue-status(*{status})}"></div>
+                </td>
                 <td th:text="*{category?.name ?: ''}"></td>
                 <td th:text="*{priority}"></td>
                 <td th:text="*{versions?.name ?: ''}"></td>
