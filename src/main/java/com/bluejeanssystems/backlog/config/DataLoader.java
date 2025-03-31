@@ -74,7 +74,7 @@ public class DataLoader implements ApplicationRunner {
 
 
         var user3 = new SiteUser();
-        user3.setUsername("admin");
+        user3.setUsername("Backlog管理者");
         user3.setPassword(passwordEncoder.encode("bluejeanssystems"));
         user3.setEmail("admin@bluejeanssystems.com");
 //        user.setGender(0);
@@ -86,7 +86,11 @@ public class DataLoader implements ApplicationRunner {
 
         var issue1 = new Issue();
         issue1.setTitle("画面レイアウトを調整する");
-        issue1.setDescription("参考にする。すべての画面。");
+        issue1.setDescription("""
+                                ssss
+                dddd
+                xxxxx
+                """);
         issue1.setStatus(Status.未対応);
         issue1.setType(Type.タスク);
         issue1.setPriority(Priority.中);
@@ -111,7 +115,11 @@ public class DataLoader implements ApplicationRunner {
 
         var issue2 = new Issue();
         issue2.setTitle("ガントチャートを作成する");
-        issue2.setDescription("計画日時と実績日時から");
+        issue2.setDescription("""
+                                Hello World
+                こんにちは
+                ニーハオ
+                """);
         issue2.setStatus(Status.完了);
         issue2.setType(Type.バグ);
         issue2.setPriority(Priority.高);

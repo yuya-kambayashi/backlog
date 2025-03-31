@@ -66,28 +66,26 @@
             </div>
         </form>
     </div>
-
-
     <div th:if="${issues.size() == 0}">
         該当データがありません
     </div>
     <div th:if="${issues.size() > 0}" class="" style="font-size: small">
         <table id="issue-table" class="table table-striped">
-            <thead class="border-bottom border-dark text-center">
+            <thead class="border-bottom border-dark">
             <tr>
-                <th style="min-width: 80px;">種類</th>
-                <th style="min-width: 50px;">キー</th>
-                <th style="min-width: 200px;">件名</th>
-                <th style="min-width: 100px;">担当者</th>
-                <th style="min-width: 80px;">状態</th>
-                <th style="min-width: 80px;">カテゴリ</th>
-                <th style="min-width: 60px;">優先度</th>
-                <th style="min-width: 150px;">発生バージョン</th>
-                <th style="min-width: 150px;">マイルストーン</th>
-                <th style="min-width: 80px;">登録日</th>
-                <th style="min-width: 80px;">期限日</th>
-                <th style="min-width: 80px;">更新日</th>
-                <th style="min-width: 80px;">登録者</th>
+                <th class="text-center" style="min-width: 80px;">種類</th>
+                <th class="text-center" style="min-width: 50px;">キー</th>
+                <th class="text-center" style="min-width: 200px;">件名</th>
+                <th class="text-center" style="min-width: 100px;">担当者</th>
+                <th class="text-center" style="min-width: 80px;">状態</th>
+                <th class="text-center" style="min-width: 80px;">カテゴリ</th>
+                <th class="text-center" style="min-width: 60px;">優先度</th>
+                <th class="text-center" style="min-width: 150px;">発生バージョン</th>
+                <th class="text-center" style="min-width: 150px;">マイルストーン</th>
+                <th class="text-center" style="min-width: 70px;">登録日</th>
+                <th class="text-center" style="min-width: 70px;">期限日</th>
+                <th class="text-center" style="min-width: 70px;">更新日</th>
+                <th class="text-center" style="min-width: 100px;">登録者</th>
             </tr>
             </thead>
             <tbody>

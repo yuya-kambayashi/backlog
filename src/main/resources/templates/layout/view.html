@@ -8,10 +8,10 @@
 </head>
 
 <body>
-<div layout:fragment="content" style="font-size: small">
+<div layout:fragment="content" style="font-size: small; margin-right:23px">
     <div th:object="${issue}">
         <div class="container">
-            <div class="row border">
+            <div class="row">
                 <div class="col-1">
                     <div th:replace="~{fragments/badge :: issue-type(*{type})}"></div>
                 </div>
@@ -22,8 +22,8 @@
                     <div th:replace="~{fragments/badge :: issue-status(*{status})}"></div>
                 </div>
             </div>
-            <div class="row border">
-                <p class="col text-start" th:text="*{title}"></p>
+            <div class="row">
+                <p class="col text-start fs-5 fw-bold" th:text="*{title}"></p>
                 <form class="col-2 ms-auto text-end" th:action="${editUrl}" method="get">
                     <button class="btn btn-outline-secondary rounded-pill p-1 bg-white" style="font-size: small">
                         <i class="bi bi-eye"></i>
@@ -45,7 +45,7 @@
                         <i class="bi bi-three-dots" style="font-size: 18px;"></i>
                     </button>
                     <ul class="dropdown-menu">
-                        <li>
+                        <li
                             <a class="dropdown-item" th:href="@{#}">複製</a>
                         </li>
                         <li>
@@ -58,51 +58,45 @@
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row border">
-                <i class="bi bi-emoji-laughing col-1"></i>
-                <p class="col-1 text-start" th:text="*{voter?.username ?: ''}"></p>
-            </div>
-            <div class="row border">
-                <p class="col text-start" th:text="*{#temporals.format(createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
-            </div>
-        </div>
-        <div>
-            <p class="text-break" style="white-space: pre-line;" th:text="*{description}"></p>
-        </div>
-        <div class="container">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row border">
-                        <p class="col-2" th:text="優先度"></p>
-                        <p class="col-2" th:text="*{priority}"></p>
-                        <div class="col"></div>
-                        <p class="col-2" th:text="担当者"></p>
-                        <p class="col-2" th:text="*{assigner?.username ?: ''}"></p>
+        <div class="card">
+            <div class="card-body">
+                <div class="container">
+                    <div class="row">
+                        <p class="col-2 fw-bolder " style="font-size: medium;" th:text="*{voter?.username ?: ''}"></p>
+                        <p class="col-1 fw-light">登録日</p>
+                        <p class="col-2 text-start fw-light"
+                           th:text="*{#temporals.format(createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
                     </div>
-                    <div class="row border">
-                        <p class="col-2" th:text="カテゴリー"></p>
-                        <p class="col-2" th:text="*{category?.name ?: ''}"></p>
-                        <div class="col"></div>
-                        <p class="col-2" th:text="マイルストーン"></p>
-                        <p class="col-2" th:text="*{milestone?.name ?: ''}"></p>
+                    <div class="row">
+                        <p class="text-break border-bottom" style="white-space: pre-line;"
+                           th:text="*{description}"></p>
                     </div>
-                    <div class="row border">
-                        <p class="col-2" th:text="発生バージョン"></p>
-                        <p class="col-2" th:text="*{versions?.name ?: ''}"></p>
-                        <div class="col"></div>
+                    <div class="row">
+                        <p class="col-2 border-bottom" th:text="優先度"></p>
+                        <p class="col-4 border-bottom" th:text="*{priority}"></p>
+                        <p class="col-2 border-bottom ms-auto" th:text="担当者"></p>
+                        <p class="col-4 border-bottom" th:text="*{assigner?.username ?: ''}"></p>
                     </div>
-                    <div class="row border">
-                        <p class="col-2" th:text="完了理由"></p>
-                        <p class="col-2" th:text="*{resolution}"></p>
-                        <div class="col"></div>
+                    <div class="row">
+                        <p class="col-2 border-bottom" th:text="カテゴリー"></p>
+                        <p class="col-4 border-bottom" th:text="*{category?.name ?: ''}"></p>
+                        <p class="col-2 border-bottom ms-auto" th:text="マイルストーン"></p>
+                        <p class="col-4 border-bottom " th:text="*{milestone?.name ?: ''}"></p>
+                    </div>
+                    <div class="row">
+                        <p class="col-2 border-bottom" th:text="発生バージョン"></p>
+                        <p class="col-4 border-bottom" th:text="*{versions?.name ?: ''}"></p>
+                        <p class="col-2 border-bottom ms-auto" th:text="完了理由"></p>
+                        <p class="col-4 border-bottom" th:text="*{resolution}"></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="container">
-        <div class="row border">
+        <div class="row mt-5">
+        </div>
+        <div class="row">
             <p class="col-1">コメント</p>
             <p class="col-1" th:text="${'(' + comments.size() + ')'}"></p>
         </div>
@@ -110,18 +104,16 @@
     <div th:if="${comments.size() == 0}">
         コメントはまだありません。入力フォームからコメントできます。
     </div>
-    <div class="container" th:if="${comments.size() > 0}">
-        <div class="card">
-            <div th:each="comment : ${comments}" class="card-body">
-                <div class="row border">
-                    <i class="bi bi-emoji-wink col-1"></i>
-                    <p class="col-2" th:text="*{comment.commenter.username}"></p>
-                    <p class="col" th:text="*{#temporals.format(comment.createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
+    <div class="card" th:if="${comments.size() > 0}">
+        <div th:each="comment : ${comments}" class="card-body border-bottom">
+            <div class="container">
+                <div class="row">
+                    <p class="col-2 fw-bolder " style="font-size: medium;" th:text="*{comment.commenter.username}"></p>
+                    <p class="col fw-light" th:text="*{#temporals.format(comment.createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
                 </div>
-                <div class="row border">
+                <div class="row">
                     <div class="col-1"></div>
                     <p class="text-break col" style="white-space: pre-line;" th:text="*{comment.comment}"></p>
-
                 </div>
             </div>
         </div>
