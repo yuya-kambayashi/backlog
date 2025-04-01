@@ -88,6 +88,8 @@ public class DataLoader implements ApplicationRunner {
         issue1.setTitle("画面レイアウトを調整する");
         issue1.setDescription("""
                                 ssss
+                
+                                <img src="/images/screenshot.png">
                 dddd
                 xxxxx
                 """);
