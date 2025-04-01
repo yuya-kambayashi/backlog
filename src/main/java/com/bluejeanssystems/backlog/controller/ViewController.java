@@ -8,6 +8,7 @@ import com.bluejeanssystems.backlog.repository.CommentRepository;
 import com.bluejeanssystems.backlog.repository.IssueRepository;
 import com.bluejeanssystems.backlog.repository.MilestoneRepository;
 import com.bluejeanssystems.backlog.repository.SiteUserRepository;
+import com.bluejeanssystems.backlog.service.MailService;
 import com.bluejeanssystems.backlog.util.Resolution;
 import com.bluejeanssystems.backlog.util.SecurityUtil;
 import com.bluejeanssystems.backlog.util.Status;
@@ -30,6 +31,9 @@ public class ViewController {
     private final CommentRepository commentRepository;
     private final SiteUserRepository userRepository;
     private final MilestoneRepository milestoneRepository;
+
+    private final MailService mailService;
+
 
     @GetMapping("/{issueId}")
     public String view(Model model,
@@ -99,6 +103,12 @@ public class ViewController {
 
         if (updated) {
             issueRepository.save(issue);
+        }
+
+        try {
+            mailService.sendEmail("kambayashi73@gmail.com", "sampleSubject", "sampleBody");
+        } catch (Exception e) {
+
         }
 
 
