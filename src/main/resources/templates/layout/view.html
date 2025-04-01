@@ -45,7 +45,7 @@
                         <i class="bi bi-three-dots" style="font-size: 18px;"></i>
                     </button>
                     <ul class="dropdown-menu">
-                        <li
+                        <li>
                             <a class="dropdown-item" th:href="@{#}">複製</a>
                         </li>
                         <li>
@@ -109,11 +109,12 @@
             <div class="container">
                 <div class="row">
                     <p class="col-2 fw-bolder " style="font-size: medium;" th:text="*{comment.commenter.username}"></p>
-                    <p class="col fw-light" th:text="*{#temporals.format(comment.createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
+                    <p class="col fw-light"
+                       th:text="*{#temporals.format(comment.createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
                 </div>
                 <div class="row">
                     <div class="col-1"></div>
-                    <p class="text-break col" style="white-space: pre-line;" th:text="*{comment.comment}"></p>
+                    <p class="text-break col" style="white-space: pre-line;" th:utext="*{comment.comment}"></p>
                 </div>
             </div>
         </div>
@@ -154,7 +155,7 @@
                         <div>
                             <label class="" for="limitDate">期限日</label>
                             <input class="" type="date" id="limitDate" name="limitDate" th:value="${limitDate}"/>
-                            </div>
+                        </div>
                         <div>
                             <label class="" for="resolution">完了理由</label>
                             <select class="" id="resolution" name="resolution">
@@ -169,7 +170,6 @@
                     </button>
                 </div>
             </div>
-
         </form>
     </div>
 </div>
