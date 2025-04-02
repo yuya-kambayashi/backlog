@@ -48,6 +48,14 @@ public class FileUploadController {
             response.put("filePath", filePath.toString());
             response.put("pathWithTag", "<img src=\"" + filePath.toString() + "\">");
 
+            /*
+            ファイルを保存
+            ファイルをS3にアップロード
+                フォルダ作成
+            cloudfrontのUrlを取得
+            imgタグの埋め込み
+            */
+
             return ResponseEntity.ok(response);
         } catch (IOException e) {
             response.put("error", "エラー: " + e.getMessage());
