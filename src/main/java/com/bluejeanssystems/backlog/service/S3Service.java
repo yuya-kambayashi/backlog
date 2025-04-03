@@ -18,8 +18,8 @@ public class S3Service {
     @Value("${aws.s3.bucket}")
     private String bucketName;
 
-    @Value("${aws.cloudfront.destributionDomainName}")
-    private String cloudfrontDestributionDomainName;
+    @Value("${aws.cloudfront.distributionDomainName}")
+    private String cloudfrontDistributionDomainName;
 
     public S3Service(@Value("${aws.accessKey}") String accessKey,
                      @Value("${aws.secretKey}") String secretKey,
@@ -42,6 +42,6 @@ public class S3Service {
 
         s3Client.putObject(putObjectRequest, localFilePath);
 
-        return "https://" + cloudfrontDestributionDomainName + "/" + fileName;
+        return "https://" + cloudfrontDistributionDomainName + "/" + fileName;
     }
 }
