@@ -75,14 +75,14 @@
             if (item.kind === "file") {
                 let file = item.getAsFile();
                 let formData = new FormData();
-                formData.append("file", file, "renamed_image.png");
+                formData.append("file", file, "pasted.png");
 
                 // CSRF トークン取得
                 let csrfToken = document.querySelector('meta[name="_csrf"]').content;
                 let csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
 
                 try {
-                    let response = await fetch("/upload", {
+                    let response = await fetch("/upload2S3", {
                         method: "POST",
                         body: formData,
                         headers: {
@@ -98,11 +98,11 @@
                     console.log("アップロード成功:", jsonResponse);
 
                     // ファイルパスを取得
-                    let filePath = jsonResponse.filePath;
-                    console.log("保存先:", filePath);
+                    let fileUrl = jsonResponse.fileUrl;
+                    console.log("保存先:", fileUrl);
 
                     // HTML に表示する場合
-                    document.getElementById("upload-area").value = "アップロードされたファイル: " + filePath;
+                    document.getElementById("upload-area").value = "アップロードされたファイル: " + fileUrl;
                     document.getElementById("paste-area").innerHTML = jsonResponse.pathWithTag;
                 } catch (error) {
                     console.error("エラー:", error);

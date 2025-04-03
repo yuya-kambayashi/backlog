@@ -13,6 +13,12 @@ public class BacklogApplication {
         Dotenv dotenv = Dotenv.load();
         System.setProperty("EMAIL_USERNAME", dotenv.get("EMAIL_USERNAME"));
         System.setProperty("EMAIL_PASSWORD", dotenv.get("EMAIL_PASSWORD"));
+
+        System.setProperty("accessKey", dotenv.get("accessKey"));
+        System.setProperty("secretKey", dotenv.get("secretKey"));
+        System.setProperty("region", dotenv.get("region"));
+        System.setProperty("s3_bucket", dotenv.get("s3_bucket"));
+        System.setProperty("cloudfront_destribution_domain_name", dotenv.get("cloudfront_destribution_domain_name"));
     }
 
     public static void main(String[] args) {

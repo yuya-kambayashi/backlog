@@ -1,5 +1,6 @@
 package com.bluejeanssystems.backlog.controller;
 
+import com.bluejeanssystems.backlog.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Controller
 public class FileUploadController {
+
 
     private static final String UPLOAD_DIR = "C:\\Users\\kamba\\Documents\\02_Java\\02_Backlog\\uploads\\";
 
@@ -59,6 +61,38 @@ public class FileUploadController {
             return ResponseEntity.ok(response);
         } catch (IOException e) {
             response.put("error", "エラー: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    private final S3Service s3Service;
+
+
+    @PostMapping("/upload2S3")
+    public ResponseEntity<Map<String, String>> uploadFile2S3(@RequestParam("file") MultipartFile file) {
+        Map<String, String> response = new HashMap<>();
+
+        try {
+            // アップロードディレクトリを作成（存在しない場合）
+            File uploadDir = new File(UPLOAD_DIR);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
+            // ユニークなファイル名を作成（ファイル名の競合を防ぐ）
+            String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+            Path localFilePath = Paths.get(UPLOAD_DIR, uniqueFileName);
+
+            // ファイルを保存
+            Files.write(localFilePath, file.getBytes());
+            // アップロード
+            String fileUrl = s3Service.uploadFile(localFilePath);
+
+            response.put("fileUrl", fileUrl);
+            response.put("pathWithTag", "<img src=\"" + fileUrl + "\">");
+
+            return ResponseEntity.ok(response);
+        } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
