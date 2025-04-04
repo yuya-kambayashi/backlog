@@ -27,13 +27,14 @@
     <!--        <p>受け取ったメッセージ: <span th:text="${message}"></span></p>-->
     <!--    </div>-->
     <form th:action="@{/dashboard}" method="post" novalidate>
-        <textarea name="message" rows="4" cols="50" placeholder="メッセージを入力してください" required></textarea>
+        <textarea id="upload-area" name="message" rows="4" cols="50" placeholder="メッセージを入力してください"
+                  required></textarea>
         <br>
         <button type="submit">登録</button>
     </form>
 
     <div th:if="${message != null}">
-        <p>受け取ったメッセージ: <span th:text="${message}"></span></p>
+        <span th:utext="${message}"></span>
     </div>
 </div>
 </body>

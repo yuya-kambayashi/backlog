@@ -102,8 +102,9 @@
                     console.log("保存先:", fileUrl);
 
                     // HTML に表示する場合
-                    document.getElementById("upload-area").value = "アップロードされたファイル: " + fileUrl;
-                    document.getElementById("paste-area").innerHTML = jsonResponse.pathWithTag;
+                    //document.getElementById("upload-area").value = "アップロードされたファイル: " + fileUrl;
+                    //  document.getElementById("paste-area").innerHTML = jsonResponse.pathWithTag;
+                    document.getElementById("upload-area").value = jsonResponse.pathWithTag;
                 } catch (error) {
                     console.error("エラー:", error);
                 }
