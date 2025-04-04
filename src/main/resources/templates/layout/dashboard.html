@@ -17,8 +17,24 @@
             <h1>最近の更新</h1>
         </div>
     </div>
-    <textarea id="upload-area" rows="5" cols="50" placeholder="ここに画像をペースト"></textarea>
-    <div id="paste-area"></div>
+    <!--    <form action="/submit-message" method="post">-->
+    <!--        <textarea name="message" id="upload-area" rows="5" cols="50" placeholder="ここに画像をペースト"></textarea>-->
+    <!--        <button type="submit">-->
+    <!--            登録-->
+    <!--        </button>-->
+    <!--    </form>-->
+    <!--    <div th:if="${message != null}">-->
+    <!--        <p>受け取ったメッセージ: <span th:text="${message}"></span></p>-->
+    <!--    </div>-->
+    <form th:action="@{/dashboard}" method="post" novalidate>
+        <textarea name="message" rows="4" cols="50" placeholder="メッセージを入力してください" required></textarea>
+        <br>
+        <button type="submit">登録</button>
+    </form>
+
+    <div th:if="${message != null}">
+        <p>受け取ったメッセージ: <span th:text="${message}"></span></p>
+    </div>
 </div>
 </body>
 </html>
