@@ -68,7 +68,7 @@
 </script>
 <script src="/js/script.js" defer></script>
 <script>
-    document.getElementById("upload-area").addEventListener("paste", async function (event) {
+    document.getElementById("comment-input-area").addEventListener("paste", async function (event) {
         let items = (event.clipboardData || event.originalEvent.clipboardData).items;
 
         for (let item of items) {
@@ -104,7 +104,9 @@
                     // HTML に表示する場合
                     //document.getElementById("upload-area").value = "アップロードされたファイル: " + fileUrl;
                     //  document.getElementById("paste-area").innerHTML = jsonResponse.pathWithTag;
-                    document.getElementById("upload-area").value = jsonResponse.pathWithTag;
+                    console.log(document.getElementById("comment-input-area").value);
+                    document.getElementById("comment-input-area").value += "\n";
+                    document.getElementById("comment-input-area").value += jsonResponse.pathWithTag;
                 } catch (error) {
                     console.error("エラー:", error);
                 }
