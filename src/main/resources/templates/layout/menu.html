@@ -18,7 +18,8 @@
             </a>
         </div>
         <div class="row menu-item">
-            <a class="col text-decoration-none" th:href="@{/projects/find(status='0,1,2,3', priority='0,1,2')}">
+            <a class="col text-decoration-none"
+               th:href="@{/projects/{projectKey}/find(projectKey=*{project?.projectKey}, status='0,1,2,3', priority='0,1,2')}">
                 <i class="bi bi-card-list"></i>
                 課題
             </a>
@@ -39,6 +40,11 @@
             <a class="col text-decoration-none" th:href="@{/projects/setting}">
                 <i class="bi bi-gear-fill"></i>
                 プロジェクト設定
+            </a>
+        </div>
+        <div class="row menu-item">
+            <a class="col text-decoration-none" th:href="@{/projects/setting}">
+                <p>キー: <span th:text="${project?.projectKey ?: ''}">ABC</span></p>
             </a>
         </div>
     </div>

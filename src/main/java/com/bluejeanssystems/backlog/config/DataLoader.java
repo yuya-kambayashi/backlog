@@ -141,5 +141,22 @@ public class DataLoader implements ApplicationRunner {
         issue2.setLimitDate(LocalDate.of(2025, 4, 1));
         issueRepository.save(issue2);
 
+        var issue3 = new Issue();
+        issue3.setProject(project2);
+        issue3.setTitle("青色になる");
+        issue3.setDescription("""
+                                目指せ青色
+                """);
+        issue3.setStatus(Status.完了);
+        issue3.setType(Type.バグ);
+        issue3.setPriority(Priority.高);
+        issue3.setVersions(m2);
+        issue3.setMilestone(m3);
+        issue3.setCategory(category);
+        issue3.setAssigner(user2);
+        issue3.setVoter(user3);
+        issue3.setLimitDate(LocalDate.of(2025, 4, 1));
+        issueRepository.save(issue3);
+
     }
 }
