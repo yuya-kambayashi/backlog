@@ -36,6 +36,11 @@ public class DataLoader implements ApplicationRunner {
         project.setProjectKey("BTS");
         projectRepository.save(project);
 
+        var project2 = new Project();
+        project2.setName("競技プログラミングPrj");
+        project2.setProjectKey("KYOPRO");
+        projectRepository.save(project2);
+
         var m1 = new Milestone();
         m1.setName("未設定");
         milestoneRepository.save(m1);

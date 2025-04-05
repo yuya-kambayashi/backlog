@@ -10,7 +10,20 @@
 <div layout:fragment="content">
     <div class="row">
         <div class="col">
-            <h1>プロジェクト一覧</h1>
+            <h1>プロジェクト</h1>
+            <table class="table">
+                <tbody>
+                <tr th:each="project : ${projects}"
+                    th:object="${project}">
+                    <td>
+                        <a class="col text-decoration-none"
+                           th:href="@{/projects/{projectKey}/home(projectKey=*{projectKey})}">
+                            <p th:text="*{name}"></p>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
             <h1>自分の課題</h1>
         </div>
         <div class="col">
