@@ -4,10 +4,7 @@ import com.bluejeanssystems.backlog.model.Comment;
 import com.bluejeanssystems.backlog.model.Issue;
 import com.bluejeanssystems.backlog.model.Milestone;
 import com.bluejeanssystems.backlog.model.SiteUser;
-import com.bluejeanssystems.backlog.repository.CommentRepository;
-import com.bluejeanssystems.backlog.repository.IssueRepository;
-import com.bluejeanssystems.backlog.repository.MilestoneRepository;
-import com.bluejeanssystems.backlog.repository.SiteUserRepository;
+import com.bluejeanssystems.backlog.repository.*;
 import com.bluejeanssystems.backlog.service.MailService;
 import com.bluejeanssystems.backlog.util.Resolution;
 import com.bluejeanssystems.backlog.util.SecurityUtil;
@@ -25,18 +22,20 @@ import java.time.LocalDate;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/projects/view")
+@RequestMapping("/projects/{projectKey}/view")
 public class ViewController {
     private final IssueRepository issueRepository;
     private final CommentRepository commentRepository;
     private final SiteUserRepository userRepository;
     private final MilestoneRepository milestoneRepository;
+    private final ProjectRepository projectRepository;
 
     private final MailService mailService;
 
 
     @GetMapping("/{issueId}")
-    public String view(Model model,
+    public String view(@PathVariable("projectKey") String projectKey,
+                       Model model,
                        @PathVariable("issueId") long issueId,
                        HttpServletRequest request) throws Exception {
         Issue issue = issueRepository.findById(issueId)
@@ -50,12 +49,14 @@ public class ViewController {
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("milestones", milestoneRepository.findAll());
         model.addAttribute("resolutions", Resolution.values());
+        model.addAttribute("project", projectRepository.findByProjectKey(projectKey));
 
         return "layout/view";
     }
 
     @PostMapping("/addComment/{issueId}")
-    public String comment(@PathVariable("issueId") long issueId,
+    public String comment(@PathVariable("projectKey") String projectKey,
+                          @PathVariable("issueId") long issueId,
                           @Validated @ModelAttribute("newComment") Comment comment,
                           @RequestParam(name = "status", required = false) Status status,
                           @RequestParam(name = "assigner", required = false) SiteUser assigner,
@@ -111,7 +112,9 @@ public class ViewController {
 
         }
 
+        model.addAttribute("project", projectRepository.findByProjectKey(projectKey));
 
-        return "redirect:/projects/view/" + issueId;
+
+        return "redirect:/projects/" + projectKey + "/view/" + issueId;
     }
 }

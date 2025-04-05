@@ -121,7 +121,7 @@
     </div>
     <div class="col-sm-10 offset-sm-2 fixed-bottom bg-white border-top">
         <form th:with="issueId=${issue.id}"
-              th:action="@{/projects/view/addComment/{issueId}(issueId=${issueId})}"
+              th:action="@{/projects/{projectKey}/view/addComment/{issueId}(projectKey=${project?.projectKey ?: ''}, issueId=${issueId})}"
               th:object="${newComment}"
               method="post"
               novalidate>

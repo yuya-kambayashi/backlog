@@ -1,10 +1,7 @@
 package com.bluejeanssystems.backlog.controller;
 
 import com.bluejeanssystems.backlog.model.Issue;
-import com.bluejeanssystems.backlog.repository.CategoryRepository;
-import com.bluejeanssystems.backlog.repository.IssueRepository;
-import com.bluejeanssystems.backlog.repository.MilestoneRepository;
-import com.bluejeanssystems.backlog.repository.SiteUserRepository;
+import com.bluejeanssystems.backlog.repository.*;
 import com.bluejeanssystems.backlog.util.Priority;
 import com.bluejeanssystems.backlog.util.Resolution;
 import com.bluejeanssystems.backlog.util.Status;
@@ -17,15 +14,17 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/projects")
+@RequestMapping("/projects/{projectKey}")
 public class EditController {
     private final IssueRepository issueRepository;
     private final MilestoneRepository milestoneRepository;
     private final CategoryRepository categoryRepository;
     private final SiteUserRepository userRepository;
+    private final ProjectRepository projectRepository;
 
     @GetMapping("/view/edit/{issueId}")
-    public String edit(@PathVariable("issueId") long issueId,
+    public String edit(@PathVariable("projectKey") String projectKey,
+                       @PathVariable("issueId") long issueId,
                        Model model) {
         model.addAttribute("statuses", Status.values());
         model.addAttribute("types", Type.values());
@@ -40,11 +39,14 @@ public class EditController {
         model.addAttribute("issue", issue);
         model.addAttribute("issueId", issueId);
 
+        model.addAttribute("project", projectRepository.findByProjectKey(projectKey));
+
         return "layout/edit";
     }
 
     @PostMapping("/view/edit/{issueId}")
-    public String save(@PathVariable("issueId") long issueId,
+    public String save(@PathVariable("projectKey") String projectKey,
+                       @PathVariable("issueId") long issueId,
                        @ModelAttribute("issue") Issue issueMod,
                        BindingResult result) {
         if (result.hasErrors()) {
@@ -71,6 +73,6 @@ public class EditController {
             issueRepository.save(issueOrg);
         }
 
-        return "redirect:/projects/view/" + issueId;
+        return "redirect:/projects/" + projectKey + "/view/" + issueId;
     }
 }

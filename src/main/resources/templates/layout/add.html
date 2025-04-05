@@ -20,7 +20,7 @@
                     </h6>
                 </div>
                 <div class="card-body">
-                    <form th:action="@{/projects/add}"
+                    <form th:action="@{/projects/{projectKey}/add(projectKey=${project.projectKey})}"
                           th:object="${issue}"
                           method="post"
                           novalidate>

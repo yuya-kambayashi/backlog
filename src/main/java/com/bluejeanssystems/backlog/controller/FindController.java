@@ -1,6 +1,7 @@
 package com.bluejeanssystems.backlog.controller;
 
 import com.bluejeanssystems.backlog.repository.IssueRepository;
+import com.bluejeanssystems.backlog.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/projects/{projectKey}")
 public class FindController {
     private final IssueRepository issueRepository;
+    private final ProjectRepository projectRepository;
 
     @GetMapping("/find")
     public String find(
@@ -34,6 +36,8 @@ public class FindController {
                 .collect(Collectors.toList());
 
         model.addAttribute("issues", result);
+
+        model.addAttribute("project", projectRepository.findByProjectKey(projectKey));
 
 
         return "layout/find";

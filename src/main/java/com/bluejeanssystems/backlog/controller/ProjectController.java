@@ -11,18 +11,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/projects")
+@RequestMapping("/projects/{projectKey}")
 public class ProjectController {
     private final IssueRepository issueRepository;
     private final ProjectRepository projectRepository;
 
-    @GetMapping("/{projectKey}/home")
+    @GetMapping("/home")
     public String home(@PathVariable("projectKey") String projectKey, Model model) {
         var issues = issueRepository.findAllBy(projectKey);
         model.addAttribute("issues", issues);
 
-        var project = projectRepository.findByProjectKey(projectKey);
-        model.addAttribute("project", project);
+        model.addAttribute("project", projectRepository.findByProjectKey(projectKey));
 
         return "layout/home";
     }
