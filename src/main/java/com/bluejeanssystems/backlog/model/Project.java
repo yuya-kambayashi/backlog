@@ -19,4 +19,7 @@ public class Project {
     @NotBlank
     private String name;
 
+    @NotBlank
+    private String projectKey;
+
 }

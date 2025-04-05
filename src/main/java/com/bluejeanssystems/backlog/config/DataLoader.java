@@ -32,7 +32,8 @@ public class DataLoader implements ApplicationRunner {
     public void run(ApplicationArguments args) {
 
         var project = new Project();
-        project.setName("Hoge");
+        project.setName("課題管理システム構築Prj");
+        project.setProjectKey("BTS");
         projectRepository.save(project);
 
         var m1 = new Milestone();
@@ -85,6 +86,7 @@ public class DataLoader implements ApplicationRunner {
         siteUserRepository.saveAll(users);
 
         var issue1 = new Issue();
+        issue1.setProject(project);
         issue1.setTitle("画面レイアウトを調整する");
         issue1.setDescription("""
                                 ssss
@@ -116,6 +118,7 @@ public class DataLoader implements ApplicationRunner {
         commentRepository.save(comment2);
 
         var issue2 = new Issue();
+        issue2.setProject(project);
         issue2.setTitle("ガントチャートを作成する");
         issue2.setDescription("""
                                 Hello World

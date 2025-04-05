@@ -20,6 +20,11 @@ import java.time.ZonedDateTime;
 @Setter
 @Entity
 public class Issue {
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id")
+    private Project project;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -93,5 +98,9 @@ public class Issue {
 
     public ZonedDateTime updatedAtIST() {
         return updatedAt.atZone(ZoneId.of("Asia/Kolkata"));
+    }
+
+    public String getIssueKey() {
+        return project.getProjectKey() + "-" + id;
     }
 }
