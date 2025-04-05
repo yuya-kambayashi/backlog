@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/projects/{projectKey}")
-public class ProjectController {
+public class HomeController {
     private final IssueRepository issueRepository;
     private final ProjectRepository projectRepository;
 

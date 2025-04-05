@@ -39,14 +39,10 @@
             </a>
         </div>
         <div class="row menu-item">
-            <a class="col text-decoration-none" th:href="@{/projects/setting}">
+            <a class="col text-decoration-none"
+               th:href="@{/projects/{projectKey}/setting(projectKey=${project?.projectKey}}">
                 <i class="bi bi-gear-fill"></i>
                 プロジェクト設定
-            </a>
-        </div>
-        <div class="row menu-item">
-            <a class="col text-decoration-none" th:href="@{/projects/setting}">
-                <p>キー: <span th:text="${project?.projectKey ?: ''}">ABC</span></p>
             </a>
         </div>
     </div>

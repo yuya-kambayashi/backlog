@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ProfileController {
 
-    @GetMapping("/projects/profile")
+    @GetMapping("/global/profile")
     public String view(Model model, Authentication loginUser) {
 
         model.addAttribute("username", loginUser.getName());
