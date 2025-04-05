@@ -14,7 +14,25 @@
             <h1>最新の更新</h1>
         </div>
         <div class="col">
-            <h1>統計情報</h1>
+            <h3>状態</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>未対応</th>
+                    <th>処理中</th>
+                    <th>処理済み</th>
+                    <th>完了</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${未対応数}"></td>
+                    <td th:text="${処理中数}"></td>
+                    <td th:text="${処理済み数}"></td>
+                    <td th:text="${完了数}"></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
