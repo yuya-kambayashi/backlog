@@ -34,8 +34,3 @@ VALUES ('画面レイアウトを調整する', 'ssss\n\n<img src="/images/scree
         '2025-04-01', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
        ('青色になる', '目指せ青色', '完了', 'バグ', '高', 2, 3, 2, 1, 2, 3, '2025-04-01', CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP);
-
--- Comment
-INSERT INTO comment (issue_id, comment, commenter_id, created_at, updated_at)
-VALUES (1, 'Hello World', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       (1, 'booooooo', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

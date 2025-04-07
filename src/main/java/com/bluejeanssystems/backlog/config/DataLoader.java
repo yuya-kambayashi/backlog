@@ -13,7 +13,6 @@ public class DataLoader implements ApplicationRunner {
 
     private final ProjectRepository projectRepository;
     private final IssueRepository issueRepository;
-    private final CommentRepository commentRepository;
     private final MilestoneRepository milestoneRepository;
     private final CategoryRepository categoryRepository;
     private final SiteUserRepository siteUserRepository;
