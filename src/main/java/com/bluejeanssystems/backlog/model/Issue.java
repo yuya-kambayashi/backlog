@@ -21,13 +21,14 @@ import java.time.ZonedDateTime;
 @Entity
 public class Issue {
 
+
+    @EmbeddedId
+    private IssueId id;
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("projectId") // ← 複合キー中の "projectId" にマッピング
     @JoinColumn(name = "project_id")
     private Project project;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @NotBlank
     private String title;
@@ -101,6 +102,6 @@ public class Issue {
     }
 
     public String getIssueKey() {
-        return project.getProjectKey() + "-" + id;
+        return project.getProjectKey() + "-" + id.getIssueNumber();
     }
 }

@@ -31,13 +31,12 @@ public class ViewController {
     @GetMapping("/{issueId}")
     public String view(@PathVariable("projectKey") String projectKey,
                        Model model,
-                       @PathVariable("issueId") long issueId,
+                       @PathVariable("issueId") long issueNumber,
                        HttpServletRequest request) throws Exception {
-        Issue issue = issueRepository.findById(issueId)
-                .orElseThrow(() -> new IllegalArgumentException("Issue not found: " + issueId));
+        Issue issue = issueRepository.findByIssueNumber(projectKey, issueNumber);
 
         model.addAttribute("issue", issue);
-        model.addAttribute("editUrl", "edit/" + issueId);
+        model.addAttribute("editUrl", "edit/" + issueNumber);
         model.addAttribute("statuses", Status.values());
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("milestones", milestoneRepository.findAll());

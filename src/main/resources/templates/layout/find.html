@@ -95,7 +95,7 @@
                     <div th:replace="~{fragments/badge :: issue-type(*{type})}"></div>
                 </td>
                 <td>
-                    <a th:href="@{/projects/{projectKey}/view/{issueId}(projectKey=${project.projectKey}, issueId=*{id})}"
+                    <a th:href="@{/projects/{projectKey}/view/{issueId}(projectKey=${project.projectKey}, issueId=*{id.getIssueNumber()})}"
                        th:text="${issue.getIssueKey()}"></a>
                 </td>
                 <td th:text="*{title}"></td>
