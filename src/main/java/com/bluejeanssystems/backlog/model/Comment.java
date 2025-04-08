@@ -14,15 +14,18 @@ import java.time.ZonedDateTime;
 @Setter
 @Entity
 public class Comment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "issue_id")
-    private Issue issue;
+    @EmbeddedId
+    private CommentId id;
 
     private String comment;
+
+    @MapsId("issueId")
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "project_id", referencedColumnName = "project_id"),
+            @JoinColumn(name = "issue_number", referencedColumnName = "issue_number")
+    })
+    private Issue issue;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "commenter_id")

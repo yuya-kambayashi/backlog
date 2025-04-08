@@ -1,9 +1,6 @@
 package com.bluejeanssystems.backlog.controller;
 
-import com.bluejeanssystems.backlog.model.Comment;
-import com.bluejeanssystems.backlog.model.Issue;
-import com.bluejeanssystems.backlog.model.Milestone;
-import com.bluejeanssystems.backlog.model.SiteUser;
+import com.bluejeanssystems.backlog.model.*;
 import com.bluejeanssystems.backlog.repository.*;
 import com.bluejeanssystems.backlog.service.MailService;
 import com.bluejeanssystems.backlog.util.Resolution;
@@ -33,18 +30,17 @@ public class ViewController {
     private final MailService mailService;
 
 
-    @GetMapping("/{issueId}")
+    @GetMapping("/{issueNumber}")
     public String view(@PathVariable("projectKey") String projectKey,
                        Model model,
-                       @PathVariable("issueId") long issueId,
+                       @PathVariable("issueNumber") long issueNumber,
                        HttpServletRequest request) throws Exception {
-        Issue issue = issueRepository.findById(issueId)
-                .orElseThrow(() -> new IllegalArgumentException("Issue not found: " + issueId));
+        Issue issue = issueRepository.findByIssueNumber(projectKey, issueNumber);
 
         model.addAttribute("issue", issue);
         model.addAttribute("newComment", new Comment());
-        model.addAttribute("comments", commentRepository.findByIssueId(issueId));
-        model.addAttribute("editUrl", "edit/" + issueId);
+        model.addAttribute("comments", commentRepository.findByIssue(issue.getId().getProjectId(), issueNumber));
+        model.addAttribute("editUrl", "edit/" + issueNumber);
         model.addAttribute("statuses", Status.values());
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("milestones", milestoneRepository.findAll());
@@ -54,9 +50,9 @@ public class ViewController {
         return "layout/view";
     }
 
-    @PostMapping("/addComment/{issueId}")
+    @PostMapping("/addComment/{issueNumber}")
     public String comment(@PathVariable("projectKey") String projectKey,
-                          @PathVariable("issueId") long issueId,
+                          @PathVariable("issueNumber") long issueNumber,
                           @Validated @ModelAttribute("newComment") Comment comment,
                           @RequestParam(name = "status", required = false) Status status,
                           @RequestParam(name = "assigner", required = false) SiteUser assigner,
@@ -65,18 +61,22 @@ public class ViewController {
                           @RequestParam(name = "resolution", required = false) Resolution resolution,
                           BindingResult result,
                           Model model) {
-        Issue issue = issueRepository.findById(issueId)
-                .orElseThrow(() -> new IllegalArgumentException("Issue not found: " + issueId));
+        Issue issue = issueRepository.findByIssueNumber(projectKey, issueNumber);
 
         if (result.hasErrors()) {
             model.addAttribute("issue", issue);
-            model.addAttribute("comments", commentRepository.findByIssueId(issueId));
+            model.addAttribute("comments", commentRepository.findByIssue(issue.getId().getProjectId(), issue.getId().getIssueNumber()));
             return "layout/view";
         }
 
         if (!comment.getComment().isEmpty()) {
             comment.setIssue(issue);
             comment.setCommenter(SecurityUtil.getCurrentUser());
+            // 次のコメント番号を取得
+            Long nextCommentId = commentRepository.findMaxCommentNumberByProjectAndIssue(issue.getId().getProjectId(), issueNumber) + 1;// ID 作成
+            CommentId commentId = new CommentId(new IssueId(issue.getId().getProjectId(), issueNumber), nextCommentId);
+            comment.setId(commentId);
+
             commentRepository.save(comment);
         }
 
@@ -115,6 +115,6 @@ public class ViewController {
         model.addAttribute("project", projectRepository.findByProjectKey(projectKey));
 
 
-        return "redirect:/projects/" + projectKey + "/view/" + issueId;
+        return "redirect:/projects/" + projectKey + "/view/" + issueNumber;
     }
 }

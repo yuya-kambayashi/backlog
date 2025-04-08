@@ -2,6 +2,7 @@ package com.bluejeanssystems.backlog.controller;
 
 import com.bluejeanssystems.backlog.model.Issue;
 import com.bluejeanssystems.backlog.repository.*;
+import com.bluejeanssystems.backlog.service.IssueService;
 import com.bluejeanssystems.backlog.util.Priority;
 import com.bluejeanssystems.backlog.util.SecurityUtil;
 import com.bluejeanssystems.backlog.util.Status;
@@ -22,6 +23,9 @@ public class AddController {
     private final CategoryRepository categoryRepository;
     private final SiteUserRepository userRepository;
     private final ProjectRepository projectRepository;
+
+    private final IssueService issueService;
+
 
     @GetMapping("/add")
     public String add(
@@ -50,10 +54,11 @@ public class AddController {
             return "layout/add";
         }
         issue.setVoter(SecurityUtil.getCurrentUser());
-        issue.setProject(projectRepository.findByProjectKey(projectKey));
 
-        issueRepository.save(issue);
+        var project = projectRepository.findByProjectKey(projectKey);
 
-        return "redirect:/projects/" + projectKey + "/view/" + issue.getId();
+        issueService.createIssue(project, issue);
+
+        return "redirect:/projects/" + projectKey + "/view/" + issue.getId().getIssueNumber();
     }
 }
