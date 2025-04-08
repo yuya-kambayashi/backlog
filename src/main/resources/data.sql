@@ -39,4 +39,6 @@ VALUES (1, 1, '画面レイアウトを調整する', 'ssss\n\n<img src="/images
 -- Comment
 INSERT INTO comment (project_id, issue_number, comment_number, comment, commenter_id, created_at, updated_at)
 VALUES (1, 1, 1, 'Hello World', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       (1, 1, 2, 'booooooo', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+       (1, 1, 2, 'booooooo', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       (2, 1, 1, 'booooooo', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       (2, 1, 2, 'booooooo', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
