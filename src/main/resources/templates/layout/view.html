@@ -93,6 +93,86 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="row mt-5">
+        </div>
+        <div class="row">
+            <p class="col-1">コメント</p>
+            <p class="col-1" th:text="${'(' + comments.size() + ')'}"></p>
+        </div>
+    </div>
+    <div th:if="${comments.size() == 0}">
+        コメントはまだありません。入力フォームからコメントできます。
+    </div>
+    <div class="card" th:if="${comments.size() > 0}">
+        <div th:each="comment : ${comments}" class="card-body border-bottom">
+            <div class="container">
+                <div class="row">
+                    <p class="col-2 fw-bolder " style="font-size: medium;" th:text="*{comment.commenter.username}"></p>
+                    <p class="col fw-light"
+                       th:text="*{#temporals.format(comment.createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
+                </div>
+                <div class="row">
+                    <div class="col-1"></div>
+                    <p class="text-break col" style="white-space: pre-line;" th:utext="*{comment.comment}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-10 offset-sm-2 fixed-bottom bg-white border-top">
+        <form th:with="issueNumber=${issue.id.issueNumber}"
+              th:action="@{/projects/{projectKey}/view/addComment/{issueNumber}(projectKey=${project?.projectKey ?: ''}, issueNumber=${issueNumber})}"
+              th:object="${newComment}"
+              method="post"
+              novalidate>
+            <div class="container">
+                <div class="row" style="margin-left: 23px; margin-top: 10px; margin-right: 23px">
+                     <textarea id="comment-input-area"
+                               class="col-md-7"
+                               placeholder="コメント (@を入力してメンバーに通知)"
+                               th:field="*{comment}"
+                               rows="4"></textarea>
+                    <div class="col-md-5">
+                        <div>
+                            <label class="" for="status">状態</label>
+                            <select class="" id="status" name="status">
+                                <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="" for="assigner">担当者</label>
+                            <select class="" id="assigner" name="assigner">
+                                <option th:each="user : ${users}" th:value="${user.id}"
+                                        th:text="${user.username}"></option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="" for="milestone">マイルストーン</label>
+                            <select class="" id="milestone" name="milestone">
+                                <option th:each="m : ${milestones}" th:value="${m.id}"
+                                        th:text="${m.name}"></option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="" for="limitDate">期限日</label>
+                            <input class="" type="date" id="limitDate" name="limitDate" th:value="${limitDate}"/>
+                        </div>
+                        <div>
+                            <label class="" for="resolution">完了理由</label>
+                            <select class="" id="resolution" name="resolution">
+                                <option th:each="r : ${resolutions}" th:value="${r}" th:text="${r}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success btn-sm mt-1 mb-1">
+                        登録
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 </html>

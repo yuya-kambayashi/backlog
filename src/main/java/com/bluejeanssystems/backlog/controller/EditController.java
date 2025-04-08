@@ -22,9 +22,9 @@ public class EditController {
     private final SiteUserRepository userRepository;
     private final ProjectRepository projectRepository;
 
-    @GetMapping("/view/edit/{issueId}")
+    @GetMapping("/view/edit/{issueNumber}")
     public String edit(@PathVariable("projectKey") String projectKey,
-                       @PathVariable("issueId") long issueId,
+                       @PathVariable("issueNumber") long issueNumber,
                        Model model) {
         model.addAttribute("statuses", Status.values());
         model.addAttribute("types", Type.values());
@@ -34,25 +34,25 @@ public class EditController {
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("resolutions", Resolution.values());
 
-        Issue issue = issueRepository.findById(issueId).orElse(null);
+        Issue issue = issueRepository.findByIssueNumber(projectKey, issueNumber);
 
         model.addAttribute("issue", issue);
-        model.addAttribute("issueId", issueId);
+        model.addAttribute("issueNumber", issueNumber);
 
         model.addAttribute("project", projectRepository.findByProjectKey(projectKey));
 
         return "layout/edit";
     }
 
-    @PostMapping("/view/edit/{issueId}")
+    @PostMapping("/view/edit/{issueNumber}")
     public String save(@PathVariable("projectKey") String projectKey,
-                       @PathVariable("issueId") long issueId,
+                       @PathVariable("issueNumber") Long issueNumber,
                        @ModelAttribute("issue") Issue issueMod,
                        BindingResult result) {
         if (result.hasErrors()) {
             return "layout/add";
         }
-        Issue issueOrg = issueRepository.findById(issueId).orElse(null);
+        Issue issueOrg = issueRepository.findByIssueNumber(projectKey, issueNumber);
 
         issueOrg.setTitle(issueMod.getTitle());
         issueOrg.setDescription(issueMod.getDescription());
@@ -73,6 +73,6 @@ public class EditController {
             issueRepository.save(issueOrg);
         }
 
-        return "redirect:/projects/" + projectKey + "/view/" + issueId;
+        return "redirect:/projects/" + projectKey + "/view/" + issueNumber;
     }
 }

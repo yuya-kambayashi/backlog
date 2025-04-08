@@ -21,7 +21,6 @@ import java.time.ZonedDateTime;
 @Entity
 public class Issue {
 
-
     @EmbeddedId
     private IssueId id;
 

@@ -19,6 +19,14 @@ public class IssueId implements Serializable {
     @Column(name = "issue_number")
     private Long issueNumber;
 
+    public IssueId(Long projectId, Long issueNumber) {
+        this.projectId = projectId;
+        this.issueNumber = issueNumber;
+    }
+
+    public IssueId() {
+    }
+
     // 必須：equals & hashCode の実装
     @Override
     public boolean equals(Object o) {

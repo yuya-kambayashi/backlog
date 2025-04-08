@@ -21,7 +21,7 @@
                 </div>
                 <div class="card-body">
                     <form th:object="${issue}"
-                          th:action="@{/projects/view/edit/{issueId}(issueId=${issueId})}"
+                          th:action="@{/projects/view/edit/{issueNumber}(issueNumber=${issueNumber})}"
                           method="post"
                           novalidate>
 

@@ -19,6 +19,9 @@ public interface IssueRepository extends JpaRepository<Issue, Long> {
     @Query("SELECT i FROM Issue i WHERE i.project.projectKey = :projectKey AND i.id.issueNumber = :issueNumber")
     Issue findByIssueNumber(String projectKey, Long issueNumber);
 
+    @Query("SELECT i FROM Issue i WHERE i.project.id = :projectId AND i.id.issueNumber = :issueNumber")
+    Issue findByIssueNumber(Long projectId, Long issueNumber);
+
     @Query("SELECT MAX(i.id.issueNumber) FROM Issue i WHERE i.project.id = :projectId")
     Optional<Long> findMaxIssueNumberByProject(@Param("projectId") Long projectId);
 }
