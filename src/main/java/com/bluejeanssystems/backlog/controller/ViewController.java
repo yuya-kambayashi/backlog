@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequiredArgsConstructor
@@ -69,6 +70,72 @@ public class ViewController {
             return "layout/view";
         }
 
+        String updatedComment = "";
+
+
+        if (status != null) {
+            if (issue.getStatus() == null) {
+                updatedComment += "状態:" + "未設定" + "⇒" + status.name() + "\n";
+                issue.setStatus(status);
+            } else if (!status.equals(issue.getStatus())) {
+                updatedComment += "状態:" + issue.getStatus().name() + "⇒" + status.name() + "\n";
+                issue.setStatus(status);
+            }
+        }
+
+        if (assigner != null) {
+            if (issue.getAssigner() == null) {
+                updatedComment += "担当者:" + "未設定" + "⇒" + assigner.getUsername() + "\n";
+                issue.setAssigner(assigner);
+            } else if (!assigner.equals(issue.getAssigner())) {
+                updatedComment += "担当者:" + issue.getAssigner().getUsername() + "⇒" + assigner.getUsername() + "\n";
+                issue.setAssigner(assigner);
+            }
+        }
+
+        if (milestone != null) {
+            if (issue.getMilestone() == null) {
+                updatedComment += "マイルストーン:" + "未設定" + "⇒" + milestone.getName() + "\n";
+                issue.setMilestone(milestone);
+            } else if (!milestone.equals(issue.getMilestone())) {
+                updatedComment += "マイルストーン:" + issue.getMilestone().getName() + "⇒" + milestone.getName() + "\n";
+                issue.setMilestone(milestone);
+            }
+        }
+
+        if (limitDate != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            if (issue.getLimitDate() == null) {
+                updatedComment += "期限日:" + "未設定" + "⇒" + limitDate.format(formatter) + "\n";
+                issue.setLimitDate(limitDate);
+            } else if (!limitDate.equals(issue.getLimitDate())) {
+                updatedComment += "期限日:" + issue.getLimitDate().format(formatter) + "⇒" + limitDate.format(formatter) + "\n";
+                issue.setLimitDate(limitDate);
+            }
+        }
+
+        if (resolution != null) {
+            if (issue.getResolution() == null) {
+                updatedComment += "完了理由:" + "未設定" + "⇒" + resolution.name() + "\n";
+                issue.setResolution(resolution);
+            } else if (!resolution.equals(issue.getResolution())) {
+                updatedComment += "完了理由:" + issue.getResolution().name() + "⇒" + resolution.name() + "\n";
+                issue.setResolution(resolution);
+            }
+        }
+
+        if (!updatedComment.isEmpty()) {
+            issueRepository.save(issue);
+        }
+
+        String t = updatedComment;
+        if (!t.isEmpty()) {
+            t += "\n" + comment.getComment();
+        }
+
+        comment.setComment(t);
+
+
         if (!comment.getComment().isEmpty()) {
             comment.setIssue(issue);
             comment.setCommenter(SecurityUtil.getCurrentUser());
@@ -80,31 +147,6 @@ public class ViewController {
             commentRepository.save(comment);
         }
 
-        boolean updated = false;
-        if (status != null) {
-            issue.setStatus(status);
-            updated = true;
-        }
-        if (assigner != null) {
-            issue.setAssigner(assigner);
-            updated = true;
-        }
-        if (milestone != null) {
-            issue.setMilestone(milestone);
-            updated = true;
-        }
-        if (limitDate != null) {
-            issue.setLimitDate(limitDate);
-            updated = true;
-        }
-        if (resolution != null) {
-            issue.setResolution(resolution);
-            updated = true;
-        }
-
-        if (updated) {
-            issueRepository.save(issue);
-        }
 
         try {
             mailService.sendEmail("kambayashi73@gmail.com", "sampleSubject", "sampleBody");
