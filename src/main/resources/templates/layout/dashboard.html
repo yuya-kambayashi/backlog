@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{layout/layout}">
+        layout:decorate="~{layout/layoutDashboard}">
 <head>
     <meta charset="UTF-8">
     <title>ダッシュボード｜Backlog</title>
@@ -10,7 +10,7 @@
 <div layout:fragment="content">
     <div class="row">
         <div class="col">
-            <h1>プロジェクト</h1>
+            <h3>プロジェクト</h3>
             <table class="table">
                 <tbody>
                 <tr th:each="project : ${projects}"
@@ -24,10 +24,36 @@
                 </tr>
                 </tbody>
             </table>
-            <h1>自分の課題</h1>
+            <h3>自分の課題</h3>
+            <table class="table">
+                <tbody>
+                <tr th:each="project : ${projects}"
+                    th:object="${project}">
+                    <td>
+                        <a class="col text-decoration-none"
+                           th:href="@{/projects/{projectKey}/home(projectKey=*{projectKey})}">
+                            <p th:text="*{name}"></p>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
         <div class="col">
-            <h1>最近の更新</h1>
+            <h3>最近の更新</h3>
+            <table class="table">
+                <tbody>
+                <tr th:each="project : ${projects}"
+                    th:object="${project}">
+                    <td>
+                        <a class="col text-decoration-none"
+                           th:href="@{/projects/{projectKey}/home(projectKey=*{projectKey})}">
+                            <p th:text="*{name}"></p>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

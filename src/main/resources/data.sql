@@ -14,7 +14,7 @@ VALUES ('Build2_20250501');
 
 -- Category
 INSERT INTO category (name)
-VALUES ('UI');
+VALUES ('UI');　
 
 -- SiteUser (passwordはエンコード済みの値にする必要があります。以下は仮の例)
 INSERT INTO site_user (username, password, email, authority)

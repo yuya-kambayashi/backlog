@@ -26,7 +26,7 @@
 
 <!-- ヘッダー -->
 <div>
-    <div layout:replace="~{layout/header::header}"></div>
+    <div class="border-bottom" layout:replace="~{layout/header::header}"></div>
 </div>
 
 <!-- メニュー -->
@@ -38,7 +38,7 @@
 
 <!-- コンテンツ -->
 <div>
-    <div class="main-header col-sm-10 offset-sm-2">
+    <div class="main-header border-bottom col-sm-10 offset-sm-2">
         <p class="fw-bold fs-6 menu-header-project-name" th:text="${project?.name ?: ''}"></p>
     </div>
     <nav class="main col-sm-10 offset-sm-2">

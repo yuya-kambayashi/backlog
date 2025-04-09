@@ -1,0 +1,9 @@
+.dashboard-main {
+    background-color: #F0F0F0;
+    display: block;
+    bottom: 0;
+    top: 46px;
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+}
