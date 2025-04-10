@@ -41,14 +41,22 @@
         </div>
         <div class="col">
             <h3>最近の更新</h3>
-            <table class="table">
-                <tbody>
-                <tr th:each="log : ${logs}"
-                    th:object="${log}">
-                    <td th:text="*{message}"></td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="card">
+                <div th:each="log : ${logs}" class="card-body border-bottom">
+                    <div class="container">
+                        <div class="row">
+                            <p class="col-2 fw-bolder " style="font-size: medium;"
+                               th:text="*{log.issue.voter.username}"></p>
+                            <p class="col fw-light"
+                               th:text="*{#temporals.format(log.createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
+                        </div>
+                        <div class="row">
+                            <div class="col-1"></div>
+                            <p class="text-break col" style="white-space: pre-line;" th:utext="*{log.message}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

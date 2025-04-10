@@ -1,13 +1,10 @@
 package com.bluejeanssystems.backlog.controller;
 
 import com.bluejeanssystems.backlog.model.Issue;
-import com.bluejeanssystems.backlog.model.TransactionLog;
 import com.bluejeanssystems.backlog.repository.*;
 import com.bluejeanssystems.backlog.service.IssueService;
-import com.bluejeanssystems.backlog.util.Priority;
-import com.bluejeanssystems.backlog.util.SecurityUtil;
-import com.bluejeanssystems.backlog.util.Status;
-import com.bluejeanssystems.backlog.util.Type;
+import com.bluejeanssystems.backlog.service.TransactionLogService;
+import com.bluejeanssystems.backlog.util.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +24,7 @@ public class AddController {
     private final TransactionLogRepository transactionLogRepository;
 
     private final IssueService issueService;
+    private final TransactionLogService transactionLogService;
 
 
     @GetMapping("/add")
@@ -61,11 +59,12 @@ public class AddController {
 
         issueService.createIssue(project, issue);
 
-        var transactionLog = new TransactionLog();
-        transactionLog.setProject(project);
-        transactionLog.setMessage("I added Issue");
-
-        transactionLogRepository.save(transactionLog);
+        transactionLogService.createTransactionLog(
+                issue.getId().getProjectId(),
+                issue.getId().getIssueNumber(),
+                TransactionType.課題を追加,
+                "I added this issue"
+        );
 
         return "redirect:/projects/" + projectKey + "/view/" + issue.getId().getIssueNumber();
     }
