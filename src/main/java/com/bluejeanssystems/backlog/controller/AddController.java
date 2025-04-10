@@ -1,6 +1,7 @@
 package com.bluejeanssystems.backlog.controller;
 
 import com.bluejeanssystems.backlog.model.Issue;
+import com.bluejeanssystems.backlog.model.TransactionLog;
 import com.bluejeanssystems.backlog.repository.*;
 import com.bluejeanssystems.backlog.service.IssueService;
 import com.bluejeanssystems.backlog.util.Priority;
@@ -23,6 +24,7 @@ public class AddController {
     private final CategoryRepository categoryRepository;
     private final SiteUserRepository userRepository;
     private final ProjectRepository projectRepository;
+    private final TransactionLogRepository transactionLogRepository;
 
     private final IssueService issueService;
 
@@ -58,6 +60,12 @@ public class AddController {
         var project = projectRepository.findByProjectKey(projectKey);
 
         issueService.createIssue(project, issue);
+
+        var transactionLog = new TransactionLog();
+        transactionLog.setProject(project);
+        transactionLog.setMessage("I added Issue");
+
+        transactionLogRepository.save(transactionLog);
 
         return "redirect:/projects/" + projectKey + "/view/" + issue.getId().getIssueNumber();
     }

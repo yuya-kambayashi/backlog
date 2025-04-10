@@ -43,14 +43,9 @@
             <h3>最近の更新</h3>
             <table class="table">
                 <tbody>
-                <tr th:each="project : ${projects}"
-                    th:object="${project}">
-                    <td>
-                        <a class="col text-decoration-none"
-                           th:href="@{/projects/{projectKey}/home(projectKey=*{projectKey})}">
-                            <p th:text="*{name}"></p>
-                        </a>
-                    </td>
+                <tr th:each="log : ${logs}"
+                    th:object="${log}">
+                    <td th:text="*{message}"></td>
                 </tr>
                 </tbody>
             </table>
