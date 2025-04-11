@@ -41,9 +41,12 @@
         </div>
         <div class="col">
             <h3>最近の更新</h3>
-            <div class="card">
-                <div th:each="log : ${logs}" class="card-body border-bottom">
-                    <div class="container">
+            <div th:each="entry : ${logMap}" class="card-body border-bottom">
+                <div class="card">
+                    <div class="card-header">
+                        <p th:text="${entry.key}"></p>
+                    </div>
+                    <div th:each="log : ${entry.value}" class="card-body border-bottom container">
                         <div class="row">
                             <p class="col-2 fw-bolder " style="font-size: medium;"
                                th:text="*{log.issue.voter.username}"></p>

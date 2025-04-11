@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -38,5 +39,10 @@ public class TransactionLog {
 
     public ZonedDateTime createAtJST() {
         return createdAt.atZone(ZoneId.of("Asia/Tokyo"));
+    }
+
+    public String getDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        return createAtJST().format(formatter);
     }
 }
