@@ -45,4 +45,12 @@ public class TransactionLog {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         return createAtJST().format(formatter);
     }
+
+    public String getActionMessage() {
+        return issue.getVoter().getUsername() + " さんが " + transactionType.name();
+    }
+
+    public String getIssueLink() {
+        return "/projects/" + issue.getProject().getProjectKey() + "/view/" + issue.getId().getIssueNumber();
+    }
 }

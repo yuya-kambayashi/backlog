@@ -46,16 +46,23 @@
                     <div class="card-header">
                         <p th:text="${entry.key}"></p>
                     </div>
-                    <div th:each="log : ${entry.value}" class="card-body border-bottom container">
+                    <div th:each="log : ${entry.value}" class="card-body border-bottom container"
+                         style="font-size: small;">
                         <div class="row">
-                            <p class="col-2 fw-bolder " style="font-size: medium;"
-                               th:text="*{log.issue.voter.username}"></p>
-                            <p class="col fw-light"
+                            <p class="col-8 fw-bolder "
+                               th:text="*{log.getActionMessage()}"></p>
+                            <p class="col-4 fw-light text-right"
                                th:text="*{#temporals.format(log.createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
                         </div>
                         <div class="row">
-                            <div class="col-1"></div>
-                            <p class="text-break col" style="white-space: pre-line;" th:utext="*{log.message}"></p>
+                            <a class="col-2 fw-bolder text-center" th:href="${log.getIssueLink()}"
+                               th:text="${log.issue.getIssueKey()}"></a>
+                            <p class="col fw-bolder "
+                               th:text="*{log.getIssue().getTitle()}">"</p>
+                        </div>
+                        <div class="row">
+                            <p class="text-break" style="white-space: pre-line;"
+                               th:utext="*{log.message}"></p>
                         </div>
                     </div>
                 </div>
