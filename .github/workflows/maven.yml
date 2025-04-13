@@ -27,6 +27,19 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
+
+    - name: Generate .env file from GitHub Secrets
+      run: |
+        echo "EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }}" >> .env
+        echo "EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}" >> .env
+        echo "accessKey=${{ secrets.accessKey }}" >> .env
+        echo "secretKey=${{ secrets.secretKey }}" >> .env
+        echo "region=${{ secrets.region }}" >> .env
+        echo "s3_bucket=${{ secrets.s3_bucket }}" >> .env
+        echo "cloudfront_distribution_domain_name=${{ secrets.cloudfront_distribution_domain_name }}" >> .env
+        echo ".env generated:"
+        cat .env
+        
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
