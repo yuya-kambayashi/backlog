@@ -10,7 +10,7 @@
 <div layout:fragment="content">
     <div class="row">
         <div class="col">
-            <h3>プロジェクト</h3>
+            <h6>プロジェクト</h6>
             <table class="table">
                 <tbody>
                 <tr th:each="project : ${projects}"
@@ -24,7 +24,7 @@
                 </tr>
                 </tbody>
             </table>
-            <h3>自分の課題</h3>
+            <h6>自分の課題</h6>
             <table class="table">
                 <tbody>
                 <tr th:each="project : ${projects}"
@@ -40,33 +40,8 @@
             </table>
         </div>
         <div class="col">
-            <h3>最近の更新</h3>
-            <div th:each="entry : ${logMap}" class="card-body border-bottom">
-                <div class="card">
-                    <div class="card-header" style="height: 42px">
-                        <p th:text="${entry.key}"></p>
-                    </div>
-                    <div th:each="log : ${entry.value}" class="card-body border-bottom container"
-                         style="font-size: small;">
-                        <div class="row">
-                            <p class="col-8 fw-bolder "
-                               th:text="*{log.getActionMessage()}"></p>
-                            <p class="col-4 fw-light text-right"
-                               th:text="*{#temporals.format(log.createAtJST(), 'yyyy/MM/dd HH:mm:ss')}"></p>
-                        </div>
-                        <div class="row">
-                            <a class="col-2 fw-bolder text-center" th:href="${log.getIssueLink()}"
-                               th:text="${log.issue.getIssueKey()}"></a>
-                            <p class="col fw-bolder "
-                               th:text="*{log.getIssue().getTitle()}">"</p>
-                        </div>
-                        <div class="row">
-                            <p class="text-break" style="white-space: pre-line;"
-                               th:utext="*{log.message}"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h6>最近の更新</h6>
+            <div th:replace="~{fragments/timeline :: timeline(${logMap})}"></div>
         </div>
     </div>
 </div>

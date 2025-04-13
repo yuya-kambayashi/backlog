@@ -11,10 +11,11 @@
 <div layout:fragment="content">
     <div class="row">
         <div class="col">
-            <h1>最新の更新</h1>
+            <h6>プロジェクトホーム：最新の更新</h6>
+            <div th:replace="~{fragments/timeline :: timeline(${logMap})}"></div>
         </div>
         <div class="col">
-            <h3>状態</h3>
+            <h6>状態</h6>
             <table>
                 <thead>
                 <tr>
