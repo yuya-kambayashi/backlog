@@ -63,7 +63,7 @@ public class AddController {
                 issue.getId().getProjectId(),
                 issue.getId().getIssueNumber(),
                 TransactionType.課題を追加,
-                "I added this issue"
+                issue.getDescription()
         );
 
         return "redirect:/projects/" + projectKey + "/view/" + issue.getId().getIssueNumber();

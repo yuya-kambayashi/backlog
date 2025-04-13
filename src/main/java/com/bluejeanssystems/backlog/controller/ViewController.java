@@ -3,9 +3,11 @@ package com.bluejeanssystems.backlog.controller;
 import com.bluejeanssystems.backlog.model.*;
 import com.bluejeanssystems.backlog.repository.*;
 import com.bluejeanssystems.backlog.service.MailService;
+import com.bluejeanssystems.backlog.service.TransactionLogService;
 import com.bluejeanssystems.backlog.util.Resolution;
 import com.bluejeanssystems.backlog.util.SecurityUtil;
 import com.bluejeanssystems.backlog.util.Status;
+import com.bluejeanssystems.backlog.util.TransactionType;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,7 +31,7 @@ public class ViewController {
     private final ProjectRepository projectRepository;
 
     private final MailService mailService;
-
+    private final TransactionLogService transactionLogService;
 
     @GetMapping("/{issueNumber}")
     public String view(@PathVariable("projectKey") String projectKey,
@@ -155,6 +157,13 @@ public class ViewController {
         }
 
         model.addAttribute("project", projectRepository.findByProjectKey(projectKey));
+
+        transactionLogService.createTransactionLog(
+                issue.getId().getProjectId(),
+                issue.getId().getIssueNumber(),
+                TransactionType.課題にコメント,
+                comment.getComment()
+        );
 
 
         return "redirect:/projects/" + projectKey + "/view/" + issueNumber;
