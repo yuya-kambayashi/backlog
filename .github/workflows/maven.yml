@@ -39,7 +39,7 @@ jobs:
         echo "cloudfront_distribution_domain_name=${{ secrets.cloudfront_distribution_domain_name }}" >> .env
         echo ".env generated:"
         cat .env
-        
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
