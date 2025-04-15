@@ -15,37 +15,44 @@
             <div th:replace="~{fragments/timeline :: timeline(${logMap})}"></div>
         </div>
         <div class="col">
-            <h6>状態</h6>
-            <table>
-                <thead>
-                <tr>
-                    <th style="width: 100px;">未対応</th>
-                    <th style="width: 100px;">処理中</th>
-                    <th style="width: 100px;">処理済み</th>
-                    <th style="width: 100px;">完了</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td th:text="${未対応数}"></td>
-                    <td th:text="${処理中数}"></td>
-                    <td th:text="${処理済み数}"></td>
-                    <td th:text="${完了数}"></td>
-                </tr>
-                </tbody>
-            </table>
             <div>
-                <div>
-                    <canvas id="ticketChart"></canvas>
-                </div>
-
-                <!-- サーバーからデータ埋め込み -->
-                <script th:inline="javascript">
-                    const ticketData = [[${ticketDataJson}]];
-                </script>
+            <h6>状態</h6>
+                <table>
+                    <thead>
+                    <tr>
+                        <th style="width: 100px;">未対応</th>
+                        <th style="width: 100px;">処理中</th>
+                        <th style="width: 100px;">処理済み</th>
+                        <th style="width: 100px;">完了</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${未対応数}"></td>
+                        <td th:text="${処理中数}"></td>
+                        <td th:text="${処理済み数}"></td>
+                        <td th:text="${完了数}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h6>状態</h6>
+                <canvas id="ticketChart"></canvas>
+            </div>
+            <div>
+                <h6>マイルストーン</h6>
+                <canvas id="ticketChart"></canvas>
+            </div>
+            <div>
+                <h6>カテゴリー</h6>
+                <canvas id="ticketChart"></canvas>
             </div>
         </div>
     </div>
+    <script th:inline="javascript">
+        const ticketData = [[${ticketDataJson}]];
+    </script>
 </div>
 <div layout:fragment="issueChart">
     <script src="/js/issueChart.js"></script>
