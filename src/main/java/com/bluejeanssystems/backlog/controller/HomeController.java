@@ -5,6 +5,8 @@ import com.bluejeanssystems.backlog.repository.IssueRepository;
 import com.bluejeanssystems.backlog.repository.ProjectRepository;
 import com.bluejeanssystems.backlog.repository.TransactionLogRepository;
 import com.bluejeanssystems.backlog.util.Status;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -53,6 +53,31 @@ public class HomeController {
         }
 
         model.addAttribute("logMap", map);
+
+        Map<String, Map<String, Integer>> ticketStatus = new LinkedHashMap<>();
+
+        Map<String, Integer> aliceStatus = new HashMap<>();
+        aliceStatus.put("未対応", 3);
+        aliceStatus.put("処理中", 2);
+        aliceStatus.put("処理済み", 5);
+        aliceStatus.put("完了", 1);
+        ticketStatus.put("Alice", aliceStatus);
+
+        Map<String, Integer> bobStatus = new HashMap<>();
+        bobStatus.put("未対応", 2);
+        bobStatus.put("処理中", 4);
+        bobStatus.put("処理済み", 1);
+        bobStatus.put("完了", 0);
+        ticketStatus.put("Bob", bobStatus);
+
+        // JSON 文字列にして Thymeleaf に渡す
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            String json = mapper.writeValueAsString(ticketStatus);
+            model.addAttribute("ticketDataJson", json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
 
         return "layout/home";
     }

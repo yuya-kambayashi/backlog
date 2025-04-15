@@ -35,10 +35,20 @@
                 </tbody>
             </table>
             <div>
-                <canvas id="ticketStatusChart"></canvas>
+                <div>
+                    <canvas id="ticketChart"></canvas>
+                </div>
+
+                <!-- サーバーからデータ埋め込み -->
+                <script th:inline="javascript">
+                    const ticketData = [[${ticketDataJson}]];
+                </script>
             </div>
         </div>
     </div>
+</div>
+<div layout:fragment="issueChart">
+    <script src="/js/issueChart.js"></script>
 </div>
 </body>
 </html>
