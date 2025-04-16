@@ -34,3 +34,5 @@ build/
 
 ### DOT ENV ###
 .env
+/data/testdb.trace.db
+/data/testdb.mv.db
