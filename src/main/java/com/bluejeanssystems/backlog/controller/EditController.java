@@ -26,10 +26,12 @@ public class EditController {
     public String edit(@PathVariable("projectKey") String projectKey,
                        @PathVariable("issueNumber") long issueNumber,
                        Model model) {
+        var project = projectRepository.findByProjectKey(projectKey);
+
         model.addAttribute("statuses", Status.values());
         model.addAttribute("types", Type.values());
         model.addAttribute("priorities", Priority.values());
-        model.addAttribute("milestones", milestoneRepository.findAll());
+        model.addAttribute("milestones", milestoneRepository.findAllBy(project.getId()));
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("resolutions", Resolution.values());

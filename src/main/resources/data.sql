@@ -5,12 +5,14 @@ INSERT INTO project (name, project_key)
 VALUES ('競技プログラミングPrj', 'KYOPRO');
 
 -- Milestone
-INSERT INTO milestone (name)
-VALUES ('未設定');
-INSERT INTO milestone (name)
-VALUES ('Build1_20250401');
-INSERT INTO milestone (name)
-VALUES ('Build2_20250501');
+INSERT INTO milestone (project_id, name, description)
+VALUES (1, '未設定', 'デフォルト');
+INSERT INTO milestone (project_id, name, description)
+VALUES (1, 'Build1_20250401', '初回');
+INSERT INTO milestone (project_id, name, description)
+VALUES (1, 'Build2_20250501', '最終');
+INSERT INTO milestone (project_id, name, description)
+VALUES (2, '未設定', 'デフォルト');
 
 -- Category
 INSERT INTO category (name)
@@ -33,7 +35,7 @@ VALUES (1, 1, '画面レイアウトを調整する', 'ssss\n\n<img src="/images
         '中', 2, NULL, 1, 1, 3, '2025-12-31', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
        (1, 2, 'ガントチャートを作成する', 'Hello World\nこんにちは\nニーハオ', '完了', 'バグ', '高', 3, 2, 1, 2, 3,
         '2025-04-01', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       (2, 1, '青色になる', '目指せ青色', '完了', 'バグ', '高', 3, 2, 1, 2, 3, '2025-04-01', CURRENT_TIMESTAMP,
+       (2, 1, '青色になる', '目指せ青色', '完了', 'バグ', '高', 4, 2, 1, 2, 3, '2025-04-01', CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP);
 
 -- Comment

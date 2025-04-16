@@ -39,6 +39,7 @@ public class ViewController {
                        @PathVariable("issueNumber") long issueNumber,
                        HttpServletRequest request) throws Exception {
         Issue issue = issueRepository.findByIssueNumber(projectKey, issueNumber);
+        var project = projectRepository.findByProjectKey(projectKey);
 
         model.addAttribute("issue", issue);
         model.addAttribute("newComment", new Comment());
@@ -46,7 +47,7 @@ public class ViewController {
         model.addAttribute("editUrl", "edit/" + issueNumber);
         model.addAttribute("statuses", Status.values());
         model.addAttribute("users", userRepository.findAll());
-        model.addAttribute("milestones", milestoneRepository.findAll());
+        model.addAttribute("milestones", milestoneRepository.findAllBy(project.getId()));
         model.addAttribute("resolutions", Resolution.values());
         model.addAttribute("project", projectRepository.findByProjectKey(projectKey));
 

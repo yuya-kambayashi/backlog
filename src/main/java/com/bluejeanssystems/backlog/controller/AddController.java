@@ -31,14 +31,16 @@ public class AddController {
     public String add(
             @PathVariable("projectKey") String projectKey,
             Model model) {
+        var project = projectRepository.findByProjectKey(projectKey);
+
         model.addAttribute("statuses", Status.values());
         model.addAttribute("types", Type.values());
         model.addAttribute("priorities", Priority.values());
-        model.addAttribute("milestones", milestoneRepository.findAll());
+        model.addAttribute("milestones", milestoneRepository.findAllBy(project.getId()));
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("issue", new Issue());
-        model.addAttribute("versions", milestoneRepository.findAll());
+        model.addAttribute("versions", milestoneRepository.findAllBy(project.getId()));
         model.addAttribute("project", projectRepository.findByProjectKey(projectKey));
 
 

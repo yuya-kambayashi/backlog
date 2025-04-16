@@ -27,6 +27,7 @@ public class HomeController {
     @GetMapping("/home")
     public String home(@PathVariable("projectKey") String projectKey, Model model) {
         var issues = issueRepository.findAllBy(projectKey);
+        var project = projectRepository.findByProjectKey(projectKey);
         model.addAttribute("issues", issues);
 
         model.addAttribute("project", projectRepository.findByProjectKey(projectKey));
@@ -67,7 +68,7 @@ public class HomeController {
 
         // マイルストーン
         Map<String, Map<String, Integer>> milestoneMapMap = new LinkedHashMap<>();
-        for (var mileStone : milestoneRepository.findAll()) {
+        for (var mileStone : milestoneRepository.findAllBy(project.getId())) {
             Map<String, Integer> milestoneMap = new HashMap<>();
             for (var issue : issues) {
                 if (issue.getMilestone().equals(mileStone)) {
