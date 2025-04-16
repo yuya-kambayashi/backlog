@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded", function () {
+function renderTicketChart(ticketData, containerId) {
+    const ctx = document.getElementById(containerId).getContext("2d");
+
     // ticketData は HTML 側で <script>タグから定義されている想定
     const input = JSON.parse(ticketData.toString());
     console.log(input);
@@ -19,8 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log(datasets);
 
-
-    const ctx = document.getElementById('ticketChart').getContext('2d');
     new Chart(ctx, {
         type: 'bar',
         data: {
@@ -47,4 +47,4 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
-});
+}

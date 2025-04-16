@@ -16,7 +16,7 @@
         </div>
         <div class="col">
             <div>
-            <h6>状態</h6>
+                <h6>状態</h6>
                 <table>
                     <thead>
                     <tr>
@@ -38,20 +38,29 @@
             </div>
             <div>
                 <h6>状態</h6>
-                <canvas id="ticketChart"></canvas>
+                <canvas id="issue-chart-status"></canvas>
             </div>
             <div>
                 <h6>マイルストーン</h6>
-                <canvas id="ticketChart"></canvas>
+                <canvas id="issue-chart-milestone"></canvas>
             </div>
             <div>
                 <h6>カテゴリー</h6>
-                <canvas id="ticketChart"></canvas>
+                <canvas id="issue-chart-category"></canvas>
             </div>
         </div>
     </div>
+
     <script th:inline="javascript">
-        const ticketData = [[${ticketDataJson}]];
+        document.addEventListener("DOMContentLoaded", function () {
+            renderTicketChart([[${ticketDataJson}]], 'issue-chart-status');
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+            renderTicketChart([[${ticketDataJson2}]], 'issue-chart-milestone');
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+            renderTicketChart([[${ticketDataJson}]], 'issue-chart-category');
+        });
     </script>
 </div>
 <div layout:fragment="issueChart">

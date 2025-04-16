@@ -79,6 +79,32 @@ public class HomeController {
             e.printStackTrace();
         }
 
+        Map<String, Map<String, Integer>> ticketStatus2 = new LinkedHashMap<>();
+
+        Map<String, Integer> aliceStatus2 = new HashMap<>();
+        aliceStatus2.put("未対応", 4);
+        aliceStatus2.put("処理中", 6);
+        aliceStatus2.put("処理済み", 2);
+        aliceStatus2.put("完了", 10);
+        ticketStatus2.put("Alice", aliceStatus2);
+
+        Map<String, Integer> bobStatus2 = new HashMap<>();
+        bobStatus2.put("未対応", 9);
+        bobStatus2.put("処理中", 1);
+        bobStatus2.put("処理済み", 2);
+        bobStatus2.put("完了", 8);
+        ticketStatus2.put("Bob", bobStatus);
+
+        // JSON 文字列にして Thymeleaf に渡す
+        mapper = new ObjectMapper();
+        try {
+            String json = mapper.writeValueAsString(ticketStatus2);
+            model.addAttribute("ticketDataJson2", json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+
         return "layout/home";
     }
 }
