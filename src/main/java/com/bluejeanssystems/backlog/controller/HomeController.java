@@ -79,7 +79,7 @@ public class HomeController {
         }
         // カテゴリー
         Map<String, Map<String, Integer>> categoryMapMap = new LinkedHashMap<>();
-        for (var c : categoryRepository.findAll()) {
+        for (var c : categoryRepository.findAllBy(project.getId())) {
             Map<String, Integer> categoryMap = new HashMap<>();
             for (var issue : issues) {
                 if (issue.getCategory().equals(c)) {

@@ -37,7 +37,7 @@ public class AddController {
         model.addAttribute("types", Type.values());
         model.addAttribute("priorities", Priority.values());
         model.addAttribute("milestones", milestoneRepository.findAllBy(project.getId()));
-        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("categories", categoryRepository.findAllBy(project.getId()));
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("issue", new Issue());
         model.addAttribute("versions", milestoneRepository.findAllBy(project.getId()));

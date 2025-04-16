@@ -6,17 +6,19 @@ VALUES ('競技プログラミングPrj', 'KYOPRO');
 
 -- Milestone
 INSERT INTO milestone (project_id, name, description)
-VALUES (1, '未設定', 'デフォルト');
-INSERT INTO milestone (project_id, name, description)
-VALUES (1, 'Build1_20250401', '初回');
-INSERT INTO milestone (project_id, name, description)
-VALUES (1, 'Build2_20250501', '最終');
-INSERT INTO milestone (project_id, name, description)
-VALUES (2, '未設定', 'デフォルト');
+ VALUES (1, '未設定', 'デフォルト'),
+         (1, 'Build1_20250401', '初回'),
+         (1, 'Build2_20250501', '最終'),
+         (2, '未設定', 'デフォルト');
 
 -- Category
-INSERT INTO category (name)
-VALUES ('UI');　
+INSERT INTO category (project_id, name, description)
+VALUES (1, '未設定','デフォルト' ),
+        (1, 'UI','デフォルト' ),
+        (2, '未設定','デフォルト' ),
+        (2, 'Up Solve','' ),
+        (2, '鹿本','' );　
+
 
 -- SiteUser (passwordはエンコード済みの値にする必要があります。以下は仮の例)
 INSERT INTO site_user (username, password, email, authority)
