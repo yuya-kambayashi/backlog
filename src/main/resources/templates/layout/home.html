@@ -53,13 +53,13 @@
 
     <script th:inline="javascript">
         document.addEventListener("DOMContentLoaded", function () {
-            renderTicketChart([[${ticketDataJson}]], 'issue-chart-status');
+            renderTicketChart([[${statusMapMap}]], 'issue-chart-status');
         });
         document.addEventListener("DOMContentLoaded", function () {
-            renderTicketChart([[${ticketDataJson2}]], 'issue-chart-milestone');
+            renderTicketChart([[${milestoneMapMap}]], 'issue-chart-milestone');
         });
         document.addEventListener("DOMContentLoaded", function () {
-            renderTicketChart([[${ticketDataJson}]], 'issue-chart-category');
+            renderTicketChart([[${categoryMapMap}]], 'issue-chart-category');
         });
     </script>
 </div>

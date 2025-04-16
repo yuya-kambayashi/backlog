@@ -1,9 +1,7 @@
 package com.bluejeanssystems.backlog.controller;
 
 import com.bluejeanssystems.backlog.model.TransactionLog;
-import com.bluejeanssystems.backlog.repository.IssueRepository;
-import com.bluejeanssystems.backlog.repository.ProjectRepository;
-import com.bluejeanssystems.backlog.repository.TransactionLogRepository;
+import com.bluejeanssystems.backlog.repository.*;
 import com.bluejeanssystems.backlog.util.Status;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,6 +20,8 @@ import java.util.*;
 public class HomeController {
     private final IssueRepository issueRepository;
     private final ProjectRepository projectRepository;
+    private final MilestoneRepository milestoneRepository;
+    private final CategoryRepository categoryRepository;
     private final TransactionLogRepository transactionLogRepository;
 
     @GetMapping("/home")
@@ -37,6 +37,7 @@ public class HomeController {
         model.addAttribute("処理済み数", issues.stream().filter(issue -> issue.getStatus() == Status.処理済み).count());
         model.addAttribute("完了数", issues.stream().filter(issue -> issue.getStatus() == Status.完了).count());
 
+        // 最新の更新
         var logs = transactionLogRepository.findAll();
         var map = new LinkedHashMap<String, List<TransactionLog>>();
         logs = logs.stream().filter(log -> log.getIssue().getProject().getProjectKey().equals(projectKey)).toList();
@@ -51,57 +52,47 @@ public class HomeController {
                 map.put(log.getDate(), list);
             }
         }
-
         model.addAttribute("logMap", map);
 
-        Map<String, Map<String, Integer>> ticketStatus = new LinkedHashMap<>();
+        // 統計情報
 
-        Map<String, Integer> aliceStatus = new HashMap<>();
-        aliceStatus.put("未対応", 3);
-        aliceStatus.put("処理中", 2);
-        aliceStatus.put("処理済み", 5);
-        aliceStatus.put("完了", 1);
-        ticketStatus.put("Alice", aliceStatus);
-
-        Map<String, Integer> bobStatus = new HashMap<>();
-        bobStatus.put("未対応", 2);
-        bobStatus.put("処理中", 4);
-        bobStatus.put("処理済み", 1);
-        bobStatus.put("完了", 0);
-        ticketStatus.put("Bob", bobStatus);
-
-        // JSON 文字列にして Thymeleaf に渡す
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            String json = mapper.writeValueAsString(ticketStatus);
-            model.addAttribute("ticketDataJson", json);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        // 状態
+        Map<String, Map<String, Integer>> statusMapMap = new LinkedHashMap<>();
+        Map<String, Integer> statusMap = new HashMap<>();
+        for (var issue : issues) {
+            statusMap.put(issue.getStatus().name(), statusMap.getOrDefault(issue.getStatus().name(), 0) + 1);
         }
+        statusMapMap.put("全体", statusMap);
 
-        Map<String, Map<String, Integer>> ticketStatus2 = new LinkedHashMap<>();
 
-        Map<String, Integer> aliceStatus2 = new HashMap<>();
-        aliceStatus2.put("未対応", 4);
-        aliceStatus2.put("処理中", 6);
-        aliceStatus2.put("処理済み", 2);
-        aliceStatus2.put("完了", 10);
-        ticketStatus2.put("Alice", aliceStatus2);
-
-        Map<String, Integer> bobStatus2 = new HashMap<>();
-        bobStatus2.put("未対応", 9);
-        bobStatus2.put("処理中", 1);
-        bobStatus2.put("処理済み", 2);
-        bobStatus2.put("完了", 8);
-        ticketStatus2.put("Bob", bobStatus);
-
+        // マイルストーン
+        Map<String, Map<String, Integer>> milestoneMapMap = new LinkedHashMap<>();
+        for (var mileStone : milestoneRepository.findAll()) {
+            Map<String, Integer> milestoneMap = new HashMap<>();
+            for (var issue : issues) {
+                if (issue.getMilestone().equals(mileStone)) {
+                    milestoneMap.put(issue.getStatus().name(), statusMap.getOrDefault(issue.getStatus().name(), 0) + 1);
+                }
+            }
+            milestoneMapMap.put(mileStone.getName(), milestoneMap);
+        }
+        // カテゴリー
+        Map<String, Map<String, Integer>> categoryMapMap = new LinkedHashMap<>();
+        for (var c : categoryRepository.findAll()) {
+            Map<String, Integer> categoryMap = new HashMap<>();
+            for (var issue : issues) {
+                if (issue.getCategory().equals(c)) {
+                    categoryMap.put(issue.getStatus().name(), statusMap.getOrDefault(issue.getStatus().name(), 0) + 1);
+                }
+            }
+            categoryMapMap.put(c.getName(), categoryMap);
+        }
         // JSON 文字列にして Thymeleaf に渡す
-        mapper = new ObjectMapper();
         try {
-            String json = mapper.writeValueAsString(ticketStatus2);
-            model.addAttribute("ticketDataJson2", json);
+            model.addAttribute("statusMapMap", new ObjectMapper().writeValueAsString(statusMapMap));
+            model.addAttribute("milestoneMapMap", new ObjectMapper().writeValueAsString(milestoneMapMap));
+            model.addAttribute("categoryMapMap", new ObjectMapper().writeValueAsString(categoryMapMap));
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
         }
 
 

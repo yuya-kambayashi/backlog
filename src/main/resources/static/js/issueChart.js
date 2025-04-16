@@ -6,7 +6,6 @@ function renderTicketChart(ticketData, containerId) {
     console.log(input);
     const labels = Object.keys(input); // ['Alice', 'Bob']
     console.log(labels);
-    console.log(input['Alice']['To Do']);
 
     const states = ['未対応', '処理中', '処理済み', '完了'];
 
