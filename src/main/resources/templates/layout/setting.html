@@ -47,18 +47,29 @@
                             マイルストーン
                         </h6>
                     </div>
+                    <a th:href="@{setting/new}">マイルストーンの追加</a>
                     <div class="card-body table-responsive">
                         <table class="table table-bordered">
                             <thead>
                             <tr>
                                 <th>名称</th>
-                                <th>詳細</th>
+                                <th>説明</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="milestone : ${milestones}" th:object="${milestone}">
-                                <td th:text="*{name}"></td>
-                                <td th:text="*{description}"></td>
+                            <tr th:each="m : ${milestones}" th:object="${milestone}">
+                                <td th:text="${m.name}"></td>
+                                <td th:text="${m.description}"></td>
+                                <td>
+
+                                    <a th:href="@{/setting/edit/{id}(id=${m.id})}">編集</a>
+                                    <form th:action="@{projects/{projectKey}/setting/delete/{id}(projectKey=${projectKey}, id=${m.id})}"
+                                          method="post"
+                                          style="display:inline;">
+                                        <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
+                                    </form>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
