@@ -7,21 +7,21 @@
     <div class="container">
         <div class="row menu-item">
             <a class="col text-decoration-none"
-               th:href="@{/projects/{projectKey}/home(projectKey=${project?.projectKey})}">
+               th:href="@{/projects/{projectKey}/home(projectKey=${projectKey})}">
                 <i class="bi bi-house-door-fill"></i>
                 ホーム
             </a>
         </div>
         <div class="row menu-item">
             <a class="col text-decoration-none"
-               th:href="@{/projects/{projectKey}/add(projectKey=${project?.projectKey})}">
+               th:href="@{/projects/{projectKey}/add(projectKey=${projectKey})}">
                 <i class="bi bi-plus-lg"></i>
                 課題の追加
             </a>
         </div>
         <div class="row menu-item">
             <a class="col text-decoration-none"
-               th:href="@{/projects/{projectKey}/find(projectKey=${project?.projectKey}, status='0,1,2,3', priority='0,1,2')}">
+               th:href="@{/projects/{projectKey}/find(projectKey=${projectKey}, status='0,1,2,3', priority='0,1,2')}">
                 <i class="bi bi-card-list"></i>
                 課題
             </a>
@@ -40,7 +40,7 @@
         </div>
         <div class="row menu-item">
             <a class="col text-decoration-none"
-               th:href="@{/projects/{projectKey}/setting(projectKey=${project?.projectKey})}">
+               th:href="@{/projects/{projectKey}/setting(projectKey=${projectKey})}">
                 <i class="bi bi-gear-fill"></i>
                 プロジェクト設定
             </a>

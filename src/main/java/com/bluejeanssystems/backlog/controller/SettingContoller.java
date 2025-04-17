@@ -53,7 +53,7 @@ public class SettingContoller {
         model.addAttribute("milestone", milestoneRepository.findById(id).orElseThrow());
         model.addAttribute("projectKey", projectKey);
 
-        return "layout/setting";
+        return "layout/setting-milestone-form";
     }
 
     @PostMapping("/delete/{id}")

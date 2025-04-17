@@ -63,7 +63,7 @@
                                 <td th:text="${m.description}"></td>
                                 <td>
 
-                                    <a th:href="@{/setting/edit/{id}(id=${m.id})}">編集</a>
+                                    <a th:href="@{/projects/{projectKey}/setting/edit/{id}(projectKey=${projectKey}, id=${m.id})}">編集</a>
                                     <form th:action="@{projects/{projectKey}/setting/delete/{id}(projectKey=${projectKey}, id=${m.id})}"
                                           method="post"
                                           style="display:inline;">
