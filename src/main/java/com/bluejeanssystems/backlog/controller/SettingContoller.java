@@ -33,7 +33,7 @@ public class SettingContoller {
         return "layout/setting";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/milestone/new")
     public String createForm(@PathVariable("projectKey") String projectKey,
                              Model model) {
         model.addAttribute("milestone", new Milestone());
@@ -41,7 +41,7 @@ public class SettingContoller {
         return "layout/setting-milestone-form";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/milestone/save")
     public String save(@PathVariable("projectKey") String projectKey,
                        @ModelAttribute Milestone milestone) {
         var project = projectRepository.findByProjectKey(projectKey);
@@ -50,7 +50,7 @@ public class SettingContoller {
         return "redirect:/projects/" + projectKey + "/setting";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/milestone/edit/{id}")
     public String editForm(@PathVariable("projectKey") String projectKey,
                            @PathVariable Long id, Model model) {
         model.addAttribute("milestone", milestoneRepository.findById(id).orElseThrow());
@@ -59,7 +59,7 @@ public class SettingContoller {
         return "layout/setting-milestone-form";
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("/milestone/delete/{id}")
     public String delete(RedirectAttributes redirectAttributes,
                          @PathVariable("projectKey") String projectKey,
                          @PathVariable Long id) {

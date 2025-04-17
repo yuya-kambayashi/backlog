@@ -12,7 +12,8 @@
 <div layout:fragment="content">
     <h6 th:text="${milestone.id == null ? '新規作成' : '編集'}"></h6>
 
-    <form th:action="@{/projects/{projectKey}/setting/save(projectKey=${projectKey})}" th:object="${milestone}"
+    <form th:action="@{/projects/{projectKey}/setting/milestone/save(projectKey=${projectKey})}"
+          th:object="${milestone}"
           method="post">
         <input type="hidden" th:field="*{id}"/>
         <p>名前: <input type="text" th:field="*{name}"/></p>
