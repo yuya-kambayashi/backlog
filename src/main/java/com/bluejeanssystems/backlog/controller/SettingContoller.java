@@ -1,10 +1,7 @@
 package com.bluejeanssystems.backlog.controller;
 
 import com.bluejeanssystems.backlog.model.Milestone;
-import com.bluejeanssystems.backlog.repository.IssueRepository;
-import com.bluejeanssystems.backlog.repository.MilestoneRepository;
-import com.bluejeanssystems.backlog.repository.ProjectRepository;
-import com.bluejeanssystems.backlog.repository.SiteUserRepository;
+import com.bluejeanssystems.backlog.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class SettingContoller {
     private final SiteUserRepository siteUserRepository;
     private final MilestoneRepository milestoneRepository;
+    private final CategoryRepository categoryRepository;
     private final ProjectRepository projectRepository;
     private final IssueRepository issueRepository;
 
@@ -29,20 +27,23 @@ public class SettingContoller {
         model.addAttribute("projectKey", projectKey);
         model.addAttribute("users", siteUserRepository.findAll());
         model.addAttribute("milestones", milestoneRepository.findAllBy(project.getId()));
+        model.addAttribute("milestones", milestoneRepository.findAllBy(project.getId()));
 
         return "layout/setting";
     }
 
-    @GetMapping("/milestone/new")
+    @GetMapping("/{target}/new")
     public String createForm(@PathVariable("projectKey") String projectKey,
+                             @PathVariable("target") String target,
                              Model model) {
         model.addAttribute("milestone", new Milestone());
         model.addAttribute("projectKey", projectKey);
         return "layout/setting-milestone-form";
     }
 
-    @PostMapping("/milestone/save")
+    @PostMapping("/{target}/save")
     public String save(@PathVariable("projectKey") String projectKey,
+                       @PathVariable("target") String target,
                        @ModelAttribute Milestone milestone) {
         var project = projectRepository.findByProjectKey(projectKey);
         milestone.setProject(project);
@@ -50,8 +51,9 @@ public class SettingContoller {
         return "redirect:/projects/" + projectKey + "/setting";
     }
 
-    @GetMapping("/milestone/edit/{id}")
+    @GetMapping("/{target}/edit/{id}")
     public String editForm(@PathVariable("projectKey") String projectKey,
+                           @PathVariable("target") String target,
                            @PathVariable Long id, Model model) {
         model.addAttribute("milestone", milestoneRepository.findById(id).orElseThrow());
         model.addAttribute("projectKey", projectKey);
@@ -59,9 +61,10 @@ public class SettingContoller {
         return "layout/setting-milestone-form";
     }
 
-    @PostMapping("/milestone/delete/{id}")
+    @PostMapping("/{target}/delete/{id}")
     public String delete(RedirectAttributes redirectAttributes,
                          @PathVariable("projectKey") String projectKey,
+                         @PathVariable("target") String target,
                          @PathVariable Long id) {
 
         var issues = issueRepository.findAllBy(projectKey);
