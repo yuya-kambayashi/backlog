@@ -63,10 +63,12 @@
                                 <td th:text="${m.description}"></td>
                                 <td>
 
-                                    <a th:href="@{/projects/{projectKey}/setting/edit/{id}(projectKey=${projectKey}, id=${m.id})}">編集</a>
+                                    <a th:href="@{/projects/{projectKey}/setting/edit/{id}(projectKey=${projectKey}, id=${m.id})}"
+                                       th:if="${m.name != '未設定'}">編集</a>
                                     <form th:action="@{projects/{projectKey}/setting/delete/{id}(projectKey=${projectKey}, id=${m.id})}"
                                           method="post"
-                                          style="display:inline;">
+                                          style="display:inline;"
+                                          th:if="${m.name != '未設定'}">
                                         <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
                                     </form>
                                 </td>
