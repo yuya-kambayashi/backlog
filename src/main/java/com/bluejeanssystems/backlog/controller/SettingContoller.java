@@ -1,5 +1,6 @@
 package com.bluejeanssystems.backlog.controller;
 
+import com.bluejeanssystems.backlog.model.Category;
 import com.bluejeanssystems.backlog.model.Milestone;
 import com.bluejeanssystems.backlog.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class SettingContoller {
         model.addAttribute("projectKey", projectKey);
         model.addAttribute("users", siteUserRepository.findAll());
         model.addAttribute("milestones", milestoneRepository.findAllBy(project.getId()));
-        model.addAttribute("milestones", milestoneRepository.findAllBy(project.getId()));
+        model.addAttribute("categories", categoryRepository.findAllBy(project.getId()));
 
         return "layout/setting";
     }
@@ -36,18 +37,32 @@ public class SettingContoller {
     public String createForm(@PathVariable("projectKey") String projectKey,
                              @PathVariable("target") String target,
                              Model model) {
-        model.addAttribute("milestone", new Milestone());
+        if (target.equals("milestone")) {
+            model.addAttribute("milestone", new Milestone());
+        } else if (target.equals("category")) {
+            model.addAttribute("category", new Category());
+        }
         model.addAttribute("projectKey", projectKey);
-        return "layout/setting-milestone-form";
+
+        return "layout/setting-" + target + "-form";
     }
 
     @PostMapping("/{target}/save")
     public String save(@PathVariable("projectKey") String projectKey,
                        @PathVariable("target") String target,
-                       @ModelAttribute Milestone milestone) {
+                       @ModelAttribute Milestone milestone,
+                       @ModelAttribute Category category
+    ) {
         var project = projectRepository.findByProjectKey(projectKey);
-        milestone.setProject(project);
-        milestoneRepository.save(milestone);
+
+        if (target.equals("milestone")) {
+            milestone.setProject(project);
+            milestoneRepository.save(milestone);
+        } else if (target.equals("category")) {
+            category.setProject(project);
+            categoryRepository.save(category);
+        }
+
         return "redirect:/projects/" + projectKey + "/setting";
     }
 
@@ -55,10 +70,14 @@ public class SettingContoller {
     public String editForm(@PathVariable("projectKey") String projectKey,
                            @PathVariable("target") String target,
                            @PathVariable Long id, Model model) {
-        model.addAttribute("milestone", milestoneRepository.findById(id).orElseThrow());
+        if (target.equals("milestone")) {
+            model.addAttribute("milestone", milestoneRepository.findById(id).orElseThrow());
+        } else if (target.equals("category")) {
+            model.addAttribute("category", categoryRepository.findById(id).orElseThrow());
+        }
         model.addAttribute("projectKey", projectKey);
 
-        return "layout/setting-milestone-form";
+        return "layout/setting-" + target + "-form";
     }
 
     @PostMapping("/{target}/delete/{id}")
@@ -68,15 +87,26 @@ public class SettingContoller {
                          @PathVariable Long id) {
 
         var issues = issueRepository.findAllBy(projectKey);
+        if (target.equals("milestone")) {
 
-        // 削除対象が設定済みの課題があるかをチェックする
-        if (issues.stream().anyMatch(issue -> issue.getMilestone().getId().equals(id))) {
-            redirectAttributes.addFlashAttribute("message", "マイルストーンが設定されている課題があるため削除できません。");
-            redirectAttributes.addFlashAttribute("alertType", "warning");
-            return "redirect:/projects/" + projectKey + "/setting";
+            // 削除対象が設定済みの課題があるかをチェックする
+            if (issues.stream().anyMatch(issue -> issue.getMilestone().getId().equals(id))) {
+                redirectAttributes.addFlashAttribute("message1", "マイルストーンが設定されている課題があるため削除できません。");
+                redirectAttributes.addFlashAttribute("alertType1", "warning");
+                return "redirect:/projects/" + projectKey + "/setting";
+            }
+            milestoneRepository.deleteById(id);
+
+        } else if (target.equals("category")) {
+
+            // 削除対象が設定済みの課題があるかをチェックする
+            if (issues.stream().anyMatch(issue -> issue.getCategory().getId().equals(id))) {
+                redirectAttributes.addFlashAttribute("message2", "カテゴリーが設定されている課題があるため削除できません。");
+                redirectAttributes.addFlashAttribute("alertType2", "warning");
+                return "redirect:/projects/" + projectKey + "/setting";
+            }
+            categoryRepository.deleteById(id);
         }
-
-        milestoneRepository.deleteById(id);
         return "redirect:/projects/" + projectKey + "/setting";
     }
 }

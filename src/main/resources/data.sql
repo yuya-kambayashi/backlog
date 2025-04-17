@@ -34,8 +34,8 @@ INSERT INTO issue (project_id, issue_number, title, description, status, type, p
                    versions_id, category_id,
                    assigner_id, voter_id, limit_date, created_at, updated_at)
 VALUES (1, 1, '画面レイアウトを調整する', 'ssss\n\n<img src="/images/screenshot.png">\ndddd\nxxxxx', '未対応', 'タスク',
-        '中', 2, NULL, 1, 1, 3, '2025-12-31', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       (1, 2, 'ガントチャートを作成する', 'Hello World\nこんにちは\nニーハオ', '完了', 'バグ', '高', 3, 2, 1, 2, 3,
+        '中', 2, NULL, 2, 1, 3, '2025-12-31', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+       (1, 2, 'ガントチャートを作成する', 'Hello World\nこんにちは\nニーハオ', '完了', 'バグ', '高', 3, 2, 2, 2, 3,
         '2025-04-01', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
        (2, 1, '青色になる', '目指せ青色', '完了', 'バグ', '高', 4, 2, 1, 2, 3, '2025-04-01', CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP);

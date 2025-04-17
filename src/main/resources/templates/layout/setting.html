@@ -44,15 +44,60 @@
                 <div class="card">
                     <div class="card-header">
                         <h6 class="text-navy my-2">
+                            カテゴリー
+                        </h6>
+                    </div>
+                    <a th:href="@{setting/category/new}" class="btn btn-primary btn-sm border-0"
+                       style="background-color: #4CAF93; margin: 10px 600px 10px 10px">カテゴリーの追加</a>
+                    <div th:if="${message2}"
+                         th:class="'mt-4 mx-4 alert alert-dismissible fade show alert-' + ${alertType2}"
+                         role="alert">
+                        <span th:text="${message2}"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th>詳細</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="c : ${categories}" th:object="${category}">
+                                <td th:text="${c.name}"></td>
+                                <td th:text="${c.description}"></td>
+                                <td>
+                                    <a th:href="@{/projects/{projectKey}/setting/category/edit/{id}(projectKey=${projectKey}, id=${c.id})}"
+                                       class="btn btn-secondary btn-sm border-0"
+                                       th:if="${c.name != '未設定'}">編集</a>
+                                    <form th:action="@{/projects/{projectKey}/setting/category/delete/{id}(projectKey=${projectKey}, id=${c.id})}"
+                                          method="post"
+                                          style="display:inline;"
+                                          th:if="${c.name != '未設定'}">
+                                        <button type="submit" class="btn btn-danger btn-sm border-0"
+                                                onclick="return confirm('本当に削除しますか？')">削除
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="text-navy my-2">
                             発生バージョン/マイルストーン
                         </h6>
                     </div>
                     <a th:href="@{setting/milestone/new}" class="btn btn-primary btn-sm border-0"
                        style="background-color: #4CAF93; margin: 10px 600px 10px 10px">発生バージョン/マイルストーンの追加</a>
-                    <div th:if="${message}"
-                         th:class="'mt-4 mx-4 alert alert-dismissible fade show alert-' + ${alertType}"
+                    <div th:if="${message1}"
+                         th:class="'mt-4 mx-4 alert alert-dismissible fade show alert-' + ${alertType1}"
                          role="alert">
-                        <span th:text="${message}"></span>
+                        <span th:text="${message1}"></span>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     <div class="card-body table-responsive">
