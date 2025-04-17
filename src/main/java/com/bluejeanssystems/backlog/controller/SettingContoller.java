@@ -2,12 +2,16 @@ package com.bluejeanssystems.backlog.controller;
 
 import com.bluejeanssystems.backlog.model.Category;
 import com.bluejeanssystems.backlog.model.Milestone;
+import com.bluejeanssystems.backlog.model.SiteUser;
 import com.bluejeanssystems.backlog.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,8 +29,11 @@ public class SettingContoller {
                        Model model) {
         var project = projectRepository.findByProjectKey(projectKey);
 
+        var users = siteUserRepository.findAll().stream().collect(Collectors.groupingBy(SiteUser::getTeam))
+                .values().stream().flatMap(List::stream).toList();
+
         model.addAttribute("projectKey", projectKey);
-        model.addAttribute("users", siteUserRepository.findAll());
+        model.addAttribute("users", users);
         model.addAttribute("milestones", milestoneRepository.findAllBy(project.getId()));
         model.addAttribute("categories", categoryRepository.findAllBy(project.getId()));
 

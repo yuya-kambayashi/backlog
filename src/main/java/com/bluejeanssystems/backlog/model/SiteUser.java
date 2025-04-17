@@ -31,4 +31,8 @@ public class SiteUser {
 //    private boolean admin;
     @Enumerated(EnumType.STRING)
     private Authority authority;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
 }

@@ -20,14 +20,20 @@ VALUES (1, '未設定','デフォルト' ),
         (2, '鹿本','' );　
 
 
+-- Team
+INSERT INTO team (name, description)
+VALUES ('未設定', ''),
+       ('Blue Jeans Systems', ''),
+       ('学生', '');
+
 -- SiteUser (passwordはエンコード済みの値にする必要があります。以下は仮の例)
-INSERT INTO site_user (username, password, email, authority)
+INSERT INTO site_user (username, password, email, authority, team_id)
 VALUES ('Ryotaro', '$2a$10$Bf44kjpHyFzMEsiftvgNgOaKojMEyvbqLJ/Jy.bg7Zk4ZnDJ3mqLa', 'ryotaro@bluejeanssystems.com',
-        'ADMIN'),
+        'USER', 2),
        ('Daisuke', '$2a$10$Bf44kjpHyFzMEsiftvgNgOaKojMEyvbqLJ/Jy.bg7Zk4ZnDJ3mqLa', 'daisuke@bluejeanssystems.com',
-        'USER'),
+        'USER', 3),
        ('Backlog管理者', '$2a$10$Bf44kjpHyFzMEsiftvgNgOaKojMEyvbqLJ/Jy.bg7Zk4ZnDJ3mqLa',
-        'admin@bluejeanssystems.com', 'USER');
+        'admin@bluejeanssystems.com', 'ADMIN', 2);
 
 -- Issue
 INSERT INTO issue (project_id, issue_number, title, description, status, type, priority, milestone_id,

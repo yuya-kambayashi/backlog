@@ -23,6 +23,7 @@
                         <table id="user-table" class="table table-bordered">
                             <thead>
                             <tr>
+                                <th>チーム</th>
                                 <th>ユーザ名</th>
                                 <th>Email</th>
                                 <th>権限</th>
@@ -31,6 +32,7 @@
                             </thead>
                             <tbody>
                             <tr th:each="user : ${users}" th:object="${user}">
+                                <td th:text="${user.team.name}"></td>
                                 <td th:text="*{username}"></td>
                                 <td th:text="*{email}"></td>
                                 <td th:text="*{authority}"></td>
