@@ -30,5 +30,12 @@
     </div>
 </div>
 
+<!-- ログインメッセージ -->
+<div th:fragment="setting">
+    <div class="alert alert-danger" th:if="${param.error}">
+        <small>マイルストーンが設定されている課題があるため削除できません。</small>
+    </div>
+</div>
+
 </body>
 </html>

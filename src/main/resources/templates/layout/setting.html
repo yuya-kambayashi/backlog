@@ -47,13 +47,20 @@
                             マイルストーン
                         </h6>
                     </div>
-                    <a th:href="@{setting/new}">マイルストーンの追加</a>
+                    <a th:href="@{setting/new}" class="btn btn-primary btn-sm border-0"
+                       style="background-color: #4CAF93; margin: 10px 600px 10px 10px">マイルストーンの追加</a>
+                    <div th:if="${message}"
+                         th:class="'mt-4 mx-4 alert alert-dismissible fade show alert-' + ${alertType}"
+                         role="alert">
+                        <span th:text="${message}"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                     <div class="card-body table-responsive">
                         <table class="table table-bordered">
                             <thead>
                             <tr>
                                 <th>名称</th>
-                                <th>説明</th>
+                                <th>詳細</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -62,14 +69,16 @@
                                 <td th:text="${m.name}"></td>
                                 <td th:text="${m.description}"></td>
                                 <td>
-
                                     <a th:href="@{/projects/{projectKey}/setting/edit/{id}(projectKey=${projectKey}, id=${m.id})}"
+                                       class="btn btn-secondary btn-sm border-0"
                                        th:if="${m.name != '未設定'}">編集</a>
-                                    <form th:action="@{projects/{projectKey}/setting/delete/{id}(projectKey=${projectKey}, id=${m.id})}"
+                                    <form th:action="@{/projects/{projectKey}/setting/delete/{id}(projectKey=${projectKey}, id=${m.id})}"
                                           method="post"
                                           style="display:inline;"
                                           th:if="${m.name != '未設定'}">
-                                        <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
+                                        <button type="submit" class="btn btn-danger btn-sm border-0"
+                                                onclick="return confirm('本当に削除しますか？')">削除
+                                        </button>
                                     </form>
                                 </td>
                             </tr>

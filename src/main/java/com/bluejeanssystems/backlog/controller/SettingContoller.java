@@ -1,6 +1,7 @@
 package com.bluejeanssystems.backlog.controller;
 
 import com.bluejeanssystems.backlog.model.Milestone;
+import com.bluejeanssystems.backlog.repository.IssueRepository;
 import com.bluejeanssystems.backlog.repository.MilestoneRepository;
 import com.bluejeanssystems.backlog.repository.ProjectRepository;
 import com.bluejeanssystems.backlog.repository.SiteUserRepository;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -16,6 +18,7 @@ public class SettingContoller {
     private final SiteUserRepository siteUserRepository;
     private final MilestoneRepository milestoneRepository;
     private final ProjectRepository projectRepository;
+    private final IssueRepository issueRepository;
 
 
     @GetMapping
@@ -57,8 +60,20 @@ public class SettingContoller {
     }
 
     @PostMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
+    public String delete(RedirectAttributes redirectAttributes,
+                         @PathVariable("projectKey") String projectKey,
+                         @PathVariable Long id) {
+
+        var issues = issueRepository.findAllBy(projectKey);
+
+        // 削除対象が設定済みの課題があるかをチェックする
+        if (issues.stream().anyMatch(issue -> issue.getMilestone().getId().equals(id))) {
+            redirectAttributes.addFlashAttribute("message", "マイルストーンが設定されている課題があるため削除できません。");
+            redirectAttributes.addFlashAttribute("alertType", "warning");
+            return "redirect:/projects/" + projectKey + "/setting";
+        }
+
         milestoneRepository.deleteById(id);
-        return "redirect:/setting";
+        return "redirect:/projects/" + projectKey + "/setting";
     }
 }
