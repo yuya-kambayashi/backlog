@@ -16,7 +16,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h6 class="text-navy my-2">
-                            ユーザー
+                            参加ユーザー
                         </h6>
                     </div>
                     <div class="card-body table-responsive">
@@ -25,17 +25,28 @@
                             <tr>
                                 <th>ユーザ名</th>
                                 <th>Email</th>
-                                <!--                            <th>性別</th>-->
-                                <!--                            <th>権限</th>-->
+                                <th>権限</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="user : ${users}" th:object="${user}">
                                 <td th:text="*{username}"></td>
                                 <td th:text="*{email}"></td>
-                                <!--                            <td th:text="${T(com.example.demo.util.Type).GENDERS.get(user.gender)}">-->
-                                <!--                            </td>-->
-                                <!--                            <td th:text="*{authority}"></td>-->
+                                <td th:text="*{authority}"></td>
+                                <td>
+                                    <!--                                    <form th:action="@{/projects/{projectKey}/setting/category/delete/{id}(projectKey=${projectKey}, id=${c.id})}"-->
+                                    <!--                                          method="post"-->
+                                    <!--                                          style="display:inline;"-->
+                                    <!--                                          th:if="${c.name != '未設定'}">-->
+                                    <!--                                        <button type="submit" class="btn btn-danger btn-sm border-0"-->
+                                    <!--                                                onclick="return confirm('本当に削除しますか？')">削除-->
+                                    <!--                                        </button>-->
+                                    <!--                                    </form>-->
+                                    <button type="submit" class="btn btn-danger btn-sm border-0"
+                                            onclick="return confirm('本当に削除しますか？')">削除
+                                    </button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
