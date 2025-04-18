@@ -4,6 +4,7 @@ import com.bluejeanssystems.backlog.model.SiteUser;
 import com.bluejeanssystems.backlog.model.Team;
 import com.bluejeanssystems.backlog.repository.SiteUserRepository;
 import com.bluejeanssystems.backlog.repository.TeamRepository;
+import com.bluejeanssystems.backlog.util.Authority;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,6 +63,7 @@ public class SpaceSettingController {
                            @PathVariable Long id, Model model) {
         if (target.equals("user")) {
             model.addAttribute("user", siteUserRepository.findById(id).orElseThrow());
+            model.addAttribute("authorities", Authority.values());
         } else if (target.equals("team")) {
             model.addAttribute("team", teamRepository.findById(id).orElseThrow());
         }

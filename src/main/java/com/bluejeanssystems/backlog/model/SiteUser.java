@@ -26,9 +26,7 @@ public class SiteUser {
     @NotBlank
     @Email
     private String email;
-    //
-//    private int gender;
-//    private boolean admin;
+    
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
