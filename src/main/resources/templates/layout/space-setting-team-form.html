@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout-without-menu}">
+lang="ja">
+
+<head>
+    <title>スペース設定｜Backlog</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <h6 th:text="${team.id == null ? '新規作成' : '編集'}"></h6>
+
+    <form th:action="@{/global/setting/team/save}"
+          th:object="${team}"
+          method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <p>名前: <input type="text" th:field="*{name}"/></p>
+        <p>説明: <textarea th:field="*{description}"></textarea></p>
+        <p>
+            <button type="submit">保存</button>
+        </p>
+    </form>
+
+    <a th:href="@{/projects/setting}">← 一覧に戻る</a>
+</div>
+</body>
+</html>
