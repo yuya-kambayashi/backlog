@@ -2,6 +2,7 @@ package com.bluejeanssystems.backlog.controller;
 
 import com.bluejeanssystems.backlog.model.SiteUser;
 import com.bluejeanssystems.backlog.model.Team;
+import com.bluejeanssystems.backlog.repository.IssueRepository;
 import com.bluejeanssystems.backlog.repository.SiteUserRepository;
 import com.bluejeanssystems.backlog.repository.TeamRepository;
 import com.bluejeanssystems.backlog.util.Authority;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class SpaceSettingController {
     private final SiteUserRepository siteUserRepository;
     private final TeamRepository teamRepository;
+    private final IssueRepository issueRepository;
 
     @GetMapping
     public String view(Model model) {
@@ -64,6 +66,7 @@ public class SpaceSettingController {
         if (target.equals("user")) {
             model.addAttribute("user", siteUserRepository.findById(id).orElseThrow());
             model.addAttribute("authorities", Authority.values());
+            model.addAttribute("teams", teamRepository.findAll());
         } else if (target.equals("team")) {
             model.addAttribute("team", teamRepository.findById(id).orElseThrow());
         }
@@ -79,11 +82,12 @@ public class SpaceSettingController {
         if (target.equals("user")) {
 
             // 削除対象が設定済みの課題があるかをチェックする
-//            if (issues.stream().anyMatch(issue -> issue.getMilestone().getId().equals(id))) {
-//                redirectAttributes.addFlashAttribute("message1", "マイルストーンが設定されている課題があるため削除できません。");
-//                redirectAttributes.addFlashAttribute("alertType1", "warning");
-//                return "redirect:/projects/" + projectKey + "/setting";
-//            }
+            if (issueRepository.findAll().stream().anyMatch(issue ->
+                    issue.getAssigner().getId().equals(id) || issue.getVoter().getId().equals(id))) {
+                redirectAttributes.addFlashAttribute("messageUser", "ユーザーが担当者または起票者に設定されている課題があるため削除できません。");
+                redirectAttributes.addFlashAttribute("alertTypeUser", "warning");
+                return "redirect:/global/setting";
+            }
             siteUserRepository.deleteById(id);
 
         } else if (target.equals("team")) {
