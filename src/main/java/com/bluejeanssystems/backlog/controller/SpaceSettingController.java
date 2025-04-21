@@ -58,14 +58,6 @@ public class SpaceSettingController {
     ) {
         if (target.equals("user")) {
 
-
-            var teams = teamRepository.findAll();
-            var team0 = teamRepository.findById(0l);
-            var team1 = teamRepository.findById(1l);
-            var team2 = teamRepository.findById(2l);
-            var team3 = teamRepository.findById(3l);
-
-
             var newTeam = teamRepository.findById(teamId).orElseThrow();
 
             siteUser.setTeam(newTeam);

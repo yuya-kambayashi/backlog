@@ -52,3 +52,9 @@ VALUES (1, 1, 1, 'Hello World', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
        (1, 1, 2, 'booooooo', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
        (2, 1, 1, 'booooooo', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
        (2, 1, 2, 'booooooo', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO user_project(project_id, user_id)
+VALUES(1,1),
+      (1,2),
+      (1,3),
+      (2,3);
