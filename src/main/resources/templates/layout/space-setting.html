@@ -33,6 +33,7 @@ lang="ja">
                             <thead>
                             <tr>
                                 <th>チーム</th>
+                                <th>チームID</th>
                                 <th>ユーザ名</th>
                                 <th>Email</th>
                                 <th>権限</th>
@@ -43,10 +44,14 @@ lang="ja">
                             <tbody>
                             <tr th:each="user : ${users}" th:object="${user}">
                                 <td th:text="${user.team.name}"></td>
+                                <td th:text="${user.team.id}"></td>
                                 <td th:text="*{username}"></td>
                                 <td th:text="*{email}"></td>
                                 <td th:text="*{authority}"></td>
-                                <td th:text="aaa"></td>
+                                <td>
+                                    <span th:each="project : *{projects}"
+                                          th:text="${project.name + ', '}" />
+                                </td>
                                 <td>
                                     <a th:href="@{/global/setting/user/edit/{id}(id=${user.id})}"
                                        class="btn btn-secondary btn-sm border-0">編集</a>
@@ -82,6 +87,7 @@ lang="ja">
                             <thead>
                             <tr>
                                 <th>チーム名</th>
+                                <th>id</th>
                                 <th>説明</th>
                                 <th>操作</th>
                             </tr>
@@ -89,6 +95,7 @@ lang="ja">
                             <tbody>
                             <tr th:each="team : ${teams}" th:object="${team}">
                                 <td th:text="${team.name}"></td>
+                                <td th:text="*{id}"></td>
                                 <td th:text="*{description}"></td>
                                 <td>
                                     <a th:href="@{/global/setting/team/edit/{id}(id=${team.id})}"

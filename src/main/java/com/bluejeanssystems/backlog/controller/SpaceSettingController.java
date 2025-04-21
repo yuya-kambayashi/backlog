@@ -3,6 +3,7 @@ package com.bluejeanssystems.backlog.controller;
 import com.bluejeanssystems.backlog.model.SiteUser;
 import com.bluejeanssystems.backlog.model.Team;
 import com.bluejeanssystems.backlog.repository.IssueRepository;
+import com.bluejeanssystems.backlog.repository.ProjectRepository;
 import com.bluejeanssystems.backlog.repository.SiteUserRepository;
 import com.bluejeanssystems.backlog.repository.TeamRepository;
 import com.bluejeanssystems.backlog.util.Authority;
@@ -22,11 +23,14 @@ public class SpaceSettingController {
     private final SiteUserRepository siteUserRepository;
     private final TeamRepository teamRepository;
     private final IssueRepository issueRepository;
+    private final ProjectRepository projectRepository;
 
     @GetMapping
     public String view(Model model) {
         var users = siteUserRepository.findAll().stream().collect(Collectors.groupingBy(SiteUser::getTeam))
                 .values().stream().flatMap(List::stream).toList();
+
+        var teams = teamRepository.findAll();
 
         model.addAttribute("users", users);
         model.addAttribute("teams", teamRepository.findAll());
@@ -49,10 +53,25 @@ public class SpaceSettingController {
     @PostMapping("/{target}/save")
     public String save(@PathVariable("target") String target,
                        @ModelAttribute SiteUser siteUser,
+                       @RequestParam("team.id") Long teamId,
                        @ModelAttribute Team team
     ) {
         if (target.equals("user")) {
+
+
+            var teams = teamRepository.findAll();
+            var team0 = teamRepository.findById(0l);
+            var team1 = teamRepository.findById(1l);
+            var team2 = teamRepository.findById(2l);
+            var team3 = teamRepository.findById(3l);
+
+
+            var newTeam = teamRepository.findById(teamId).orElseThrow();
+
+            siteUser.setTeam(newTeam);
+
             siteUserRepository.save(siteUser);
+
         } else if (target.equals("team")) {
             teamRepository.save(team);
         }
@@ -67,6 +86,7 @@ public class SpaceSettingController {
             model.addAttribute("user", siteUserRepository.findById(id).orElseThrow());
             model.addAttribute("authorities", Authority.values());
             model.addAttribute("teams", teamRepository.findAll());
+            model.addAttribute("projects", projectRepository.findAll());
         } else if (target.equals("team")) {
             model.addAttribute("team", teamRepository.findById(id).orElseThrow());
         }

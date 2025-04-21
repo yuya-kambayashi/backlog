@@ -29,11 +29,11 @@ VALUES ('未設定', ''),
 -- SiteUser (passwordはエンコード済みの値にする必要があります。以下は仮の例)
 INSERT INTO site_user (username, password, email, authority, team_id)
 VALUES ('Ryotaro', '$2a$10$Bf44kjpHyFzMEsiftvgNgOaKojMEyvbqLJ/Jy.bg7Zk4ZnDJ3mqLa', 'ryotaro@bluejeanssystems.com',
-        'USER', 2),
+        'USER', 1),
        ('Daisuke', '$2a$10$Bf44kjpHyFzMEsiftvgNgOaKojMEyvbqLJ/Jy.bg7Zk4ZnDJ3mqLa', 'daisuke@bluejeanssystems.com',
-        'USER', 3),
+        'USER', 2),
        ('Backlog管理者', '$2a$10$Bf44kjpHyFzMEsiftvgNgOaKojMEyvbqLJ/Jy.bg7Zk4ZnDJ3mqLa',
-        'admin@bluejeanssystems.com', 'ADMIN', 2);
+        'admin@bluejeanssystems.com', 'ADMIN', 3);
 
 -- Issue
 INSERT INTO issue (project_id, issue_number, title, description, status, type, priority, milestone_id,

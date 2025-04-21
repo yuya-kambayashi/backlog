@@ -8,6 +8,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -26,11 +29,19 @@ public class SiteUser {
     @NotBlank
     @Email
     private String email;
-    
+
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_project",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
+    private List<Project> projects = new ArrayList<>();
 }

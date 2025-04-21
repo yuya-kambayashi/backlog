@@ -26,11 +26,23 @@ lang="ja">
             </select>
         </p>
         <p>
-            <label for="team">チーム: </label>
-            <select id="team" th:field="*{team}">
-                <option th:each="team : ${teams}" th:value="${team.id}"
-                        th:text="${team.getName()}"></option>
+            <label for="team">チーム:</label>
+            <select id="team" th:field="*{team.id}">
+                <option th:each="team : ${teams}"
+                        th:value="${team.id}"
+                        th:text="${team.name}">
+                </option>
             </select>
+        </p>
+        <p>
+            <label for="projects" class="form-label">プロジェクト</label>
+            <select id="projects" th:field="*{projects}" multiple class="form-select">
+                <option th:each="project : ${projects}"
+                        th:value="${project.id}"
+                        th:text="${project.name}">
+                </option>
+            </select>
+            <small class="form-text text-muted">Ctrl (Cmd) を押しながら複数選択できます。</small>
         </p>
         <p>
             <button type="submit">保存</button>
