@@ -1,0 +1,31 @@
+.issue-type-task {
+    background-color: #A1AF2F;
+}
+
+.issue-type-bug {
+    background-color: #EA733B;
+}
+
+.issue-type-request {
+    background-color: #DC9925;
+}
+
+.issue-type-other {
+    background-color: #3B9DBD;
+}
+
+.issue-status-未対応 {
+    background-color: #ED8077;
+}
+
+.issue-status-処理中 {
+    background-color: #4488C5;
+}
+
+.issue-status-処理済み {
+    background-color: #5EB5A6;
+}
+
+.issue-status-完了 {
+    background-color: #A1AF2F;
+}

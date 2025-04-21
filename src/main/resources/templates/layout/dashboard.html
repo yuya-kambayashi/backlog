@@ -26,15 +26,28 @@
             </table>
             <h6>自分の課題</h6>
             <table class="table">
+                <thead>
+                <tr>
+                    <th>キー</th>
+                    <th>件名</th>
+                    <th>優先度</th>
+                    <th>状態</th>
+                    <th>期限日</th>
+                </tr>
+                </thead>
                 <tbody>
-                <tr th:each="project : ${projects}"
-                    th:object="${project}">
+                <tr th:each="issue : ${issues}"
+                    th:object="${issue}">
                     <td>
-                        <a class="col text-decoration-none"
-                           th:href="@{/projects/{projectKey}/home(projectKey=*{projectKey})}">
-                            <p th:text="*{name}"></p>
-                        </a>
+                        <a th:href="@{/projects/{projectKey}/view/{issueNumber}(projectKey=${issue.project.projectKey}, issueNumber=*{id.getIssueNumber()})}"
+                           th:text="${issue.getIssueKey()}"></a>
                     </td>
+                    <td th:text="*{title}"></td>
+                    <td th:text="*{priority}"></td>
+                    <td>
+                        <div th:replace="~{fragments/badge :: issue-status(*{status})}"></div>
+                    </td>
+                    <td th:text="*{#temporals.format(limitDate, 'yyyy/MM/dd')}"></td>
                 </tr>
                 </tbody>
             </table>
