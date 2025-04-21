@@ -27,9 +27,10 @@ public class SettingContoller {
     @GetMapping
     public String view(@PathVariable("projectKey") String projectKey,
                        Model model) {
+
         var project = projectRepository.findByProjectKey(projectKey);
 
-        var users = siteUserRepository.findAll().stream().collect(Collectors.groupingBy(SiteUser::getTeam))
+        var users = siteUserRepository.findByIdWithProjects(project.getId()).stream().collect(Collectors.groupingBy(SiteUser::getTeam))
                 .values().stream().flatMap(List::stream).toList();
 
         model.addAttribute("projectKey", projectKey);
