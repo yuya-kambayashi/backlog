@@ -16,12 +16,20 @@ lang="ja">
           th:object="${team}"
           method="post">
         <input type="hidden" th:field="*{id}"/>
-        <p>名前: <input type="text" th:field="*{name}"/></p>
+        <input type="hidden" name="redirectUrl"
+               th:value="${team.id == null ? '/global/setting/team/new' : '/global/setting/team/edit/' + team.id}"/>
+        <p>名前: <input type="text" th:field="*{name}" required/></p>
         <p>説明: <textarea th:field="*{description}"></textarea></p>
         <p>
             <button type="submit">保存</button>
         </p>
     </form>
+    <div th:if="${messageUser}"
+         th:class="'mt-4 mx-4 alert alert-dismissible fade show alert-' + ${alertTypeUser}"
+         role="alert">
+        <span th:text="${messageUser}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 
     <a th:href="@{/projects/setting}">← 一覧に戻る</a>
 </div>

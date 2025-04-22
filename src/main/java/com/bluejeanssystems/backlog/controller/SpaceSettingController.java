@@ -10,6 +10,8 @@ import com.bluejeanssystems.backlog.util.Authority;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,8 +32,6 @@ public class SpaceSettingController {
         var users = siteUserRepository.findAll().stream().collect(Collectors.groupingBy(SiteUser::getTeam))
                 .values().stream().flatMap(List::stream).toList();
 
-        var teams = teamRepository.findAll();
-
         model.addAttribute("users", users);
         model.addAttribute("teams", teamRepository.findAll());
 
@@ -43,6 +43,10 @@ public class SpaceSettingController {
                              Model model) {
         if (target.equals("user")) {
             model.addAttribute("user", new SiteUser());
+            model.addAttribute("authorities", Authority.values());
+            model.addAttribute("teams", teamRepository.findAll());
+            model.addAttribute("projects", projectRepository.findAll());
+            
         } else if (target.equals("team")) {
             model.addAttribute("team", new Team());
         }
@@ -50,23 +54,38 @@ public class SpaceSettingController {
         return "layout/space-setting-" + target + "-form";
     }
 
-    @PostMapping("/{target}/save")
-    public String save(@PathVariable("target") String target,
-                       @ModelAttribute SiteUser siteUser,
+    @PostMapping("/user/save")
+    public String save(RedirectAttributes redirectAttributes,
+                       @ModelAttribute @Validated SiteUser siteUser,
                        @RequestParam("team.id") Long teamId,
-                       @ModelAttribute Team team
+                       @RequestParam String redirectUrl,
+                       BindingResult bindingResult
     ) {
-        if (target.equals("user")) {
-
-            var newTeam = teamRepository.findById(teamId).orElseThrow();
-
-            siteUser.setTeam(newTeam);
-
-            siteUserRepository.save(siteUser);
-
-        } else if (target.equals("team")) {
-            teamRepository.save(team);
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("message", "エラーが発生しました。");
+            redirectAttributes.addFlashAttribute("alertType", "danger");
+            return "redirect:" + redirectUrl;
         }
+
+        var newTeam = teamRepository.findById(teamId).orElseThrow();
+        siteUser.setTeam(newTeam);
+        siteUserRepository.save(siteUser);
+
+        return "redirect:/global/setting";
+    }
+
+    @PostMapping("/team/save")
+    public String save(RedirectAttributes redirectAttributes,
+                       @ModelAttribute @Validated Team team,
+                       @RequestParam String redirectUrl,
+                       BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("message", "エラーが発生しました。");
+            redirectAttributes.addFlashAttribute("alertType", "danger");
+            return "redirect:" + redirectUrl;
+        }
+
+        teamRepository.save(team);
 
         return "redirect:/global/setting";
     }

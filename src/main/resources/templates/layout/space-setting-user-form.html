@@ -16,18 +16,22 @@ lang="ja">
           th:object="${user}"
           method="post">
         <input type="hidden" th:field="*{id}"/>
-        <p>名前: <input type="text" th:field="*{username}"/></p>
-        <p>パスワード: <input type="text" th:field="*{password}"/></p>
-        <p>Email: <textarea th:field="*{email}"></textarea></p>
+        <input type="hidden" name="redirectUrl"
+               th:value="${user.id == null ? '/global/setting/user/new' : '/global/setting/user/edit/' + user.id}"/>
+        <p>名前: <input type="text" th:field="*{username}" required/></p>
+        <p>パスワード: <input type="password" th:field="*{password}" required/></p>
+        <p>Email:
+            <input type="text" th:field="*{email}" required/>
+        </p>
         <p>
             <label for="authorities">権限: </label>
-            <select id="authorities" th:field="*{authority}">
+            <select id="authorities" th:field="*{authority}" required>
                 <option th:each="a : ${authorities}" th:value="${a}" th:text="${a}"></option>
             </select>
         </p>
         <p>
             <label for="team">チーム:</label>
-            <select id="team" th:field="*{team.id}">
+            <select id="team" th:field="*{team.id}" required>
                 <option th:each="team : ${teams}"
                         th:value="${team.id}"
                         th:text="${team.name}">
@@ -48,6 +52,12 @@ lang="ja">
             <button type="submit">保存</button>
         </p>
     </form>
+    <div th:if="${messageUser}"
+         th:class="'mt-4 mx-4 alert alert-dismissible fade show alert-' + ${alertTypeUser}"
+         role="alert">
+        <span th:text="${messageUser}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 
     <a th:href="@{/projects/setting}">← 一覧に戻る</a>
 </div>
