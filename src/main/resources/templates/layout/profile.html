@@ -14,33 +14,31 @@ lang="ja">
     <form class="container" th:action="@{/global/profile/save}" method="post" th:object="${userForm}">
         <h6>ユーザー情報</h6>
         <div class="row">
-            <div class="col">
+            <div class="col-6 mx-auto mb-4">
                 <label>ユーザー名: </label>
                 <input class="w-100" type="text" th:field="*{username}"/>
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-6 mx-auto mb-4">
                 <label>メールアドレス: </label>
                 <input class="w-100 form-control-plaintext" type="text" th:value="${email}" readonly/>
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-6 mx-auto mb-4">
                 <label>パスワード: </label>
                 <input class="w-100" type="password" th:field="*{password}"/>
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-6 mx-auto mb-4">
                 <label>パスワード(2回目): </label>
                 <input class="w-100" type="password" th:field="*{confirmPassword}"/>
-                <!--                <div th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"-->
-                <!--                     class="text-danger"></div>-->
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-6 mx-auto mb-4">
                 <label>権限: </label>
                 <select th:field="*{authority}">
                     <option th:each="a : ${authorities}" th:value="${a}" th:text="${a}"></option>
@@ -48,7 +46,7 @@ lang="ja">
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-6 mx-auto mb-4">
                 <label>チーム: </label>
                 <select th:field="*{teamId}">
                     <option th:each="team : ${teams}"
@@ -56,11 +54,18 @@ lang="ja">
                 </select>
             </div>
         </div>
-        <div>
-            <button type="submit">保存</button>
+        <div class="row">
+            <div class="col-6 mx-auto mb-4 text-center">
+                <button type="submit">更新</button>
+            </div>
+        </div>
+        <div th:if="${message}"
+             th:class="'mt-4 mx-4 alert alert-dismissible fade show alert-' + ${alertType}"
+             role="alert">
+            <span th:text="${message}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     </form>
-
 </div>
 </body>
 </html>

@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RequiredArgsConstructor
 @Controller
@@ -45,20 +46,22 @@ public class ProfileController {
     }
 
     @PostMapping("/global/profile/save")
-    public String save(@ModelAttribute("userForm") @Valid UserForm userForm,
+    public String save(RedirectAttributes redirectAttributes,
+                       @ModelAttribute("userForm") @Valid UserForm userForm,
                        BindingResult bindingResult,
                        Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "layout/profile";
+            redirectAttributes.addFlashAttribute("message", "エラーが発生しました。");
+            redirectAttributes.addFlashAttribute("alertType", "danger");
+            return "redirect:/global/profile";
         }
 
         if (userForm.getUsername() != null && !userForm.getPassword().isBlank()) {
             if (!userForm.getPassword().equals(userForm.getConfirmPassword())) {
-//            bindingResult.rejectValue("passwordConfirm", "error.passwordConfirm", "パスワードが一致しません");
-//            bindingResult.rejectValue("passwordConfirm", "error.userForm", "パスワードが一致しません");
-                return "layout/profile";
-
+                redirectAttributes.addFlashAttribute("message", "パスワードが一致しません。");
+                redirectAttributes.addFlashAttribute("alertType", "danger");
+                return "redirect:/global/profile";
             }
         }
 
@@ -71,6 +74,9 @@ public class ProfileController {
         user.setTeam(teamRepository.findById(userForm.getTeamId()).orElseThrow());
 
         siteUserRepository.save(user);
+
+        redirectAttributes.addFlashAttribute("message", "更新に成功しました。");
+        redirectAttributes.addFlashAttribute("alertType", "success");
 
         return "redirect:/global/profile";
     }
