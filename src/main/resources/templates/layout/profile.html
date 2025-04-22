@@ -11,35 +11,39 @@ lang="ja">
 
 <body>
 <div layout:fragment="content">
-    <div class="container">
+    <form class="container" th:action="@{/global/profile/save}" method="post" th:object="${userForm}">
+        <h6>ユーザー情報</h6>
         <div class="row">
             <div class="col">
-                <div class="card">
-                    <div class="card-header">
-                        <h6 class="text-navy my-2">
-                            ログイン情報
-                        </h6>
-                    </div>
-                    <div class="card-body table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th>ログインユーザ名</th>
-                                <th>ユーザ権限</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td th:text="${username}"></td>
-                                <td th:text="${authority}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <label>ユーザー名: </label>
+                <input class="w-100" type="text" th:field="*{username}"/>
             </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col">
+                <label>メールアドレス: </label>
+                <input class="w-100 form-control-plaintext" type="text" th:value="*{email}" readonly/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>パスワード: </label>
+                <input class="w-100" type="password" th:field="*{password}"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>パスワード(2回目): </label>
+                <input class="w-100" type="password" th:field="*{confirmPassword}"/>
+                <!--                <div th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"-->
+                <!--                     class="text-danger"></div>-->
+            </div>
+        </div>
+        <div>
+            <button type="submit">保存</button>
+        </div>
+    </form>
+
 </div>
 </body>
 </html>
