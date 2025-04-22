@@ -1,6 +1,6 @@
-package com.bluejeanssystems.backlog.model;
+package com.bluejeanssystems.backlog.form;
 
-import jakarta.validation.constraints.Email;
+import com.bluejeanssystems.backlog.util.Authority;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,11 +11,11 @@ public class UserForm {
     @NotBlank
     private String username;
 
-    @Email
-    @NotBlank
-    private String email;
-
     private String password;
 
     private String confirmPassword;
+
+    private Authority authority;
+
+    private Long teamId;
 }

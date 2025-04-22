@@ -22,7 +22,7 @@ lang="ja">
         <div class="row">
             <div class="col">
                 <label>メールアドレス: </label>
-                <input class="w-100 form-control-plaintext" type="text" th:value="*{email}" readonly/>
+                <input class="w-100 form-control-plaintext" type="text" th:value="${email}" readonly/>
             </div>
         </div>
         <div class="row">
@@ -37,6 +37,23 @@ lang="ja">
                 <input class="w-100" type="password" th:field="*{confirmPassword}"/>
                 <!--                <div th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"-->
                 <!--                     class="text-danger"></div>-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>権限: </label>
+                <select th:field="*{authority}">
+                    <option th:each="a : ${authorities}" th:value="${a}" th:text="${a}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label>チーム: </label>
+                <select th:field="*{teamId}">
+                    <option th:each="team : ${teams}"
+                            th:value="${team.id}" th:text="${team.name}"></option>
+                </select>
             </div>
         </div>
         <div>

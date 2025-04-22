@@ -1,7 +1,10 @@
 package com.bluejeanssystems.backlog.controller;
 
-import com.bluejeanssystems.backlog.model.UserForm;
+import com.bluejeanssystems.backlog.form.UserForm;
+import com.bluejeanssystems.backlog.repository.ProjectRepository;
 import com.bluejeanssystems.backlog.repository.SiteUserRepository;
+import com.bluejeanssystems.backlog.repository.TeamRepository;
+import com.bluejeanssystems.backlog.util.Authority;
 import com.bluejeanssystems.backlog.util.SecurityUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,20 +22,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ProfileController {
 
     private final SiteUserRepository siteUserRepository;
+    private final TeamRepository teamRepository;
+    private final ProjectRepository projectRepository;
 
     @GetMapping("/global/profile")
     public String view(Model model, Authentication loginUser) {
 
-        model.addAttribute("username", loginUser.getName());
-        model.addAttribute("authority", loginUser.getAuthorities());
+        model.addAttribute("teams", teamRepository.findAll());
+        model.addAttribute("authorities", Authority.values());
 
         var userForm = new UserForm();
         var user = SecurityUtil.getCurrentUser();
         userForm.setUsername(user.getUsername());
-        userForm.setEmail(user.getEmail());
         userForm.setPassword(user.getPassword());
-
+        userForm.setAuthority(user.getAuthority());
+        userForm.setTeamId(user.getTeam().getId());
         model.addAttribute("userForm", userForm);
+        model.addAttribute("email", user.getEmail());
 
 
         return "layout/profile";
@@ -58,10 +64,12 @@ public class ProfileController {
 
         var user = SecurityUtil.getCurrentUser();
         user.setUsername(userForm.getUsername());
-        user.setEmail(userForm.getEmail());
         if (userForm.getUsername() != null && !userForm.getPassword().isBlank()) {
             user.setPassword(new BCryptPasswordEncoder().encode(userForm.getPassword()));
         }
+        user.setAuthority(userForm.getAuthority());
+        user.setTeam(teamRepository.findById(userForm.getTeamId()).orElseThrow());
+
         siteUserRepository.save(user);
 
         return "redirect:/global/profile";
