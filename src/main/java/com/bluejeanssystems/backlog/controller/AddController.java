@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RequiredArgsConstructor
 @Controller
@@ -49,11 +50,14 @@ public class AddController {
 
     @PostMapping("/add")
     public String add(
+            RedirectAttributes redirectAttributes,
             @PathVariable("projectKey") String projectKey,
             @Validated @ModelAttribute("issue") Issue issue,
             BindingResult result) {
         if (result.hasErrors()) {
-            return "layout/add";
+            redirectAttributes.addFlashAttribute("message", "エラーが発生しました。");
+            redirectAttributes.addFlashAttribute("alertType", "danger");
+            return "redirect:/projects/" + projectKey + "/add";
         }
         issue.setVoter(SecurityUtil.getCurrentUser());
 

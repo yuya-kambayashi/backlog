@@ -31,7 +31,7 @@ public class Issue {
 
     @NotBlank
     private String title;
-    @NotBlank
+
     private String description;
 
     @Enumerated(EnumType.STRING)

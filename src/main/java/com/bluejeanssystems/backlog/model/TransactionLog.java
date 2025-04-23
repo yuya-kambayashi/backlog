@@ -2,7 +2,6 @@ package com.bluejeanssystems.backlog.model;
 
 import com.bluejeanssystems.backlog.util.TransactionType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,7 +19,6 @@ public class TransactionLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     private String message;
 
     @ManyToOne

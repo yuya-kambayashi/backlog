@@ -12,7 +12,6 @@
 <div layout:fragment="content">
     <div class="row">
         <div class="col">
-
             <div class="card shadow">
                 <div class="card-header">
                     <h6 class="text-navy my-2">
@@ -99,6 +98,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div th:if="${message}"
+         th:class="'mt-4 mx-4 alert alert-dismissible fade show alert-' + ${alertType}"
+         role="alert">
+        <span th:text="${message}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 </div>
 </body>

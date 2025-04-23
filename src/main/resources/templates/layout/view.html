@@ -11,27 +11,29 @@
 <div layout:fragment="content" style="font-size: small; margin-right:23px">
     <div th:object="${issue}">
         <div class="container">
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-1">
                     <div th:replace="~{fragments/badge :: issue-type(*{type})}"></div>
                 </div>
                 <p class="col-1" th:text="${issue.getIssueKey()}"></p>
-                <p class="col-1 ms-auto text-end">期限日</p>
-                <p class="col-2" th:text="*{limitDate}"></p>
-                <div class="col-1">
+                <div class="col-2 ms-auto">
+                    <label>期限日 </label>
+                    <label th:text="*{limitDate == null ? '-' : limitDate}"></label>
+                </div>
+                <div class="col-2">
                     <div th:replace="~{fragments/badge :: issue-status(*{status})}"></div>
                 </div>
             </div>
             <div class="row">
                 <p class="col text-start fs-5 fw-bold" th:text="*{title}"></p>
                 <form class="col-2 ms-auto text-end" th:action="${editUrl}" method="get">
-                    <button class="btn btn-outline-secondary rounded-pill p-1 bg-white" style="font-size: small">
+                    <button class="btn btn-outline-secondary rounded-pill p-1 bg-white  w-100" style="font-size: small">
                         <i class="bi bi-eye"></i>
                         ウォッチ
                     </button>
                 </form>
                 <form class="col-1" th:action="${editUrl}" method="get">
-                    <button class="btn btn-outline-secondary rounded-pill p-1 bg-white" style="font-size: small">
+                    <button class="btn btn-outline-secondary rounded-pill p-1 bg-white  w-100" style="font-size: small">
                         <i class="bi bi-pencil-fill"></i>
                         編集
                     </button>
@@ -155,7 +157,8 @@
                         </div>
                         <div>
                             <label class="" for="limitDate">期限日</label>
-                            <input class="" type="date" id="limitDate" name="limitDate" th:value="${limitDate}"/>
+                            <input class="" type="date" id="limitDate" name="limitDate"
+                                   th:value="${limitDate}"/>
                         </div>
                         <div>
                             <label class="" for="resolution">完了理由</label>
