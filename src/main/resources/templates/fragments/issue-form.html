@@ -3,88 +3,77 @@
 <head>
 </head>
 <body>
-<div th:fragment="issue-form">
-    <form th:action="@{/projects/{projectKey}/add(projectKey=${project.projectKey})}"
-          th:object="${issue}"
-          method="post"
-          novalidate>
-        <div>
-            <select th:field="*{type}">
-                <option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
-            </select>
-        </div>
-        <div>
-            <label for="title">
-                件名aaaaaaaaaaaaaaaaaaa
-            </label>
-            <input id="title" type="text"
-                   th:field="*{title}">
-        </div>
-        <div>
-            <label for="description">
-                詳細
-            </label>
-            <textarea id="description" rows="4"
-                      th:field="*{description}"></textarea>
-        </div>
-        <div>
-            <label for="status">状態</label>
-            <select id="status" th:field="*{status}">
-                <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
-            </select>
-        </div>
-        <div>
-            <label for="assigner">担当者</label>
-            <select id="assigner" th:field="*{assigner}">
-                <option th:each="user : ${users}" th:value="${user.id}"
-                        th:text="${user.getUsername()}"></option>
-            </select>
-        </div>
-        <div>
-            <label for="priority">優先度</label>
-            <select id="priority" th:field="*{priority}">
-                <option th:each="p : ${priorities}" th:value="${p}" th:text="${p}"></option>
-            </select>
-        </div>
-        <div>
-            <label for="milestone">マイルストーン</label>
-            <select id="milestone" th:field="*{milestone}">
-                <option th:each="m : ${milestones}" th:value="${m.id}"
-                        th:text="${m.getName()}"></option>
-            </select>
-        </div>
-        <div>
-            <label for="category">カテゴリー</label>
-            <select id="category" th:field="*{category}">
-                <option th:each="c : ${categories}" th:value="${c.id}"
-                        th:text="${c.getName()}"></option>
-            </select>
-        </div>
-        <div>
-            <label for="versions">発生バージョン</label>
-            <select id="versions" th:field="*{versions}">
-                <option th:each="v : ${versions}" th:value="${v.id}"
-                        th:text="${v.getName()}"></option>
-            </select>
-        </div>
-        <div>
-            <label for="plannedStartDate">開始予定日</label>
-            <input type="date" id="plannedStartDate" th:field="*{plannedStartDate}"/>
-        </div>
-        <div>
-            <label for="limitDate">期限日</label>
-            <input type="date" id="limitDate" th:field="*{limitDate}"/>
-        </div>
-        <button type="submit">
-            登録
-        </button>
-    </form>
-    <div th:if="${message}"
-         th:class="'mt-4 mx-4 alert alert-dismissible fade show alert-' + ${alertType}"
-         role="alert">
-        <span th:text="${message}"></span>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div th:fragment="issue-form(issue)">
+    <div>
+        <select th:field="*{type}">
+            <option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
+        </select>
     </div>
+    <div>
+        <label for="title">
+            件名
+        </label>
+        <input id="title" type="text"
+               th:field="*{title}">
+    </div>
+    <div>
+        <label for="description">
+            詳細
+        </label>
+        <textarea id="description" rows="4"
+                  th:field="*{description}"></textarea>
+    </div>
+    <div>
+        <label for="status">状態</label>
+        <select id="status" th:field="*{status}">
+            <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="assigner">担当者</label>
+        <select id="assigner" th:field="*{assigner}">
+            <option th:each="user : ${users}" th:value="${user.id}"
+                    th:text="${user.getUsername()}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="priority">優先度</label>
+        <select id="priority" th:field="*{priority}">
+            <option th:each="p : ${priorities}" th:value="${p}" th:text="${p}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="milestone">マイルストーン</label>
+        <select id="milestone" th:field="*{milestone}">
+            <option th:each="m : ${milestones}" th:value="${m.id}"
+                    th:text="${m.getName()}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="category">カテゴリー</label>
+        <select id="category" th:field="*{category}">
+            <option th:each="c : ${categories}" th:value="${c.id}"
+                    th:text="${c.getName()}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="versions">発生バージョン</label>
+        <select id="versions" th:field="*{versions}">
+            <option th:each="v : ${versions}" th:value="${v.id}"
+                    th:text="${v.getName()}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="plannedStartDate">開始予定日</label>
+        <input type="date" id="plannedStartDate" th:field="*{plannedStartDate}"/>
+    </div>
+    <div>
+        <label for="limitDate">期限日</label>
+        <input type="date" id="limitDate" th:field="*{limitDate}"/>
+    </div>
+    <button type="submit">
+        登録
+    </button>
 </div>
 </body>
 </html>

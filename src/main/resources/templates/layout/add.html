@@ -12,17 +12,16 @@
 <div layout:fragment="content">
     <div class="row">
         <div class="col">
-            <div class="card shadow">
-                <div class="card-header">
-                    <h6 class="text-navy my-2">
-                        課題の追加
-                    </h6>
+            <h6 class="text-navy my-2">
+                課題の追加
+            </h6>
+            <form th:action="@{/projects/{projectKey}/add(projectKey=${project.projectKey})}"
+                  th:object="${issue}"
+                  method="post"
+                  novalidate>
+                <div th:replace="~{fragments/issue-form :: issue-form(${issue})}">
                 </div>
-                <div class="card-body">
-                    <div class="col">
-                        <div th:replace="~{fragments/issue-form :: issue-form}">
-                    </div>
-            </div>
+            </form>
         </div>
     </div>
     <div th:if="${message}"
