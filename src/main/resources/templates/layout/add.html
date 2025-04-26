@@ -18,9 +18,15 @@
             <form th:action="@{/projects/{projectKey}/add(projectKey=${project.projectKey})}"
                   th:object="${issue}"
                   method="post"
-                  novalidate>
+                  novalidate>　
+                <button type="submit">
+                    追加
+                </button>
                 <div th:replace="~{fragments/issue-form :: issue-form(${issue})}">
                 </div>
+                <button type="submit">
+                    追加
+                </button>
             </form>
         </div>
     </div>
