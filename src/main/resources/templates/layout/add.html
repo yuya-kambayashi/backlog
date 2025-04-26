@@ -19,12 +19,14 @@
                   th:object="${issue}"
                   method="post"
                   novalidate>　
-                <button type="submit">
+                <button type="submit" class="btn btn-theme-bg btn-sm mt-1 mb-1 "
+                        style="width: 100px">
                     追加
                 </button>
                 <div th:replace="~{fragments/issue-form :: issue-form(${issue})}">
                 </div>
-                <button type="submit">
+                <button type="submit" class="btn btn-theme-bg btn-sm mt-1 mb-1 "
+                        style="width: 100px">
                     追加
                 </button>
             </form>

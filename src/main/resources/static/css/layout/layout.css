@@ -20,3 +20,15 @@
 .menu-header-project-name {
     padding-top: 7px;
 }
+
+.btn-theme-bg {
+    background-color: #4CAF93 !important;
+    color: white !important;
+    border: solid #4CAF93 !important;
+}
+
+.btn-theme-bg:hover {
+    background-color: #FFFFFF !important;
+    color: #4CAF93 !important;
+    border: solid #4CAF93 !important;
+}
