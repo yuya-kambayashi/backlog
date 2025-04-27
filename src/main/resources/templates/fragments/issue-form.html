@@ -5,13 +5,16 @@
 <body>
 <div th:fragment="issue-form(issue)">
     <div class="container">
-        <div class="col">
-            <select id="type" name="type">
-                <option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
-            </select>
+        <div class="row">
+            <div class="col-3">
+                <select class="form-select form-select-sm" id="type" name="type">
+                    <option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
+                </select>
+            </div>
         </div>
         <div class="row">
-            <input class="col" type="text" placeholder="件名" th:field="*{title}" required></input>
+            <input class="col form-control" style="margin: 12px" type="text" placeholder="件名" th:field="*{title}"
+                   required/>
         </div>
         <div class="card">
             <div class="container">
@@ -22,42 +25,60 @@
                 </div>
                 <div class="row">
                     <label class="col-2" for="status">状態</label>
-                    <select class="col-4" id="status" name="status">
-                        <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
-                    </select>
-                    <label class="col-2  ms-auto" for="assigner">担当者</label>
-                    <select class="col-4" id="assigner" name="assigner">
-                        <option th:each="user : ${users}" th:value="${user.id}"
-                                th:text="${user.username}"></option>
-                    </select>
+                    <div class="col-4">
+                        <select class="form-select form-select-sm" id="status" name="status">
+                            <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
+                        </select>
+                    </div>
+                    <label class="col-2 ms-auto" for="assigner">担当者</label>
+                    <div class="col-4">
+                        <select class="form-select form-select-sm" id="assigner" name="assigner">
+                            <option th:each="user : ${users}" th:value="${user.id}"
+                                    th:text="${user.username}"></option>
+                        </select>
+                    </div>
                 </div>
                 <div class="row">
                     <label class="col-2" for="priority">優先度</label>
-                    <select class="col-4" id="priority" name="priority">
-                        <option th:each="p : ${priorities}" th:value="${p}"
-                                th:text="${p}"></option>
-                    </select>
+                    <div class="col-4">
+                        <select class="form-select form-select-sm" id="priority" name="priority">
+                            <option th:each="p : ${priorities}" th:value="${p}"
+                                    th:text="${p}"></option>
+                        </select>
+                    </div>
                     <label class="col-2" for="milestone">マイルストーン</label>
-                    <select class="col-4" id="milestone" name="milestone">
-                        <option th:each="m : ${milestones}" th:value="${m.id}"
-                                th:text="${m.name}"></option>
-                    </select>
+                    <div class="col-4">
+                        <select class="form-select form-select-sm" id="milestone" name="milestone">
+                            <option th:each="m : ${milestones}" th:value="${m.id}"
+                                    th:text="${m.name}"></option>
+                        </select>
+                    </div>
                 </div>
-                <label class="col-2" for="category">カテゴリー</label>
-                <select class="col-4" id="category" name="category">
-                    <option th:each="c : ${categories}" th:value="${c.id}"
-                            th:text="${c.name}"></option>
-                </select>
+                <div class="row">
+                    <label class="col-2" for="category">カテゴリー</label>
+                    <div class="col-4">
+                        <select class="form-select form-select-sm" id="category" name="category">
+                            <option th:each="c : ${categories}" th:value="${c.id}"
+                                    th:text="${c.name}"></option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="row">
                     <label class="col-2" for="versions">発生バージョン</label>
-                    <select class="col-4" id="versions" name="versions">
-                        <option th:each="m : ${milestones}" th:value="${m.id}"
-                                th:text="${m.name}"></option>
-                    </select>
+                    <div class="col-4">
+                        <select class="form-select form-select-sm" id="versions" name="versions">
+                            <option th:each="m : ${milestones}" th:value="${m.id}"
+                                    th:text="${m.name}"></option>
+                        </select>
+                    </div>
+
                     <div class="row">
                         <label class="col-2" for="limitDate">期限日</label>
-                        <input class="col-4" type="date" id="limitDate" name="limitDate"
-                               th:value="${limitDate}"/>
+                        <div class="col-4">
+                            <input type="date" id="limitDate" name="limitDate"
+                                   th:value="${limitDate}"/>
+                        </div>
                     </div>
                 </div>
 
