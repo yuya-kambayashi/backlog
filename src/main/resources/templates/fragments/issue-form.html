@@ -31,7 +31,7 @@
                         </select>
                     </div>
                     <label class="col-2 ms-auto border-bottom" for="assigner">担当者</label>
-                    <div class="col-4 border-bottom" >
+                    <div class="col-4 border-bottom">
                         <select class="form-select form-select-sm" id="assigner" name="assigner">
                             <option th:each="user : ${users}" th:value="${user.id}"
                                     th:text="${user.username}"></option>
@@ -62,8 +62,6 @@
                                     th:text="${c.name}"></option>
                         </select>
                     </div>
-                </div>
-                <div class="row m-2">
                     <label class="col-2 border-bottom" for="versions">発生バージョン</label>
                     <div class="col-4 border-bottom">
                         <select class="form-select form-select-sm" id="versions" name="versions">
@@ -71,7 +69,6 @@
                                     th:text="${m.name}"></option>
                         </select>
                     </div>
-
                 </div>
                 <div class="row m-2">
                     <label class="col-2 border-bottom" for="limitDate">期限日</label>
@@ -79,15 +76,22 @@
                         <input class="form-control" type="date" id="limitDate" name="limitDate"
                                th:value="${limitDate}"/>
                     </div>
+
+                    <label th:if="${issue.id != null }" class="col-2 border-bottom" for="resolution">完了理由</label>
+                    <div th:if="${issue.id != null }" class="col-4 border-bottom">
+                        <select class="form-select form-select-sm" id="resolution" name="resolution">
+                            <option th:each="r : ${resolutions}" th:value="${r}" th:text="${r}"></option>
+                        </select>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                通知ユーザーを追加
-            </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            通知ユーザーを追加
         </div>
     </div>
+</div>
 </body>
 </html>
 

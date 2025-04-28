@@ -9,95 +9,33 @@
 </head>
 
 <body>
-<div layout:fragment="content">
-    <div class="row">
-        <div class="col">
-
-            <div class="card shadow">
-                <div class="card-header">
-                    <h6 class="text-navy my-2">
-                        課題の編集
-                    </h6>
-                </div>
-                <div class="card-body">
-                    <form th:object="${issue}"
-                          th:action="@{/projects/view/edit/{issueNumber}(issueNumber=${issueNumber})}"
-                          method="post"
-                          novalidate>
-
-                        <div>
-                            <select th:field="*{type}">
-                                <option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="title">
-                                件名
-                            </label>
-                            <input id="title" type="text"
-                                   th:field="*{title}">
-                        </div>
-                        <div>
-                            <label for="description">
-                                詳細
-                            </label>
-                            <textarea id="description" rows="4"
-                                      th:field="*{description}"></textarea>
-                        </div>
-                        <div>
-                            <label for="status">状態</label>
-                            <select id="status" th:field="*{status}">
-                                <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="priority">優先度</label>
-                            <select id="priority" th:field="*{priority}">
-                                <option th:each="p : ${priorities}" th:value="${p}" th:text="${p}"></option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="milestone">マイルストーン</label>
-                            <select id="milestone" th:field="*{milestone}">
-                                <option th:each="m : ${milestones}" th:value="${m.id}"
-                                        th:text="${m.getName()}"></option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="category">カテゴリー</label>
-                            <select id="category" th:field="*{category}">
-                                <option th:each="c : ${categories}" th:value="${c.id}"
-                                        th:text="${c.getName()}"></option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="assigner">担当者</label>
-                            <select id="assigner" th:field="*{assigner}">
-                                <option th:each="user : ${users}" th:value="${user.id}"
-                                        th:text="${user.getUsername()}"></option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="plannedStartDate">開始予定日</label>
-                            <input type="date" id="plannedStartDate" th:field="*{plannedStartDate}"/>
-                        </div>
-                        <div>
-                            <label for="limitDate">期限日</label>
-                            <input type="date" id="limitDate" th:field="*{limitDate}"/>
-                        </div>
-                        <div>
-                            <label for="resolution">完了理由</label>
-                            <select id="resolution" th:field="*{resolution}">
-                                <option th:each="r : ${resolutions}" th:value="${r}" th:text="${r}"></option>
-                            </select>
-                        </div>
-                        <button type="submit">
-                            登録
-                        </button>
-                    </form>
-                </div>
-            </div>
+<div layout:fragment="content" style="font-size: small; margin-right:23px">
+    <h6 class="text-navy my-2">
+        課題の編集
+    </h6>
+    <form th:action="@{/projects/{projectKey}/add(projectKey=${project.projectKey})}"
+          th:object="${issue}"
+          method="post"
+          novalidate>　
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="submit" class="btn btn-theme-bg btn-sm mt-1 mb-1  me-md-2"
+                    style="width: 100px">
+                保存
+            </button>
         </div>
+        <div th:replace="~{fragments/issue-form :: issue-form(${issue})}"></div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="submit" class="btn btn-theme-bg btn-sm mt-1 mb-1  me-md-2"
+                    style="width: 100px">
+                保存
+            </button>
+        </div>
+    </form>
+    <div th:if="${message}"
+         th:class="'mt-4 mx-4 alert alert-dismissible fade show alert-' + ${alertType}"
+         role="alert">
+        <span th:text="${message}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 </div>
 </body>
