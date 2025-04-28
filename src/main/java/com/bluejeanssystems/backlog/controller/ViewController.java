@@ -46,7 +46,7 @@ public class ViewController {
         model.addAttribute("comments", commentRepository.findByIssue(issue.getId().getProjectId(), issueNumber));
         model.addAttribute("editUrl", "edit/" + issueNumber);
         model.addAttribute("statuses", Status.values());
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("users", userRepository.findByIdWithProjects(project.getId()));
         model.addAttribute("milestones", milestoneRepository.findAllBy(project.getId()));
         model.addAttribute("resolutions", Resolution.values());
         model.addAttribute("project", projectRepository.findByProjectKey(projectKey));

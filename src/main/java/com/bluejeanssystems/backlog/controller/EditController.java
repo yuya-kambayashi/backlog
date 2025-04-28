@@ -33,7 +33,7 @@ public class EditController {
         model.addAttribute("priorities", Priority.values());
         model.addAttribute("milestones", milestoneRepository.findAllBy(project.getId()));
         model.addAttribute("categories", categoryRepository.findAllBy(project.getId()));
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("users", userRepository.findByIdWithProjects(project.getId()));
         model.addAttribute("resolutions", Resolution.values());
 
         Issue issue = issueRepository.findByIssueNumber(projectKey, issueNumber);
