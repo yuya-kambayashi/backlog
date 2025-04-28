@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/layout}"
+        lang="ja">
+
+<head>
+    <title>ガントチャート｜Backlog</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    ガントチャート
+    <div class="card-body table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>名称</th>
+                <th>開始予定日</th>
+                <th>開始終了日</th>
+                <th>実績開始日</th>
+                <th>実績終了日</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="issue : ${issues}" th:object="${issue}">
+                <td>
+                    <a th:href="@{/projects/{projectKey}/view/{issueNumber}(projectKey=${project.projectKey}, issueNumber=*{id.getIssueNumber()})}"
+                       th:text="${issue.getIssueKey()}"></a>
+                </td>
+                <td th:text="${issue.plannedStartDate}"></td>
+                <td th:text="${issue.limitDate}"></td>
+                <td th:text="${issue.acutualStartDate}"></td>
+                <td th:text="${issue.acutualEndDate}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <canvas id="gantt-chart"></canvas>
+    </div>
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            renderGanttChart([[${issueMapMap}]], 'gantt-chart');
+        });
+    </script>
+</div>
+<div layout:fragment="ganttChart">
+    <script src="/js/ganttChart.js"></script>
+</div>
+</body>
+</html>
+

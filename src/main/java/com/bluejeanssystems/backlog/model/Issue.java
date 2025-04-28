@@ -6,6 +6,7 @@ import com.bluejeanssystems.backlog.util.Status;
 import com.bluejeanssystems.backlog.util.Type;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -62,10 +63,11 @@ public class Issue {
     @Enumerated(EnumType.STRING)
     private Resolution resolution;
 
-    @Column(nullable = true)
+    @NotNull
     private LocalDate plannedStartDate;
-    @Column(nullable = true)
+    @NotNull
     private LocalDate limitDate;
+    
     @Column(nullable = true)
     private LocalDate acutualStartDate;
     @Column(nullable = true)

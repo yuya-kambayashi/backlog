@@ -71,24 +71,31 @@
                     </div>
                 </div>
                 <div class="row m-2">
+                    <label class="col-2 border-bottom" for="plannedStartDate">開始予定日</label>
+                    <div class="col-4 border-bottom">
+                        <input class="form-control" type="date" id="plannedStartDate"
+                               th:field="*{plannedStartDate}" required/>
+                    </div>
                     <label class="col-2 border-bottom" for="limitDate">期限日</label>
                     <div class="col-4 border-bottom">
-                        <input class="form-control" type="date" id="limitDate" name="limitDate"
-                               th:value="${limitDate}"/>
+                        <input class="form-control" type="date" id="limitDate"
+                               th:field="*{limitDate}" required/>
                     </div>
-
+                </div>
+                <div class="row m-2">
                     <label th:if="${issue.id != null }" class="col-2 border-bottom" for="resolution">完了理由</label>
                     <div th:if="${issue.id != null }" class="col-4 border-bottom">
                         <select class="form-select form-select-sm" id="resolution" name="resolution">
                             <option th:each="r : ${resolutions}" th:value="${r}" th:text="${r}"></option>
                         </select>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            通知ユーザーを追加
+        <div class="row">
+            <div class="col">
+                通知ユーザーを追加
+            </div>
         </div>
     </div>
 </div>
