@@ -131,39 +131,39 @@
             <div class="container">
                 <div class="row" style="margin-left: 23px; margin-top: 10px; margin-right: 23px">
                      <textarea id="comment-input-area"
-                               class="col-lg-5"
+                               class="col-6"
                                placeholder="コメント (@を入力してメンバーに通知)"
                                th:field="*{comment}"
                                rows="4"></textarea>
-                    <div class="col-md-5">
+                    <div class="col-6">
                         <div class="mb-2">
-                            <label class="col-3" for="status">状態</label>
-                            <select class="col" id="status" name="status" style="width: 70%">
+                            <label for="status">状態</label>
+                            <select class=" form-select form-select-sm" id="status" name="status">
                                 <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}"></option>
                             </select>
                         </div>
                         <div class="mb-2">
-                            <label class="col-3" for="assigner">担当者</label>
-                            <select class="col" id="assigner" name="assigner" style="width: 70%">
+                            <label class="" for="assigner">担当者</label>
+                            <select class=" form-select form-select-sm" id="assigner" name="assigner">
+
                                 <option th:each="user : ${users}" th:value="${user.id}"
                                         th:text="${user.username}"></option>
                             </select>
                         </div>
                         <div class="mb-2">
-                            <label class="col-3" for="milestone">マイルストーン</label>
-                            <select class="col" id="milestone" name="milestone" style="width: 70%">
+                            <label class="" for="milestone">マイルストーン</label>
+                            <select class=" form-select form-select-sm" id="milestone" name="milestone">
                                 <option th:each="m : ${milestones}" th:value="${m.id}"
                                         th:text="${m.name}"></option>
                             </select>
                         </div>
                         <div class="mb-2">
-                            <label class="col-3" for="limitDate">期限日</label>
-                            <input class="col" type="date" id="limitDate" name="limitDate"
-                                   th:value="${limitDate}" style="width: 70%"/>
+                            <label class="" for="limitDate">期限日</label>
+                            <input class=" form-control" type="date" id="limitDate" name="limitDate"/>
                         </div>
                         <div class="mb-2">
-                            <label class="col-3" for="resolution">完了理由</label>
-                            <select class="col" id="resolution" name="resolution" style="width: 70%">
+                            <label class="" for="resolution">完了理由</label>
+                            <select class=" form-select form-select-sm" id="resolution" name="resolution">
                                 <option th:each="r : ${resolutions}" th:value="${r}" th:text="${r}"></option>
                             </select>
                         </div>
