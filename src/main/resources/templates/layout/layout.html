@@ -40,7 +40,8 @@
 <!-- コンテンツ -->
 <div>
     <div class="main-header border-bottom border-2 col-sm-10 offset-sm-2">
-        <p class="fw-bold fs-6 menu-header-project-name" th:text="${project?.name ?: ''}"></p>
+        <p class="fw-bold fs-6 menu-header-project-name"
+           th:text="${project == null? '' : project.name + ' (' + project.projectKey + ')'}"></p>
     </div>
     <nav class="main col-sm-10 offset-sm-2">
         <div layout:fragment="content"></div>

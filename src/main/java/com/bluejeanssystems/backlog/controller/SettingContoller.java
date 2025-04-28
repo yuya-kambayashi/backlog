@@ -37,6 +37,7 @@ public class SettingContoller {
         model.addAttribute("users", users);
         model.addAttribute("milestones", milestoneRepository.findAllBy(project.getId()));
         model.addAttribute("categories", categoryRepository.findAllBy(project.getId()));
+        model.addAttribute("project", projectRepository.findByProjectKey(projectKey));
 
         return "layout/setting";
     }
