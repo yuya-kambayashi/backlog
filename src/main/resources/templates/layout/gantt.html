@@ -116,7 +116,7 @@
                     'rgba(255, 206, 86, 0.2)',
                     'rgba(75, 192, 192, 0.2)',
                     'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 159, 64, 1)',
                     'rgba(0, 0, 0, 0.2)'
                 ],
                 borderColor: [
@@ -156,8 +156,24 @@
                 ctx.stroke();
                 ctx.setLineDash([]);
 
-                console.log(today);
+            }
+        }
+        const assignedTasks = {
+            id: 'assignedTasks',
+            afterDatasetsDraw(chart, args, pluginOptions) {
+                const {
+                    ctx, data, chartArea: {top, bottom, left, right},
+                    scales: {x, y}
+                } = chart;
 
+                ctx.font = 'border 12px sans-serif';
+                ctx.fillStyle = 'black';
+                ctx.textBaseline = 'middle';
+
+                data.datasets[0].data.forEach((datapoint, index) => {
+                    // console.log(datapoint.name);
+                    ctx.fillText(datapoint.name, 10, y.getPixelForValue(index));
+                });
             }
         }
 
@@ -190,7 +206,7 @@
                     }
                 }
             },
-            plugins: [todayLine]
+            plugins: [todayLine, assignedTasks]
         };
 
         // render init block
