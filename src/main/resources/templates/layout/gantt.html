@@ -42,6 +42,12 @@
             background: white;
         }
     </style>
+    <!--    <link rel="stylesheet"-->
+    <!--          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"-->
+    <!--          integrity="sha256-UzFD2WYH2U1dQpKDjjZK72VtPeWP50NoJjd26rnAdUI="-->
+    <!--          crossorigin="anonymous"/>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body>
@@ -103,12 +109,12 @@
             datasets: [{
                 label: 'Weekly Sales',
                 data: [
-                    {x: ['2022-10-02', '2022-10-06'], y: 'Task 1', name: 'James', status: 'Completed'},
-                    {x: ['2022-10-06', '2022-10-12'], y: 'Task 2', name: 'Luna', status: 'Completed'},
-                    {x: ['2022-10-08', '2022-10-12'], y: 'Task 3', name: 'David', status: 'Completed'},
-                    {x: ['2022-10-12', '2022-10-21'], y: 'Task 4', name: 'Lily', status: 'Completed'},
-                    {x: ['2022-10-15', '2022-10-24'], y: 'Task 5', name: 'Santiago', status: 'Delayed'},
-                    {x: ['2022-10-18', '2022-10-30'], y: 'Task 6', name: 'James', status: 'Pending'},
+                    {x: ['2022-10-02', '2022-10-06'], y: 'Task 1', name: 'James', status: 2},
+                    {x: ['2022-10-06', '2022-10-12'], y: 'Task 2', name: 'Luna', status: 2},
+                    {x: ['2022-10-08', '2022-10-12'], y: 'Task 3', name: 'David', status: 2},
+                    {x: ['2022-10-12', '2022-10-21'], y: 'Task 4', name: 'Lily', status: 2},
+                    {x: ['2022-10-15', '2022-10-24'], y: 'Task 5', name: 'Santiago', status: 0},
+                    {x: ['2022-10-18', '2022-10-30'], y: 'Task 6', name: 'James', status: 1},
                 ],
                 backgroundColor: [
                     'rgba(255, 26, 104, 0.2)',
@@ -165,14 +171,22 @@
                     ctx, data, chartArea: {top, bottom, left, right},
                     scales: {x, y}
                 } = chart;
-                
+                const icons = ['\uf00d', '\uf110', '\uf00c'];
+                const colors = ['rgba(255, 26, 104, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)']
+                const angle = Math.PI / 180;
                 ctx.save();
-                ctx.font = 'border 12px sans-serif';
-                ctx.fillStyle = 'black';
+                ctx.font = '900 16px "Font Awesome 6 Free"';
                 ctx.textBaseline = 'middle';
                 ctx.textAlign = 'center';
                 data.datasets[0].data.forEach((datapoint, index) => {
-                    ctx.fillText(datapoint.status, right + 50, y.getPixelForValue(index));
+                    ctx.beginPath();
+                    ctx.fillStyle = colors[datapoint.status];
+                    ctx.arc(right + 50, y.getPixelForValue(index), 12, 0, angle * 360, false);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.fillStyle = 'white';
+                    ctx.fillText(icons[datapoint.status], right + 50, y.getPixelForValue(index));
+                    ctx.fontSyle = colors
                 });
                 ctx.restore();
             }
