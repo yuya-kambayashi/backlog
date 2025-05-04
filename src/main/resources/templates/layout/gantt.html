@@ -142,7 +142,7 @@
                 ctx.lineWidth = 3;
                 ctx.strokeStyle = 'rgba(102, 102, 102, 1)';
                 ctx.setLineDash([6, 6]);
-                var today = new Date("2022-10-15");
+                var today = new Date("2022-10-26");
                 ctx.moveTo(x.getPixelForValue(today), top);
                 ctx.lineTo(x.getPixelForValue(today), bottom);
                 ctx.stroke();
@@ -223,7 +223,10 @@
                         position: 'top',
                         type: 'time',
                         time: {
-                            unit: 'day'
+                            unit: 'day',
+                            displayFormats: {
+                                day: 'd'
+                            }
                         },
                         min: '2022-10-01',
                         max: '2022-10-31'
@@ -232,6 +235,26 @@
                 plugins: {
                     legend: {
                         display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: (ctx) => {
+                                console.log(ctx[0].raw.x)
+                                const startDate = new Date(ctx[0].raw.x[0]);
+                                const endDate = new Date(ctx[0].raw.x[1]);
+                                const formattedStartDate = startDate.toLocaleString([], {
+                                    year: 'numeric',
+                                    month: 'short',
+                                    day: 'numeric',
+                                });
+                                const formattedEndDate = endDate.toLocaleString([], {
+                                    year: 'numeric',
+                                    month: 'short',
+                                    day: 'numeric',
+                                });
+                                return [ctx[0].raw.name, `Task Deadline: ${formattedStartDate} - ${formattedEndDate}`];
+                            }
+                        }
                     }
                 }
             },
