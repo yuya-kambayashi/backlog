@@ -109,15 +109,15 @@
             datasets: [{
                 label: 'Weekly Sales',
                 data: [
-                    {x: ['2022-10-02', '2022-10-06'], y: 'Task 1', name: 'James', status: 2},
-                    {x: ['2022-10-06', '2022-10-12'], y: 'Task 2', name: 'Luna', status: 2},
-                    {x: ['2022-10-08', '2022-10-12'], y: 'Task 3', name: 'David', status: 2},
-                    {x: ['2022-10-12', '2022-10-21'], y: 'Task 4', name: 'Lily', status: 1},
-                    {x: ['2022-10-15', '2022-10-24'], y: 'Task 5', name: 'Santiago', status: 0},
-                    {x: ['2022-10-18', '2022-10-30'], y: 'Task 6', name: 'James', status: 1},
-                    {x: ['2022-11-12', '2022-11-21'], y: 'Task 7', name: 'Lily', status: 1},
-                    {x: ['2022-11-15', '2022-11-24'], y: 'Task 8', name: 'Santiago', status: 0},
-                    {x: ['2022-11-18', '2022-11-30'], y: 'Task 9', name: 'James', status: 1},
+                    {x: ['2025-05-02', '2025-05-06'], y: 'Task 1', name: 'James', status: 2},
+                    {x: ['2025-05-06', '2025-05-12'], y: 'Task 2', name: 'Luna', status: 2},
+                    {x: ['2025-05-08', '2025-05-12'], y: 'Task 3', name: 'David', status: 2},
+                    {x: ['2025-05-12', '2025-05-21'], y: 'Task 4', name: 'Lily', status: 1},
+                    {x: ['2025-05-15', '2025-05-24'], y: 'Task 5', name: 'Santiago', status: 0},
+                    {x: ['2025-05-18', '2025-05-30'], y: 'Task 6', name: 'James', status: 1},
+                    {x: ['2025-06-12', '2025-06-21'], y: 'Task 7', name: 'Lily', status: 1},
+                    {x: ['2025-06-15', '2025-06-24'], y: 'Task 8', name: 'Santiago', status: 0},
+                    {x: ['2025-06-18', '2025-06-30'], y: 'Task 9', name: 'James', status: 1},
                 ],
                 backgroundColor: (ctx) => {
                     return colors[ctx.raw.status];
@@ -143,9 +143,8 @@
                 ctx.lineWidth = 3;
                 ctx.strokeStyle = 'rgba(102, 102, 102, 1)';
                 ctx.setLineDash([6, 6]);
-                var today = new Date("2022-10-26");
-                ctx.moveTo(x.getPixelForValue(today), top);
-                ctx.lineTo(x.getPixelForValue(today), bottom);
+                ctx.moveTo(x.getPixelForValue(new Date()), top);
+                ctx.lineTo(x.getPixelForValue(new Date()), bottom);
                 ctx.stroke();
                 ctx.restore();
 
@@ -155,9 +154,9 @@
                 ctx.lineWidth = 1;
                 ctx.strokeStyle = 'rgba(102, 102, 102, 1)';
                 ctx.fillStyle = 'rgba(102, 102, 102, 1)';
-                ctx.moveTo(x.getPixelForValue(today), top + 3);
-                ctx.lineTo(x.getPixelForValue(today) - 6, top - 6);
-                ctx.lineTo(x.getPixelForValue(today) + 6, top - 6);
+                ctx.moveTo(x.getPixelForValue(new Date()), top + 3);
+                ctx.lineTo(x.getPixelForValue(new Date()) - 6, top - 6);
+                ctx.lineTo(x.getPixelForValue(new Date()) + 6, top - 6);
                 ctx.closePath();
                 ctx.stroke();
                 ctx.fill();
@@ -166,7 +165,7 @@
                 ctx.font = 'bold 12px sans-serif';
                 ctx.fillStyle = 'rgba(102, 102, 102, 1)';
                 ctx.textAlign = 'center';
-                ctx.fillText('Today', x.getPixelForValue(today), bottom + 15);
+                ctx.fillText('Today', x.getPixelForValue(new Date()), bottom + 15);
                 ctx.restore();
 
 
@@ -185,23 +184,26 @@
 
                 ctx.save();
 
-                ctx.font = '900 16px "Font Awesome 6 Free"';
-                ctx.textBaseline = 'middle';
-                ctx.textAlign = 'center';
-                data.datasets[0].data.forEach((datapoint, index) => {
-                    ctx.beginPath();
-                    ctx.fillStyle = colors[datapoint.status];
-                    ctx.arc(right + (paddingRight / 2), y.getPixelForValue(index), 12, 0, angle * 360, false);
-                    ctx.closePath();
-                    ctx.fill();
-                    ctx.fillStyle = 'white';
-                    ctx.fillText(icons[datapoint.status], right + 50, y.getPixelForValue(index));
-                });
-                ctx.font = 'border 12px sans-serif';
-                ctx.fillStyle = 'black';
-                ctx.fillText('Status', right + (paddingRight / 2), top - 15);
+                if (x.getPixelForValue(new Date()) >= left && x.getPixelForValue(new Date()) <= right) {
 
-                ctx.restore();
+                    ctx.font = '900 16px "Font Awesome 6 Free"';
+                    ctx.textBaseline = 'middle';
+                    ctx.textAlign = 'center';
+                    data.datasets[0].data.forEach((datapoint, index) => {
+                        ctx.beginPath();
+                        ctx.fillStyle = colors[datapoint.status];
+                        ctx.arc(right + (paddingRight / 2), y.getPixelForValue(index), 12, 0, angle * 360, false);
+                        ctx.closePath();
+                        ctx.fill();
+                        ctx.fillStyle = 'white';
+                        ctx.fillText(icons[datapoint.status], right + 50, y.getPixelForValue(index));
+                    });
+                    ctx.font = 'border 12px sans-serif';
+                    ctx.fillStyle = 'black';
+                    ctx.fillText('Status', right + (paddingRight / 2), top - 15);
+
+                    ctx.restore();
+                }
             }
         }
 
@@ -251,8 +253,8 @@
                                 day: 'd'
                             }
                         },
-                        min: '2022-10-01',
-                        max: '2022-10-31'
+                        min: '2025-05-01',
+                        max: '2025-05-31'
                     }
                 },
                 plugins: {
