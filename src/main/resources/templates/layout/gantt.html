@@ -91,7 +91,9 @@
             <input type="text" id="nameTask"/>
             <input type="date" id="startDateTask"/>
             <input type="date" id="endDateTask"/>
-            <input type="text" id="teamMemberTask"/>
+            <input type="text" id="teamMemberTask" list="names"/>
+            <datalist id="names">
+            </datalist>
             <select id="statusTask">
                 <option value="0">Delayed</option>
                 <option value="1">Pending</option>
@@ -336,9 +338,30 @@
                 }
             );
             console.log(myChart.data)
-            myChart.update();
+            addNames();
 
+            myChart.update();
         }
+
+        function addNames() {
+            const names = document.getElementById('names');
+            while (names.firstElementChild) {
+                names.removeChild(names.firstElementChild);
+            }
+            const namesArray = myChart.data.datasets[0].data.map((dataPoint) => {
+                return dataPoint.name
+            })
+
+            const namesArrayFilter = [...new Set(namesArray)];
+
+            namesArrayFilter.forEach((memberName) => {
+                const option = document.createElement('option');
+                option.value = memberName;
+                names.appendChild(option);
+            })
+        }
+
+        addNames();
     </script>
 </div>
 </body>
