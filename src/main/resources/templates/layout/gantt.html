@@ -96,6 +96,20 @@
         <div class="chartBox">
             <canvas id="myChart"></canvas>
             <input type="month" onchange="chartFilter(this)"/>
+            <br>
+            <br>
+            <hr>
+            <br>
+            <input type="text" id="nameTask"/>
+            <input type="date" id="startDateTask"/>
+            <input type="date" id="endDateTask"/>
+            <input type="text" id="teamMemberTask"/>
+            <select id="statusTask">
+                <option value="0">Delayed</option>
+                <option value="1">Pending</option>
+                <option value="2">Complete</option>
+            </select>
+            <button onclick="addTask()">Add Task</button>
         </div>
     </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
@@ -314,6 +328,27 @@
             myChart.config.options.scales.x.min = startDate;
             myChart.config.options.scales.x.max = endDate;
             myChart.update()
+
+        }
+
+        function addTask() {
+            const nameTask = document.getElementById('nameTask');
+            const startDateTask = document.getElementById('startDateTask');
+            const endDateTask = document.getElementById('endDateTask');
+            const teamMemberTask = document.getElementById('teamMemberTask');
+            const statusTask = document.getElementById('statusTask');
+
+            const arraylength = myChart.data.datasets[0].data.length;
+
+            myChart.data.datasets[0].data[arraylength] = ({
+                    x: [startDateTask.value, endDateTask.value],
+                    y: nameTask.value,
+                    name: teamMemberTask.value,
+                    status: parseInt(statusTask.value)
+                }
+            );
+            console.log(myChart.data)
+            myChart.update();
 
         }
     </script>
