@@ -203,13 +203,13 @@
                 const paddingRight = options.layout.padding.right;
 
                 ctx.save();
+                ctx.font = '900 16px "Font Awesome 6 Free"';
+                ctx.textBaseline = 'middle';
+                ctx.textAlign = 'center';
 
-                if (x.getPixelForValue(new Date()) >= left && x.getPixelForValue(new Date()) <= right) {
+                data.datasets[0].data.forEach((datapoint, index) => {
+                    if (y.getPixelForValue(index) > top && y.getPixelForValue(index) < bottom) {
 
-                    ctx.font = '900 16px "Font Awesome 6 Free"';
-                    ctx.textBaseline = 'middle';
-                    ctx.textAlign = 'center';
-                    data.datasets[0].data.forEach((datapoint, index) => {
                         ctx.beginPath();
                         ctx.fillStyle = colors[datapoint.status];
                         ctx.arc(right + (paddingRight / 2), y.getPixelForValue(index), 12, 0, angle * 360, false);
@@ -217,13 +217,14 @@
                         ctx.fill();
                         ctx.fillStyle = 'white';
                         ctx.fillText(icons[datapoint.status], right + 50, y.getPixelForValue(index));
-                    });
-                    ctx.font = 'border 12px sans-serif';
-                    ctx.fillStyle = 'black';
-                    ctx.fillText('Status', right + (paddingRight / 2), top - 15);
+                    }
+                });
+                ctx.font = 'border 12px sans-serif';
+                ctx.fillStyle = 'black';
+                ctx.fillText('Status', right + (paddingRight / 2), top - 15);
 
-                    ctx.restore();
-                }
+                ctx.restore();
+
             }
         }
 
@@ -241,7 +242,9 @@
                 ctx.textBaseline = 'middle';
                 ctx.textAlign = 'left';
                 data.datasets[0].data.forEach((datapoint, index) => {
-                    ctx.fillText(datapoint.name, 10, y.getPixelForValue(index));
+                    if (y.getPixelForValue(index) > top && y.getPixelForValue(index) < bottom) {
+                        ctx.fillText(datapoint.name, 10, y.getPixelForValue(index));
+                    }
                 });
                 ctx.fillText('Names', 10, top - 15);
                 ctx.restore();
