@@ -6,79 +6,37 @@
 
 <head>
     <title>ガントチャート｜Backlog</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            font-family: sans-serif;
-        }
-
-        .chartMenu {
-            width: 100vw;
-            height: 40px;
-            background: #1A1A1A;
-            color: rgba(54, 162, 235, 1);
-        }
-
-        .chartMenu p {
-            padding: 10px;
-            font-size: 20px;
-        }
-
-        .chartCard {
-            width: 80vw;
-            height: calc(100vh - 40px);
-            background: rgba(54, 162, 235, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .chartBox {
-            width: 900px;
-            padding: 20px;
-            border-radius: 20px;
-            border: solid 3px rgba(54, 162, 235, 1);
-            background: white;
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 
 <body>
 <div layout:fragment="content">
-    <!--    ガントチャート-->
-    <!--    <div class="card-body table-responsive">-->
-    <!--        <table class="table table-bordered">-->
-    <!--            <thead>-->
-    <!--            <tr>-->
-    <!--                <th>名称</th>-->
-    <!--                <th>開始予定日</th>-->
-    <!--                <th>開始終了日</th>-->
-    <!--                <th>実績開始日</th>-->
-    <!--                <th>実績終了日</th>-->
-    <!--            </tr>-->
-    <!--            </thead>-->
-    <!--            <tbody>-->
-    <!--            <tr th:each="issue : ${issues}" th:object="${issue}">-->
-    <!--                <td>-->
-    <!--                    <a th:href="@{/projects/{projectKey}/view/{issueNumber}(projectKey=${project.projectKey}, issueNumber=*{id.getIssueNumber()})}"-->
-    <!--                       th:text="${issue.getIssueKey()}"></a>-->
-    <!--                </td>-->
-    <!--                <td th:text="${issue.plannedStartDate}"></td>-->
-    <!--                <td th:text="${issue.limitDate}"></td>-->
-    <!--                <td th:text="${issue.acutualStartDate}"></td>-->
-    <!--                <td th:text="${issue.acutualEndDate}"></td>-->
-    <!--            </tr>-->
-    <!--            </tbody>-->
-    <!--        </table>-->
-    <!--    </div>-->
-
-
-    <div class="chartMenu">
-        <p>WWW.CHARTJS3.COM (Chart JS <span id="chartVersion"></span>)</p>
+    <div class="card-body table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>名称</th>
+                <th>開始予定日</th>
+                <th>開始終了日</th>
+                <th>実績開始日</th>
+                <th>実績終了日</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="issue : ${issues}" th:object="${issue}">
+                <td>
+                    <a th:href="@{/projects/{projectKey}/view/{issueNumber}(projectKey=${project.projectKey}, issueNumber=*{id.getIssueNumber()})}"
+                       th:text="${issue.getIssueKey()}"></a>
+                </td>
+                <td th:text="${issue.plannedStartDate}"></td>
+                <td th:text="${issue.limitDate}"></td>
+                <td th:text="${issue.acutualStartDate}"></td>
+                <td th:text="${issue.acutualEndDate}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+
     <div class="chartCard">
         <div class="chartBox">
             <canvas id="myChart"></canvas>
