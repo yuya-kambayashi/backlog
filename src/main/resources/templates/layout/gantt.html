@@ -88,7 +88,9 @@
             <!--            <br>-->
             <hr>
             <!--            <br>-->
-            <input type="text" id="nameTask"/>
+            <input type="text" id="nameTask" list="tasks"/>
+            <datalist id="tasks">
+            </datalist>
             <input type="date" id="startDateTask"/>
             <input type="date" id="endDateTask"/>
             <input type="text" id="teamMemberTask" list="names"/>
@@ -394,6 +396,7 @@
             );
             console.log(myChart.data)
             addNames();
+            addTasks();
 
             myChart.update();
         }
@@ -417,6 +420,21 @@
         }
 
         addNames();
+
+        function addTasks() {
+            const tasks = document.getElementById('tasks');
+            while (tasks.firstElementChild) {
+                tasks.removeChild(tasks.firstElementChild);
+            }
+
+            labelsArrayFilter.forEach((taskName) => {
+                const option = document.createElement('option');
+                option.value = taskName;
+                tasks.appendChild(option);
+            })
+        }
+
+        addTasks();
 
         function showTask() {
             const yScale = myChart.config.options.scales.y;
