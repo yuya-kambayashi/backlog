@@ -149,6 +149,11 @@
             }]
         };
 
+        const labelsArray = data.datasets[0].data.map((dataPoint, index) => {
+            return dataPoint.y;
+        });
+        const labelsArrayFilter = [...new Set(labelsArray)];
+
         const todayLine = {
             id: 'todayLine',
             afterDatasetsDraw(chart, args, pluginOptions) {
@@ -305,7 +310,7 @@
                     y: {
                         min: 0,
                         max: 8,
-                        labels: ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5', 'Task 6', 'Task 7', 'Task 8', 'Task 9']
+                        labels: labelsArrayFilter,
                     }
                 },
                 plugins: {
