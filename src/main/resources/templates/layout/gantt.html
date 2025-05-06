@@ -26,7 +26,7 @@
         }
 
         .chartCard {
-            width: 100vw;
+            width: 80vw;
             height: calc(100vh - 40px);
             background: rgba(54, 162, 235, 0.2);
             display: flex;
@@ -35,7 +35,7 @@
         }
 
         .chartBox {
-            width: 700px;
+            width: 900px;
             padding: 20px;
             border-radius: 20px;
             border: solid 3px rgba(54, 162, 235, 1);
@@ -84,10 +84,10 @@
         <div class="chartBox">
             <canvas id="myChart"></canvas>
             <input type="month" onchange="chartFilter(this)"/>
-            <br>
-            <br>
+            <!--            <br>-->
+            <!--            <br>-->
             <hr>
-            <br>
+            <!--            <br>-->
             <input type="text" id="nameTask"/>
             <input type="date" id="startDateTask"/>
             <input type="date" id="endDateTask"/>
@@ -100,6 +100,22 @@
                 <option value="2">Complete</option>
             </select>
             <button onclick="addTask()">Add Task</button>
+            <!--            <br>-->
+            <!--            <br>-->
+            <hr>
+            <!--            <br>-->
+            <select id="minTask" onchange="showTask()">
+                <option selected value="0">Task 1</option>
+                <option value="1">Task 2</option>
+                <option value="2">Task 3</option>
+                <option value="3">Task 4</option>
+            </select>
+            <select id="maxTask" onchange="showTask()">
+                <option value="5">Task 6</option>
+                <option value="6">Task 7</option>
+                <option value="7">Task 8</option>
+                <option selected value="8">Task 9</option>
+            </select>
         </div>
     </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
@@ -233,6 +249,29 @@
             }
         }
 
+        // weekend
+        const weekend = {
+            id: 'weekend',
+            afterDatasetsDraw(chart, args, pluginOptions) {
+                const {
+                    ctx, chartArea: {top, bottom, left, right, width, height},
+                    scales: {x, y}
+                } = chart;
+
+                ctx.save();
+
+                x.ticks.forEach((tick, index) => {
+                    const day = new Date(tick.value).getDay();
+                    if (day === 0 || day === 6) {
+                        ctx.fillStyle = pluginOptions.weekendColor;
+                        ctx.fillRect(x.getPixelForValue(tick.value), top, x.getPixelForValue(new Date(tick.value).setHours(24)) - x.getPixelForValue(tick.value), height);
+                    }
+                })
+
+
+            }
+        }
+
         // config
         const config = {
             type: 'bar',
@@ -259,9 +298,17 @@
                         },
                         min: '2025-05-01',
                         max: '2025-05-31'
+                    },
+                    y: {
+                        min: 0,
+                        max: 8,
+                        labels: ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5', 'Task 6', 'Task 7', 'Task 8', 'Task 9']
                     }
                 },
                 plugins: {
+                    weekend: {
+                        weekendColor: 'rgba(102, 102, 102, 0.2)'
+                    },
                     legend: {
                         display: false
                     },
@@ -292,7 +339,7 @@
                     }
                 }
             },
-            plugins: [todayLine, assignedTasks, status]
+            plugins: [todayLine, assignedTasks, status, weekend]
         };
 
         // render init block
@@ -362,6 +409,18 @@
         }
 
         addNames();
+
+        function showTask() {
+            const yScale = myChart.config.options.scales.y;
+            const minTask = document.getElementById('minTask').value;
+            const maxTask = document.getElementById('maxTask').value;
+
+            yScale.min = yScale.labels[minTask];
+            yScale.max = yScale.labels[maxTask];
+            myChart.update();
+
+
+        }
     </script>
 </div>
 </body>
