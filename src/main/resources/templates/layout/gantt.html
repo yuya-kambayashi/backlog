@@ -45,13 +45,21 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script th:inline="javascript">
+
         const colors = ['rgba(255, 26, 104, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)']
         console.log(colors);
-        const maps = [[${maps}]];
-        console.log(maps);
 
-        const inputData = JSON.parse(maps.toString());
-        console.log(inputData);
+        const planData = [[${planData}]];
+        console.log(planData);
+
+        const inputPlanData = JSON.parse(planData.toString());
+        console.log(inputPlanData);
+
+        const recordData = [[${recordData}]];
+        console.log(recordData);
+
+        const inputRecordData = JSON.parse(recordData.toString());
+        console.log(inputRecordData);
 
 
         // setup
@@ -60,8 +68,7 @@
                 {
                     // 計画
                     data: [
-                        // {x: ['2025-05-02', '2025-05-06'], y: 'Task 1', name: 'James', status: 2},
-                        // {x: ['2025-05-06', '2025-05-12'], y: 'Task 2', name: 'Luna', status: 2},
+                        // ダミーデータ
                         {x: ['2025-05-08', '2025-05-12'], y: 'Task 3', name: 'David', status: 2},
                     ],
                     backgroundColor: (ctx) => {
@@ -75,8 +82,7 @@
                 {
                     // 実績
                     data: [
-                        // {x: ['2025-05-02', '2025-05-06'], y: 'Task 1', name: 'James', status: 2},
-                        // {x: ['2025-05-06', '2025-05-12'], y: 'Task 2', name: 'Luna', status: 2},
+                        // ダミーデータ
                         {x: ['2025-05-08', '2025-05-12'], y: 'Task 3', name: 'David', status: 2},
                     ],
                     backgroundColor: 'rgba(255, 26, 104, 1)',
@@ -87,10 +93,7 @@
                 }]
         };
 
-        const labelsArray = data.datasets[0].data.map((dataPoint, index) => {
-            return dataPoint.y;
-        });
-        const labelsArrayFilter = [...new Set(labelsArray)];
+        const labelsArrayFilter = getlabels();
 
         const todayLine = {
             id: 'todayLine',
@@ -206,11 +209,9 @@
                             }
                         },
                         min: '2025-05-01',
-                        max: '2025-05-31'
+                        max: '2025-12-31'
                     },
                     y: {
-                        min: 0,
-                        max: 8,
                         labels: labelsArrayFilter,
                     }
                 },
@@ -260,12 +261,11 @@
         // 初期化処理
         importIssueData();
 
+        // ----------------------------
 
-
-        console.log(myChart)
-
-        myChart.update();
-
+        //
+        // 関数集
+        //
 
         function chartFilter(date) {
             const year = date.value.substring(0, 4);
@@ -287,37 +287,48 @@
             console.log("addTask");
 
             // いったんダミーを削除
-            // myChart.data.datasets[0].data.length = 0;
+            myChart.data.datasets[0].data.length = 0;
+            myChart.data.datasets[1].data.length = 0;
 
             // 連携データを追加
-            inputData.forEach((input) =>{
-
-                const startDate = input.x[0];
-                const endDate = input.x[1];
-                const taskName = input.y;
-                const assigner = input.name;
-                const status = input.status;
+            inputPlanData.forEach((input) =>{
 
                 const arraylength = myChart.data.datasets[0].data.length;
 
                 myChart.data.datasets[0].data[arraylength] = ({
-                        x: [startDate, endDate],
-                        y: taskName,
-                        name: assigner,
-                        status: parseInt(status)
+                        x: [input.x[0], input.x[1]],
+                        y: input.y,
+                        name: input.name,
+                        status: parseInt(input.status)
                     }
                 );
             })
-            myChart.update();
-            console.log(data);
 
-            // const labelsArray = data.datasets[0].data.map((dataPoint, index) => {
-            //     return dataPoint.y;
-            // });
-            // config.options.scales.y.labels = [...new Set(labelsArray)]
-            //
-            // console.log(data);
-            // console.log(config.options.scales.y.labels)
+            inputRecordData.forEach((input) =>{
+
+                const arraylength = myChart.data.datasets[1].data.length;
+
+                myChart.data.datasets[1].data[arraylength] = ({
+                        x: [input.x[0], input.x[1]],
+                        y: input.y,
+                        name: input.name,
+                        status: parseInt(input.status)
+                    }
+                );
+            })
+
+            // ラベル更新
+            config.options.scales.y.labels = getlabels();
+
+            myChart.update();
+
+        }
+
+        function getlabels(){
+            const labelsArray = data.datasets[0].data.map((dataPoint, index) => {
+                return dataPoint.y;
+            });
+            return [...new Set(labelsArray)];
         }
     </script>
 </div>

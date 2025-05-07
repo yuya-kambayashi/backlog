@@ -35,30 +35,38 @@ public class GanttController {
 
         Map<String, Map<String, Integer>> issueMapMap = new LinkedHashMap<>();
 
-        List<Map<String, Object>> maps = new ArrayList<>();
+        List<Map<String, Object>> planMaps = new ArrayList<>();
         Map<String, Object> map1 = new HashMap<>();
         map1.put("x", new String[]{"2025-05-02", "2025-05-06"});
         map1.put("y", "Task 1");
         map1.put("name", "James");
         map1.put("status", 2);
-        maps.add(map1);
+        planMaps.add(map1);
         Map<String, Object> map2 = new HashMap<>();
         map2.put("x", new String[]{"2025-05-06", "2025-05-12"});
         map2.put("y", "Task 2");
         map2.put("name", "Luna");
         map2.put("status", 1);
-        maps.add(map2);
-        //        {x: ['2025-05-02', '2025-05-06'], y: 'Task 1', name: 'James', status: 2},
-//        {x: ['2025-05-06', '2025-05-12'], y: 'Task 2', name: 'Luna', status: 2},
-//        {x: ['2025-05-08', '2025-05-12'], y: 'Task 3', name: 'David', status: 2},
-//        {x: ['2025-05-12', '2025-05-21'], y: 'Task 4', name: 'Lily', status: 1},
-//        {x: ['2025-05-15', '2025-05-24'], y: 'Task 5', name: 'Santiago', status: 0},
-//        {x: ['2025-05-18', '2025-05-30'], y: 'Task 6', name: 'James', status: 1},
-//        {x: ['2025-06-12', '2025-06-21'], y: 'Task 7', name: 'Lily', status: 1},
-//        {x: ['2025-06-15', '2025-06-24'], y: 'Task 8', name: 'Santiago', status: 0},
-//        {x: ['2025-06-18', '2025-06-30'], y: 'Task 9', name: 'James', status: 1}
+        planMaps.add(map2);
+
+        List<Map<String, Object>> recordMaps = new ArrayList<>();
+        Map<String, Object> map3 = new HashMap<>();
+        map3.put("x", new String[]{"2025-05-12", "2025-05-16"});
+        map3.put("y", "Task 1");
+        map3.put("name", "James");
+        map3.put("status", 2);
+        recordMaps.add(map3);
+        Map<String, Object> map4 = new HashMap<>();
+        map4.put("x", new String[]{"2025-05-16", "2025-05-22"});
+        map4.put("y", "Task 2");
+        map4.put("name", "Luna");
+        map4.put("status", 1);
+        recordMaps.add(map4);
+
+
         try {
-            model.addAttribute("maps", new ObjectMapper().writeValueAsString(maps));
+            model.addAttribute("planData", new ObjectMapper().writeValueAsString(planMaps));
+            model.addAttribute("recordData", new ObjectMapper().writeValueAsString(recordMaps));
         } catch (Exception e) {
         }
 
