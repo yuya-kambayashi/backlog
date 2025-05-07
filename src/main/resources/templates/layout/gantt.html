@@ -44,8 +44,15 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    <script>
+    <script th:inline="javascript">
         const colors = ['rgba(255, 26, 104, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)']
+        console.log(colors);
+        const maps = [[${maps}]];
+        console.log(maps);
+
+        const inputData = JSON.parse(maps.toString());
+        console.log(inputData);
+
 
         // setup
         const data = {
@@ -53,15 +60,9 @@
             datasets: [{
                 label: 'Weekly Sales',
                 data: [
-                    {x: ['2025-05-02', '2025-05-06'], y: 'Task 1', name: 'James', status: 2},
-                    {x: ['2025-05-06', '2025-05-12'], y: 'Task 2', name: 'Luna', status: 2},
+                    // {x: ['2025-05-02', '2025-05-06'], y: 'Task 1', name: 'James', status: 2},
+                    // {x: ['2025-05-06', '2025-05-12'], y: 'Task 2', name: 'Luna', status: 2},
                     {x: ['2025-05-08', '2025-05-12'], y: 'Task 3', name: 'David', status: 2},
-                    {x: ['2025-05-12', '2025-05-21'], y: 'Task 4', name: 'Lily', status: 1},
-                    {x: ['2025-05-15', '2025-05-24'], y: 'Task 5', name: 'Santiago', status: 0},
-                    {x: ['2025-05-18', '2025-05-30'], y: 'Task 6', name: 'James', status: 1},
-                    {x: ['2025-06-12', '2025-06-21'], y: 'Task 7', name: 'Lily', status: 1},
-                    {x: ['2025-06-15', '2025-06-24'], y: 'Task 8', name: 'Santiago', status: 0},
-                    {x: ['2025-06-18', '2025-06-30'], y: 'Task 9', name: 'James', status: 1},
                 ],
                 backgroundColor: (ctx) => {
                     return colors[ctx.raw.status];
@@ -280,7 +281,14 @@
             config
         );
 
+        // 初期化処理
+        importIssueData();
+
+
+
         console.log(myChart)
+
+        myChart.update();
 
 
         function chartFilter(date) {
@@ -297,6 +305,43 @@
             myChart.config.options.scales.x.max = endDate;
             myChart.update()
 
+        }
+
+        function importIssueData() {
+            console.log("addTask");
+
+            // いったんダミーを削除
+            // myChart.data.datasets[0].data.length = 0;
+
+            // 連携データを追加
+            inputData.forEach((input) =>{
+
+                const startDate = input.x[0];
+                const endDate = input.x[1];
+                const taskName = input.y;
+                const assigner = input.name;
+                const status = input.status;
+
+                const arraylength = myChart.data.datasets[0].data.length;
+
+                myChart.data.datasets[0].data[arraylength] = ({
+                        x: [startDate, endDate],
+                        y: taskName,
+                        name: assigner,
+                        status: parseInt(status)
+                    }
+                );
+            })
+            myChart.update();
+            console.log(data);
+
+            // const labelsArray = data.datasets[0].data.map((dataPoint, index) => {
+            //     return dataPoint.y;
+            // });
+            // config.options.scales.y.labels = [...new Set(labelsArray)]
+            //
+            // console.log(data);
+            // console.log(config.options.scales.y.labels)
         }
     </script>
 </div>
