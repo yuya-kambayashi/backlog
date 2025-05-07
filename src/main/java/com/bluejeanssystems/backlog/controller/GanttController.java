@@ -38,28 +38,28 @@ public class GanttController {
         List<Map<String, Object>> planMaps = new ArrayList<>();
         Map<String, Object> map1 = new HashMap<>();
         map1.put("x", new String[]{"2025-05-02", "2025-05-06"});
-        map1.put("y", "Task 1");
-        map1.put("name", "James");
+        map1.put("y", "BTS-1");
+        map1.put("name", "画面レイアウトを調整する");
         map1.put("status", 2);
         planMaps.add(map1);
         Map<String, Object> map2 = new HashMap<>();
         map2.put("x", new String[]{"2025-05-06", "2025-05-12"});
-        map2.put("y", "Task 2");
-        map2.put("name", "Luna");
+        map2.put("y", "BTS-2");
+        map2.put("name", "ガントチャートを作成する");
         map2.put("status", 1);
         planMaps.add(map2);
 
         List<Map<String, Object>> recordMaps = new ArrayList<>();
         Map<String, Object> map3 = new HashMap<>();
         map3.put("x", new String[]{"2025-05-12", "2025-05-16"});
-        map3.put("y", "Task 1");
-        map3.put("name", "James");
+        map3.put("y", "BTS-1");
+        map3.put("name", "画面レイアウトを調整する");
         map3.put("status", 2);
         recordMaps.add(map3);
         Map<String, Object> map4 = new HashMap<>();
         map4.put("x", new String[]{"2025-05-16", "2025-05-22"});
-        map4.put("y", "Task 2");
-        map4.put("name", "Luna");
+        map4.put("y", "BTS-2");
+        map4.put("name", "ガントチャートを作成する");
         map4.put("status", 1);
         recordMaps.add(map4);
 
