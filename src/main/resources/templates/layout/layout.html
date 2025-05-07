@@ -76,331 +76,332 @@
 <script src="/js/issueChart.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-<script>
-    const colors = ['rgba(255, 26, 104, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)']
+<!--<script src="/js/gantt-chart.js" defer></script>-->
+<!--<script>-->
+<!--    const colors = ['rgba(255, 26, 104, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)']-->
 
-    // setup
-    const data = {
-        // labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        datasets: [{
-            label: 'Weekly Sales',
-            data: [
-                {x: ['2025-05-02', '2025-05-06'], y: 'Task 1', name: 'James', status: 2},
-                {x: ['2025-05-06', '2025-05-12'], y: 'Task 2', name: 'Luna', status: 2},
-                {x: ['2025-05-08', '2025-05-12'], y: 'Task 3', name: 'David', status: 2},
-                {x: ['2025-05-12', '2025-05-21'], y: 'Task 4', name: 'Lily', status: 1},
-                {x: ['2025-05-15', '2025-05-24'], y: 'Task 5', name: 'Santiago', status: 0},
-                {x: ['2025-05-18', '2025-05-30'], y: 'Task 6', name: 'James', status: 1},
-                {x: ['2025-06-12', '2025-06-21'], y: 'Task 7', name: 'Lily', status: 1},
-                {x: ['2025-06-15', '2025-06-24'], y: 'Task 8', name: 'Santiago', status: 0},
-                {x: ['2025-06-18', '2025-06-30'], y: 'Task 9', name: 'James', status: 1},
-            ],
-            backgroundColor: (ctx) => {
-                return colors[ctx.raw.status];
-            },
-            borderSkipped: false,
-            borderRadius: 10,
-            barPercentage: 0.5
+<!--    // setup-->
+<!--    const data = {-->
+<!--        // labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],-->
+<!--        datasets: [{-->
+<!--            label: 'Weekly Sales',-->
+<!--            data: [-->
+<!--                {x: ['2025-05-02', '2025-05-06'], y: 'Task 1', name: 'James', status: 2},-->
+<!--                {x: ['2025-05-06', '2025-05-12'], y: 'Task 2', name: 'Luna', status: 2},-->
+<!--                {x: ['2025-05-08', '2025-05-12'], y: 'Task 3', name: 'David', status: 2},-->
+<!--                {x: ['2025-05-12', '2025-05-21'], y: 'Task 4', name: 'Lily', status: 1},-->
+<!--                {x: ['2025-05-15', '2025-05-24'], y: 'Task 5', name: 'Santiago', status: 0},-->
+<!--                {x: ['2025-05-18', '2025-05-30'], y: 'Task 6', name: 'James', status: 1},-->
+<!--                {x: ['2025-06-12', '2025-06-21'], y: 'Task 7', name: 'Lily', status: 1},-->
+<!--                {x: ['2025-06-15', '2025-06-24'], y: 'Task 8', name: 'Santiago', status: 0},-->
+<!--                {x: ['2025-06-18', '2025-06-30'], y: 'Task 9', name: 'James', status: 1},-->
+<!--            ],-->
+<!--            backgroundColor: (ctx) => {-->
+<!--                return colors[ctx.raw.status];-->
+<!--            },-->
+<!--            borderSkipped: false,-->
+<!--            borderRadius: 10,-->
+<!--            barPercentage: 0.5-->
 
-        }]
-    };
+<!--        }]-->
+<!--    };-->
 
-    const labelsArray = data.datasets[0].data.map((dataPoint, index) => {
-        return dataPoint.y;
-    });
-    const labelsArrayFilter = [...new Set(labelsArray)];
+<!--    const labelsArray = data.datasets[0].data.map((dataPoint, index) => {-->
+<!--        return dataPoint.y;-->
+<!--    });-->
+<!--    const labelsArrayFilter = [...new Set(labelsArray)];-->
 
-    const todayLine = {
-        id: 'todayLine',
-        afterDatasetsDraw(chart, args, pluginOptions) {
-            const {
-                ctx, data, chartArea: {top, bottom, left, right},
-                scales: {x, y}
-            } = chart;
+<!--    const todayLine = {-->
+<!--        id: 'todayLine',-->
+<!--        afterDatasetsDraw(chart, args, pluginOptions) {-->
+<!--            const {-->
+<!--                ctx, data, chartArea: {top, bottom, left, right},-->
+<!--                scales: {x, y}-->
+<!--            } = chart;-->
 
-            ctx.save();
+<!--            ctx.save();-->
 
-            ctx.beginPath();
-            ctx.lineWidth = 3;
-            ctx.strokeStyle = 'rgba(102, 102, 102, 1)';
-            ctx.setLineDash([6, 6]);
-            ctx.moveTo(x.getPixelForValue(new Date()), top);
-            ctx.lineTo(x.getPixelForValue(new Date()), bottom);
-            ctx.stroke();
-            ctx.restore();
+<!--            ctx.beginPath();-->
+<!--            ctx.lineWidth = 3;-->
+<!--            ctx.strokeStyle = 'rgba(102, 102, 102, 1)';-->
+<!--            ctx.setLineDash([6, 6]);-->
+<!--            ctx.moveTo(x.getPixelForValue(new Date()), top);-->
+<!--            ctx.lineTo(x.getPixelForValue(new Date()), bottom);-->
+<!--            ctx.stroke();-->
+<!--            ctx.restore();-->
 
-            ctx.setLineDash([]);
+<!--            ctx.setLineDash([]);-->
 
-            ctx.beginPath();
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = 'rgba(102, 102, 102, 1)';
-            ctx.fillStyle = 'rgba(102, 102, 102, 1)';
-            ctx.moveTo(x.getPixelForValue(new Date()), top + 3);
-            ctx.lineTo(x.getPixelForValue(new Date()) - 6, top - 6);
-            ctx.lineTo(x.getPixelForValue(new Date()) + 6, top - 6);
-            ctx.closePath();
-            ctx.stroke();
-            ctx.fill();
-            ctx.restore();
+<!--            ctx.beginPath();-->
+<!--            ctx.lineWidth = 1;-->
+<!--            ctx.strokeStyle = 'rgba(102, 102, 102, 1)';-->
+<!--            ctx.fillStyle = 'rgba(102, 102, 102, 1)';-->
+<!--            ctx.moveTo(x.getPixelForValue(new Date()), top + 3);-->
+<!--            ctx.lineTo(x.getPixelForValue(new Date()) - 6, top - 6);-->
+<!--            ctx.lineTo(x.getPixelForValue(new Date()) + 6, top - 6);-->
+<!--            ctx.closePath();-->
+<!--            ctx.stroke();-->
+<!--            ctx.fill();-->
+<!--            ctx.restore();-->
 
-            ctx.font = 'bold 12px sans-serif';
-            ctx.fillStyle = 'rgba(102, 102, 102, 1)';
-            ctx.textAlign = 'center';
-            ctx.fillText('Today', x.getPixelForValue(new Date()), bottom + 15);
-            ctx.restore();
-
-
-        }
-    }
-    const status = {
-        id: 'status',
-        afterDatasetsDraw(chart, args, pluginOptions) {
-            const {
-                ctx, data, options, chartArea: {top, bottom, left, right},
-                scales: {x, y}
-            } = chart;
-            const icons = ['\uf00d', '\uf110', '\uf00c'];
-            const angle = Math.PI / 180;
-            const paddingRight = options.layout.padding.right;
-
-            ctx.save();
-            ctx.font = '900 16px "Font Awesome 6 Free"';
-            ctx.textBaseline = 'middle';
-            ctx.textAlign = 'center';
-
-            data.datasets[0].data.forEach((datapoint, index) => {
-                if (y.getPixelForValue(index) > top && y.getPixelForValue(index) < bottom) {
-
-                    ctx.beginPath();
-                    ctx.fillStyle = colors[datapoint.status];
-                    ctx.arc(right + (paddingRight / 2), y.getPixelForValue(index), 12, 0, angle * 360, false);
-                    ctx.closePath();
-                    ctx.fill();
-                    ctx.fillStyle = 'white';
-                    ctx.fillText(icons[datapoint.status], right + 50, y.getPixelForValue(index));
-                }
-            });
-            ctx.font = 'border 12px sans-serif';
-            ctx.fillStyle = 'black';
-            ctx.fillText('Status', right + (paddingRight / 2), top - 15);
-
-            ctx.restore();
-
-        }
-    }
-
-    const assignedTasks = {
-        id: 'assignedTasks',
-        afterDatasetsDraw(chart, args, pluginOptions) {
-            const {
-                ctx, data, chartArea: {top, bottom, left, right},
-                scales: {x, y}
-            } = chart;
-
-            ctx.save();
-            ctx.font = 'border 12px sans-serif';
-            ctx.fillStyle = 'black';
-            ctx.textBaseline = 'middle';
-            ctx.textAlign = 'left';
-            data.datasets[0].data.forEach((datapoint, index) => {
-                if (y.getPixelForValue(index) > top && y.getPixelForValue(index) < bottom) {
-                    ctx.fillText(datapoint.name, 10, y.getPixelForValue(index));
-                }
-            });
-            ctx.fillText('Names', 10, top - 15);
-            ctx.restore();
-
-        }
-    }
-
-    // weekend
-    const weekend = {
-        id: 'weekend',
-        afterDatasetsDraw(chart, args, pluginOptions) {
-            const {
-                ctx, chartArea: {top, bottom, left, right, width, height},
-                scales: {x, y}
-            } = chart;
-
-            ctx.save();
-
-            x.ticks.forEach((tick, index) => {
-                const day = new Date(tick.value).getDay();
-                if (day === 0 || day === 6) {
-                    ctx.fillStyle = pluginOptions.weekendColor;
-                    ctx.fillRect(x.getPixelForValue(tick.value), top, x.getPixelForValue(new Date(tick.value).setHours(24)) - x.getPixelForValue(tick.value), height);
-                }
-            })
+<!--            ctx.font = 'bold 12px sans-serif';-->
+<!--            ctx.fillStyle = 'rgba(102, 102, 102, 1)';-->
+<!--            ctx.textAlign = 'center';-->
+<!--            ctx.fillText('Today', x.getPixelForValue(new Date()), bottom + 15);-->
+<!--            ctx.restore();-->
 
 
-        }
-    }
+<!--        }-->
+<!--    }-->
+<!--    const status = {-->
+<!--        id: 'status',-->
+<!--        afterDatasetsDraw(chart, args, pluginOptions) {-->
+<!--            const {-->
+<!--                ctx, data, options, chartArea: {top, bottom, left, right},-->
+<!--                scales: {x, y}-->
+<!--            } = chart;-->
+<!--            const icons = ['\uf00d', '\uf110', '\uf00c'];-->
+<!--            const angle = Math.PI / 180;-->
+<!--            const paddingRight = options.layout.padding.right;-->
 
-    // config
-    const config = {
-        type: 'bar',
-        data,
-        options: {
-            layout: {
-                padding: {
-                    left: 100,
-                    right: 100,
-                    bottom: 20
-                }
-            },
+<!--            ctx.save();-->
+<!--            ctx.font = '900 16px "Font Awesome 6 Free"';-->
+<!--            ctx.textBaseline = 'middle';-->
+<!--            ctx.textAlign = 'center';-->
 
-            indexAxis: 'y',
-            scales: {
-                x: {
-                    position: 'top',
-                    type: 'time',
-                    time: {
-                        unit: 'day',
-                        displayFormats: {
-                            day: 'd'
-                        }
-                    },
-                    min: '2025-05-01',
-                    max: '2025-05-31'
-                },
-                y: {
-                    min: 0,
-                    max: 8,
-                    labels: labelsArrayFilter,
-                }
-            },
-            plugins: {
-                weekend: {
-                    weekendColor: 'rgba(102, 102, 102, 0.2)'
-                },
-                legend: {
-                    display: false
-                },
-                tooltip: {
-                    displayColors: false,
-                    yAlign: 'bottom',
-                    callbacks: {
-                        label: (ctx) => {
-                            return '';
-                        },
-                        title: (ctx) => {
-                            console.log(ctx[0].raw.x)
-                            const startDate = new Date(ctx[0].raw.x[0]);
-                            const endDate = new Date(ctx[0].raw.x[1]);
-                            const formattedStartDate = startDate.toLocaleString([], {
-                                year: 'numeric',
-                                month: 'short',
-                                day: 'numeric',
-                            });
-                            const formattedEndDate = endDate.toLocaleString([], {
-                                year: 'numeric',
-                                month: 'short',
-                                day: 'numeric',
-                            });
-                            return [ctx[0].raw.name, `Task Deadline: ${formattedStartDate} - ${formattedEndDate}`];
-                        }
-                    }
-                }
-            }
-        },
-        plugins: [todayLine, assignedTasks, status, weekend]
-    };
+<!--            data.datasets[0].data.forEach((datapoint, index) => {-->
+<!--                if (y.getPixelForValue(index) > top && y.getPixelForValue(index) < bottom) {-->
 
-    // render init block
-    const myChart = new Chart(
-        document.getElementById('myChart'),
-        config
-    );
+<!--                    ctx.beginPath();-->
+<!--                    ctx.fillStyle = colors[datapoint.status];-->
+<!--                    ctx.arc(right + (paddingRight / 2), y.getPixelForValue(index), 12, 0, angle * 360, false);-->
+<!--                    ctx.closePath();-->
+<!--                    ctx.fill();-->
+<!--                    ctx.fillStyle = 'white';-->
+<!--                    ctx.fillText(icons[datapoint.status], right + 50, y.getPixelForValue(index));-->
+<!--                }-->
+<!--            });-->
+<!--            ctx.font = 'border 12px sans-serif';-->
+<!--            ctx.fillStyle = 'black';-->
+<!--            ctx.fillText('Status', right + (paddingRight / 2), top - 15);-->
 
-    console.log(myChart)
+<!--            ctx.restore();-->
 
-    // Instantly assign Chart.js version
-    const chartVersion = document.getElementById('chartVersion');
-    chartVersion.innerText = Chart.version;
+<!--        }-->
+<!--    }-->
 
-    function chartFilter(date) {
-        const year = date.value.substring(0, 4);
-        const month = date.value.substring(5, 7);
-        const lastDay = (y, m) => {
-            return new Date(y, m, 0).getDate();
-        }
+<!--    const assignedTasks = {-->
+<!--        id: 'assignedTasks',-->
+<!--        afterDatasetsDraw(chart, args, pluginOptions) {-->
+<!--            const {-->
+<!--                ctx, data, chartArea: {top, bottom, left, right},-->
+<!--                scales: {x, y}-->
+<!--            } = chart;-->
 
-        const startDate = `${year}-${month}-01`;
-        const endDate = `${year}-${month}-${lastDay(year, month)}`;
+<!--            ctx.save();-->
+<!--            ctx.font = 'border 12px sans-serif';-->
+<!--            ctx.fillStyle = 'black';-->
+<!--            ctx.textBaseline = 'middle';-->
+<!--            ctx.textAlign = 'left';-->
+<!--            data.datasets[0].data.forEach((datapoint, index) => {-->
+<!--                if (y.getPixelForValue(index) > top && y.getPixelForValue(index) < bottom) {-->
+<!--                    ctx.fillText(datapoint.name, 10, y.getPixelForValue(index));-->
+<!--                }-->
+<!--            });-->
+<!--            ctx.fillText('Names', 10, top - 15);-->
+<!--            ctx.restore();-->
 
-        myChart.config.options.scales.x.min = startDate;
-        myChart.config.options.scales.x.max = endDate;
-        myChart.update()
+<!--        }-->
+<!--    }-->
 
-    }
+<!--    // weekend-->
+<!--    const weekend = {-->
+<!--        id: 'weekend',-->
+<!--        afterDatasetsDraw(chart, args, pluginOptions) {-->
+<!--            const {-->
+<!--                ctx, chartArea: {top, bottom, left, right, width, height},-->
+<!--                scales: {x, y}-->
+<!--            } = chart;-->
 
-    function addTask() {
-        const nameTask = document.getElementById('nameTask');
-        const startDateTask = document.getElementById('startDateTask');
-        const endDateTask = document.getElementById('endDateTask');
-        const teamMemberTask = document.getElementById('teamMemberTask');
-        const statusTask = document.getElementById('statusTask');
+<!--            ctx.save();-->
 
-        const arraylength = myChart.data.datasets[0].data.length;
+<!--            x.ticks.forEach((tick, index) => {-->
+<!--                const day = new Date(tick.value).getDay();-->
+<!--                if (day === 0 || day === 6) {-->
+<!--                    ctx.fillStyle = pluginOptions.weekendColor;-->
+<!--                    ctx.fillRect(x.getPixelForValue(tick.value), top, x.getPixelForValue(new Date(tick.value).setHours(24)) - x.getPixelForValue(tick.value), height);-->
+<!--                }-->
+<!--            })-->
 
-        myChart.data.datasets[0].data[arraylength] = ({
-                x: [startDateTask.value, endDateTask.value],
-                y: nameTask.value,
-                name: teamMemberTask.value,
-                status: parseInt(statusTask.value)
-            }
-        );
-        console.log(myChart.data)
-        addNames();
-        addTasks();
 
-        myChart.update();
-    }
+<!--        }-->
+<!--    }-->
 
-    function addNames() {
-        const names = document.getElementById('names');
-        while (names.firstElementChild) {
-            names.removeChild(names.firstElementChild);
-        }
-        const namesArray = myChart.data.datasets[0].data.map((dataPoint) => {
-            return dataPoint.name
-        })
+<!--    // config-->
+<!--    const config = {-->
+<!--        type: 'bar',-->
+<!--        data,-->
+<!--        options: {-->
+<!--            layout: {-->
+<!--                padding: {-->
+<!--                    left: 100,-->
+<!--                    right: 100,-->
+<!--                    bottom: 20-->
+<!--                }-->
+<!--            },-->
 
-        const namesArrayFilter = [...new Set(namesArray)];
+<!--            indexAxis: 'y',-->
+<!--            scales: {-->
+<!--                x: {-->
+<!--                    position: 'top',-->
+<!--                    type: 'time',-->
+<!--                    time: {-->
+<!--                        unit: 'day',-->
+<!--                        displayFormats: {-->
+<!--                            day: 'd'-->
+<!--                        }-->
+<!--                    },-->
+<!--                    min: '2025-05-01',-->
+<!--                    max: '2025-05-31'-->
+<!--                },-->
+<!--                y: {-->
+<!--                    min: 0,-->
+<!--                    max: 8,-->
+<!--                    labels: labelsArrayFilter,-->
+<!--                }-->
+<!--            },-->
+<!--            plugins: {-->
+<!--                weekend: {-->
+<!--                    weekendColor: 'rgba(102, 102, 102, 0.2)'-->
+<!--                },-->
+<!--                legend: {-->
+<!--                    display: false-->
+<!--                },-->
+<!--                tooltip: {-->
+<!--                    displayColors: false,-->
+<!--                    yAlign: 'bottom',-->
+<!--                    callbacks: {-->
+<!--                        label: (ctx) => {-->
+<!--                            return '';-->
+<!--                        },-->
+<!--                        title: (ctx) => {-->
+<!--                            console.log(ctx[0].raw.x)-->
+<!--                            const startDate = new Date(ctx[0].raw.x[0]);-->
+<!--                            const endDate = new Date(ctx[0].raw.x[1]);-->
+<!--                            const formattedStartDate = startDate.toLocaleString([], {-->
+<!--                                year: 'numeric',-->
+<!--                                month: 'short',-->
+<!--                                day: 'numeric',-->
+<!--                            });-->
+<!--                            const formattedEndDate = endDate.toLocaleString([], {-->
+<!--                                year: 'numeric',-->
+<!--                                month: 'short',-->
+<!--                                day: 'numeric',-->
+<!--                            });-->
+<!--                            return [ctx[0].raw.name, `Task Deadline: ${formattedStartDate} - ${formattedEndDate}`];-->
+<!--                        }-->
+<!--                    }-->
+<!--                }-->
+<!--            }-->
+<!--        },-->
+<!--        plugins: [todayLine, assignedTasks, status, weekend]-->
+<!--    };-->
 
-        namesArrayFilter.forEach((memberName) => {
-            const option = document.createElement('option');
-            option.value = memberName;
-            names.appendChild(option);
-        })
-    }
+<!--    // render init block-->
+<!--    const myChart = new Chart(-->
+<!--        document.getElementById('myChart'),-->
+<!--        config-->
+<!--    );-->
 
-    addNames();
+<!--    console.log(myChart)-->
 
-    function addTasks() {
-        const tasks = document.getElementById('tasks');
-        while (tasks.firstElementChild) {
-            tasks.removeChild(tasks.firstElementChild);
-        }
+<!--    // Instantly assign Chart.js version-->
+<!--    const chartVersion = document.getElementById('chartVersion');-->
+<!--    chartVersion.innerText = Chart.version;-->
 
-        labelsArrayFilter.forEach((taskName) => {
-            const option = document.createElement('option');
-            option.value = taskName;
-            tasks.appendChild(option);
-        })
-    }
+<!--    function chartFilter(date) {-->
+<!--        const year = date.value.substring(0, 4);-->
+<!--        const month = date.value.substring(5, 7);-->
+<!--        const lastDay = (y, m) => {-->
+<!--            return new Date(y, m, 0).getDate();-->
+<!--        }-->
 
-    addTasks();
+<!--        const startDate = `${year}-${month}-01`;-->
+<!--        const endDate = `${year}-${month}-${lastDay(year, month)}`;-->
 
-    function showTask() {
-        const yScale = myChart.config.options.scales.y;
-        const minTask = document.getElementById('minTask').value;
-        const maxTask = document.getElementById('maxTask').value;
+<!--        myChart.config.options.scales.x.min = startDate;-->
+<!--        myChart.config.options.scales.x.max = endDate;-->
+<!--        myChart.update()-->
 
-        yScale.min = yScale.labels[minTask];
-        yScale.max = yScale.labels[maxTask];
-        myChart.update();
-    }
-</script>
+<!--    }-->
+
+<!--    function addTask() {-->
+<!--        const nameTask = document.getElementById('nameTask');-->
+<!--        const startDateTask = document.getElementById('startDateTask');-->
+<!--        const endDateTask = document.getElementById('endDateTask');-->
+<!--        const teamMemberTask = document.getElementById('teamMemberTask');-->
+<!--        const statusTask = document.getElementById('statusTask');-->
+
+<!--        const arraylength = myChart.data.datasets[0].data.length;-->
+
+<!--        myChart.data.datasets[0].data[arraylength] = ({-->
+<!--                x: [startDateTask.value, endDateTask.value],-->
+<!--                y: nameTask.value,-->
+<!--                name: teamMemberTask.value,-->
+<!--                status: parseInt(statusTask.value)-->
+<!--            }-->
+<!--        );-->
+<!--        console.log(myChart.data)-->
+<!--        addNames();-->
+<!--        addTasks();-->
+
+<!--        myChart.update();-->
+<!--    }-->
+
+<!--    function addNames() {-->
+<!--        const names = document.getElementById('names');-->
+<!--        while (names.firstElementChild) {-->
+<!--            names.removeChild(names.firstElementChild);-->
+<!--        }-->
+<!--        const namesArray = myChart.data.datasets[0].data.map((dataPoint) => {-->
+<!--            return dataPoint.name-->
+<!--        })-->
+
+<!--        const namesArrayFilter = [...new Set(namesArray)];-->
+
+<!--        namesArrayFilter.forEach((memberName) => {-->
+<!--            const option = document.createElement('option');-->
+<!--            option.value = memberName;-->
+<!--            names.appendChild(option);-->
+<!--        })-->
+<!--    }-->
+
+<!--    addNames();-->
+
+<!--    function addTasks() {-->
+<!--        const tasks = document.getElementById('tasks');-->
+<!--        while (tasks.firstElementChild) {-->
+<!--            tasks.removeChild(tasks.firstElementChild);-->
+<!--        }-->
+
+<!--        labelsArrayFilter.forEach((taskName) => {-->
+<!--            const option = document.createElement('option');-->
+<!--            option.value = taskName;-->
+<!--            tasks.appendChild(option);-->
+<!--        })-->
+<!--    }-->
+
+<!--    addTasks();-->
+
+<!--    function showTask() {-->
+<!--        const yScale = myChart.config.options.scales.y;-->
+<!--        const minTask = document.getElementById('minTask').value;-->
+<!--        const maxTask = document.getElementById('maxTask').value;-->
+
+<!--        yScale.min = yScale.labels[minTask];-->
+<!--        yScale.max = yScale.labels[maxTask];-->
+<!--        myChart.update();-->
+<!--    }-->
+<!--</script>-->
 </body>
 </html>

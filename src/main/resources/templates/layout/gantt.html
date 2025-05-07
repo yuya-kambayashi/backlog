@@ -36,48 +36,56 @@
             </tbody>
         </table>
     </div>
-
     <div class="chartCard">
         <div class="chartBox">
             <canvas id="myChart"></canvas>
-            <input type="month" onchange="chartFilter(this)"/>
-            <!--            <br>-->
-            <!--            <br>-->
-            <hr>
-            <!--            <br>-->
-            <input type="text" id="nameTask" list="tasks"/>
-            <datalist id="tasks">
-            </datalist>
-            <input type="date" id="startDateTask"/>
-            <input type="date" id="endDateTask"/>
-            <input type="text" id="teamMemberTask" list="names"/>
-            <datalist id="names">
-            </datalist>
-            <select id="statusTask">
-                <option value="0">Delayed</option>
-                <option value="1">Pending</option>
-                <option value="2">Complete</option>
-            </select>
-            <button onclick="addTask()">Add Task</button>
-            <!--            <br>-->
-            <!--            <br>-->
-            <hr>
-            <!--            <br>-->
-            <select id="minTask" onchange="showTask()">
-                <option selected value="0">Task 1</option>
-                <option value="1">Task 2</option>
-                <option value="2">Task 3</option>
-                <option value="3">Task 4</option>
-            </select>
-            <select id="maxTask" onchange="showTask()">
-                <option value="5">Task 6</option>
-                <option value="6">Task 7</option>
-                <option value="7">Task 8</option>
-                <option selected value="8">Task 9</option>
-            </select>
         </div>
     </div>
+    <!--    <div class="chartCard">-->
+    <!--        <div class="chartBox">-->
+    <!--            <canvas id="myChart"></canvas>-->
+    <!--            <input type="month" onchange="chartFilter(this)"/>-->
+    <!--            &lt;!&ndash;            <br>&ndash;&gt;-->
+    <!--            &lt;!&ndash;            <br>&ndash;&gt;-->
+    <!--            <hr>-->
+    <!--            &lt;!&ndash;            <br>&ndash;&gt;-->
+    <!--            <input type="text" id="nameTask" list="tasks"/>-->
+    <!--            <datalist id="tasks">-->
+    <!--            </datalist>-->
+    <!--            <input type="date" id="startDateTask"/>-->
+    <!--            <input type="date" id="endDateTask"/>-->
+    <!--            <input type="text" id="teamMemberTask" list="names"/>-->
+    <!--            <datalist id="names">-->
+    <!--            </datalist>-->
+    <!--            <select id="statusTask">-->
+    <!--                <option value="0">Delayed</option>-->
+    <!--                <option value="1">Pending</option>-->
+    <!--                <option value="2">Complete</option>-->
+    <!--            </select>-->
+    <!--            <button onclick="addTask()">Add Task</button>-->
+    <!--            &lt;!&ndash;            <br>&ndash;&gt;-->
+    <!--            &lt;!&ndash;            <br>&ndash;&gt;-->
+    <!--            <hr>-->
+    <!--            &lt;!&ndash;            <br>&ndash;&gt;-->
+    <!--            <select id="minTask" onchange="showTask()">-->
+    <!--                <option selected value="0">Task 1</option>-->
+    <!--                <option value="1">Task 2</option>-->
+    <!--                <option value="2">Task 3</option>-->
+    <!--                <option value="3">Task 4</option>-->
+    <!--            </select>-->
+    <!--            <select id="maxTask" onchange="showTask()">-->
+    <!--                <option value="5">Task 6</option>-->
+    <!--                <option value="6">Task 7</option>-->
+    <!--                <option value="7">Task 8</option>-->
+    <!--                <option selected value="8">Task 9</option>-->
+    <!--            </select>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--</div>-->
+    <!--<div layout:fragment="gantt-chart">-->
+    <script src="/js/gantt-chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 </div>
 </body>
 </html>
-
