@@ -36,12 +36,21 @@
             </tbody>
         </table>
     </div>
-    <div class="chartCard">
-        <div class="chartBox">
-            <canvas id="myChart"></canvas>
-            <input type="month" onchange="chartFilter(this)"/>
+<!--    <div class="chartCard">-->
+<!--        <div class="chartBox">-->
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                aaaaaaaaa
+            </div>
+            <div class="col-10" style="background-color: white">
+                <canvas id="myChart"></canvas>
+                <input type="month" onchange="chartFilter(this)"/>
+            </div>
         </div>
     </div>
+<!--        </div>-->
+<!--    </div>-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script th:inline="javascript">
@@ -208,8 +217,8 @@
                                 day: 'd'
                             }
                         },
-                        min: '2025-05-01',
-                        max: '2025-12-31'
+                        // min: '2025-05-01',
+                        // max: '2025-06-31'
                     },
                     y: {
                         labels: labelsArrayFilter,

@@ -57,7 +57,7 @@ public class GanttController {
         map3.put("status", 2);
         recordMaps.add(map3);
         Map<String, Object> map4 = new HashMap<>();
-        map4.put("x", new String[]{"2025-05-16", "2025-05-22"});
+        map4.put("x", new String[]{"2025-05-16", "2025-06-22"});
         map4.put("y", "BTS-2");
         map4.put("name", "ガントチャートを作成する");
         map4.put("status", 1);
