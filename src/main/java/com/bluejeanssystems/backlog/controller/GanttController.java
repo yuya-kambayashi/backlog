@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -58,17 +59,24 @@ public class GanttController {
         recordMaps.add(map3);
         Map<String, Object> map4 = new HashMap<>();
         map4.put("x", new String[]{"2025-05-16", "2025-06-12"});
+        map4.put("x", new String[]{"2025-05-16", "2025-06-12"});
         map4.put("y", "BTS-2");
         map4.put("name", "ガントチャートを作成する");
         map4.put("status", 1);
         recordMaps.add(map4);
 
+        var minDate = new Date(2025 - 1900, Calendar.MAY, 1);
+        var maxDate = new Date(2025 - 1900, Calendar.JULY, 30);
+        long days = (maxDate.getTime() - minDate.getTime()) / (1000 * 60 * 60 * 24);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
             model.addAttribute("planData", new ObjectMapper().writeValueAsString(planMaps));
             model.addAttribute("recordData", new ObjectMapper().writeValueAsString(recordMaps));
-            model.addAttribute("minDate", "2025-05-01");
-            model.addAttribute("maxDate", "2025-06-15");
+            model.addAttribute("minDate", dateFormat.format(minDate));
+            model.addAttribute("maxDate", dateFormat.format(maxDate));
+            model.addAttribute("canvasWidth", days * 20);
+            model.addAttribute("canvasHeight", days * 1);
         } catch (Exception e) {
         }
 
