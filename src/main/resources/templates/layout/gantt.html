@@ -179,7 +179,7 @@
         // weekend
         const weekend = {
             id: 'weekend',
-            afterDatasetsDraw(chart, args, pluginOptions) {
+            beforeDraw(chart, args, pluginOptions) {
                 const {
                     ctx, chartArea: {top, bottom, left, right, width, height},
                     scales: {x, y}
@@ -235,7 +235,7 @@
                 },
                 plugins: {
                     weekend: {
-                        weekendColor: 'rgba(102, 102, 102, 0.2)'
+                        weekendColor: 'rgba(247, 247, 247, 1)'
                     },
                     legend: {
                         display: false
