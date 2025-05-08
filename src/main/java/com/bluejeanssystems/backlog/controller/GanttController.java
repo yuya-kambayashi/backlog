@@ -57,7 +57,7 @@ public class GanttController {
         map3.put("status", 2);
         recordMaps.add(map3);
         Map<String, Object> map4 = new HashMap<>();
-        map4.put("x", new String[]{"2025-05-16", "2025-06-22"});
+        map4.put("x", new String[]{"2025-05-16", "2025-06-12"});
         map4.put("y", "BTS-2");
         map4.put("name", "ガントチャートを作成する");
         map4.put("status", 1);
@@ -67,6 +67,8 @@ public class GanttController {
         try {
             model.addAttribute("planData", new ObjectMapper().writeValueAsString(planMaps));
             model.addAttribute("recordData", new ObjectMapper().writeValueAsString(recordMaps));
+            model.addAttribute("minDate", "2025-05-01");
+            model.addAttribute("maxDate", "2025-06-15");
         } catch (Exception e) {
         }
 

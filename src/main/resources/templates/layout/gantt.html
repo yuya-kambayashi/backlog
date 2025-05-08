@@ -56,19 +56,26 @@
     <script th:inline="javascript">
 
         const colors = ['rgba(255, 26, 104, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)']
-        console.log(colors);
+        // console.log(colors);
 
         const planData = [[${planData}]];
-        console.log(planData);
+        // console.log(planData);
 
         const inputPlanData = JSON.parse(planData.toString());
-        console.log(inputPlanData);
+        // console.log(inputPlanData);
 
         const recordData = [[${recordData}]];
-        console.log(recordData);
+        // console.log(recordData);
 
         const inputRecordData = JSON.parse(recordData.toString());
-        console.log(inputRecordData);
+        // console.log(inputRecordData);
+
+        const minDate = [[${minDate}]];
+        console.log(minDate);
+
+        const maxDate = [[${maxDate}]];
+        console.log(maxDate);
+
 
 
         // setup
@@ -239,7 +246,7 @@
                                 return '';
                             },
                             title: (ctx) => {
-                                console.log(ctx[0].raw.x)
+                                // console.log(ctx[0].raw.x)
                                 const startDate = new Date(ctx[0].raw.x[0]);
                                 const endDate = new Date(ctx[0].raw.x[1]);
                                 const formattedStartDate = startDate.toLocaleString([], {
@@ -328,6 +335,10 @@
 
             // ラベル更新
             config.options.scales.y.labels = getlabels();
+
+            // X軸の最小、最大の更新
+            config.options.scales.x.min = minDate;
+            config.options.scales.x.max = maxDate;
 
             myChart.update();
 
