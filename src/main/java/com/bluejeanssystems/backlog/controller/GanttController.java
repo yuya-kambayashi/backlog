@@ -75,8 +75,8 @@ public class GanttController {
             model.addAttribute("recordData", new ObjectMapper().writeValueAsString(recordMaps));
             model.addAttribute("minDate", dateFormat.format(minDate));
             model.addAttribute("maxDate", dateFormat.format(maxDate));
-            model.addAttribute("canvasWidth", days * 20);
-            model.addAttribute("canvasHeight", days * 1);
+            model.addAttribute("canvasWidth", days * 24);
+            model.addAttribute("canvasHeight", days * 1.05);
         } catch (Exception e) {
         }
 
