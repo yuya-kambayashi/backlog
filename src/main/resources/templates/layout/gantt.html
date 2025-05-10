@@ -218,7 +218,6 @@
                 maintainAspectRatio: false,
                 layout: {
                     padding: {
-                        left: 100,
                         bottom: 20
                     }
                 },
@@ -241,6 +240,9 @@
                     },
                     y: {
                         labels: labelsArrayFilter,
+                        ticks:{
+                            callback: () => '',
+                        }
                     }
                 },
                 plugins: {
@@ -277,7 +279,8 @@
                     }
                 }
             },
-            plugins: [todayLine, assignedTasks, weekend]
+            // plugins: [todayLine, assignedTasks, weekend]
+            plugins: [todayLine, weekend]
         };
 
         // render init block
