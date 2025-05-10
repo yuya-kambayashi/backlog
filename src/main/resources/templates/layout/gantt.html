@@ -95,13 +95,7 @@
                         // ダミーデータ
                         {x: ['2025-05-08', '2025-05-12'], y: 'Task 3', name: 'David', status: 2},
                     ],
-                    backgroundColor: (ctx) => {
-                        return colors[ctx.raw.status];
-                    },
-                    borderSkipped: false,
-                    borderRadius: 10,
-                    barPercentage: 0.5
-
+                    backgroundColor: 'rgba(116, 204, 212, 1)',
                 },
                 {
                     // 実績
@@ -110,10 +104,6 @@
                         {x: ['2025-05-08', '2025-05-12'], y: 'Task 3', name: 'David', status: 2},
                     ],
                     backgroundColor: 'rgba(255, 26, 104, 1)',
-                    borderSkipped: false,
-                    borderRadius: 10,
-                    barPercentage: 0.5
-
                 }]
         };
 
@@ -130,59 +120,12 @@
                 ctx.save();
 
                 ctx.beginPath();
-                ctx.lineWidth = 3;
-                ctx.strokeStyle = 'rgba(102, 102, 102, 1)';
-                ctx.setLineDash([6, 6]);
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = 'rgba(139, 191, 138, 1)';
                 ctx.moveTo(x.getPixelForValue(new Date()), top);
                 ctx.lineTo(x.getPixelForValue(new Date()), bottom);
                 ctx.stroke();
                 ctx.restore();
-
-                ctx.setLineDash([]);
-
-                ctx.beginPath();
-                ctx.lineWidth = 1;
-                ctx.strokeStyle = 'rgba(102, 102, 102, 1)';
-                ctx.fillStyle = 'rgba(102, 102, 102, 1)';
-                ctx.moveTo(x.getPixelForValue(new Date()), top + 3);
-                ctx.lineTo(x.getPixelForValue(new Date()) - 6, top - 6);
-                ctx.lineTo(x.getPixelForValue(new Date()) + 6, top - 6);
-                ctx.closePath();
-                ctx.stroke();
-                ctx.fill();
-                ctx.restore();
-
-                ctx.font = '6px sans-serif';
-                ctx.fillStyle = 'rgba(102, 102, 102, 1)';
-                ctx.textAlign = 'center';
-                ctx.fillText('Today', x.getPixelForValue(new Date()), bottom + 15);
-                ctx.restore();
-
-
-            }
-        }
-
-        const assignedTasks = {
-            id: 'assignedTasks',
-            afterDatasetsDraw(chart, args, pluginOptions) {
-                const {
-                    ctx, data, chartArea: {top, bottom, left, right},
-                    scales: {x, y}
-                } = chart;
-
-                ctx.save();
-                ctx.font = '6px sans-serif';
-                ctx.fillStyle = 'black';
-                ctx.textBaseline = 'middle';
-                ctx.textAlign = 'left';
-                data.datasets[0].data.forEach((datapoint, index) => {
-                    if (y.getPixelForValue(index) > top && y.getPixelForValue(index) < bottom) {
-                        ctx.fillText(datapoint.name, 10, y.getPixelForValue(index));
-                    }
-                });
-                ctx.fillText('Names', 10, top - 15);
-                ctx.restore();
-
             }
         }
 
@@ -279,7 +222,6 @@
                     }
                 }
             },
-            // plugins: [todayLine, assignedTasks, weekend]
             plugins: [todayLine, weekend]
         };
 
